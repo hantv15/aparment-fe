@@ -1,0 +1,17 @@
+{
+  "name": "html-metronic",
+  "homepage": "https://github.com/cuongnc-2209/html-metronic",
+  "authors": [
+    "cuong2209 <59088513+cuongnc-2209@users.noreply.github.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
