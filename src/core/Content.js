@@ -35,9 +35,7 @@ const Content = ({title = "Dashboard", subName = "Admin", children }) => {
         <section className="content">
           <div className="container-fluid">
             {/* Small boxes (Stat box) */}
-            <div className="row">
               {children} 
-            </div>
             {/* /.row */}
           </div>
           {/* /.container-fluid */}

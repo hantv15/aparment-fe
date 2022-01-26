@@ -44,15 +44,33 @@ const Menu = () => {
               {/* Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library */}
               <li className="nav-item">
-                <NavLink to="/admin/home" className="nav-link">
-                  <i className="nav-icon fas fa-th" />
+                <NavLink
+                  exact
+                  activeClassName="active"
+                  to="/admin/dashboard"
+                  className="nav-link"
+                >
+                  <i className="nav-icon fas fa-tachometer-alt" />
                   <p>
-                    home
+                    Dashboard
                     {/* <span className="right badge badge-danger">New</span> */}
                   </p>
                 </NavLink>
               </li>
-              
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  activeClassName="active"
+                  to="/admin/home"
+                  className="nav-link"
+                >
+                  <i className="nav-icon fas fa-th" />
+                  <p>
+                    Home
+                    {/* <span className="right badge badge-danger">New</span> */}
+                  </p>
+                </NavLink>
+              </li>
             </ul>
           </nav>
           {/* /.sidebar-menu */}
