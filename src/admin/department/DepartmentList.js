@@ -1,88 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getAll, remove } from "../../common/departmentAPI";
 import Content from "../../core/Content";
 const DepartmentList = () => {
   const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
     const getDepartments = async () => {
-      const departmentsFromServer = await fetchDepartments();
-      setDepartments(departmentsFromServer);
+      try {
+        const { data } = await getAll();
+        setDepartments(data);
+      } catch (error) {
+        console.log(error);      
+      }
     };
 
     getDepartments();
   }, []);
-
-  // Fetch Departments
-  const fetchDepartments = async () => {
-    const res = await fetch(
-      "https://6129f47c068adf001789b9ad.mockapi.io/departments"
-    );
-    const data = await res.json();
-
-    return data;
-  };
-
-  // Fetch Department
-  const fetchDepartment = async (id) => {
-    const res = await fetch(`https://6129f47c068adf001789b9ad.mockapi.io/departments/${id}`)
-    const data = await res.json();
-
-    return data
-  }
-
-  // Delete
+  
   const deleteDepartment = async (id) => {
-    const res = await fetch(`https://6129f47c068adf001789b9ad.mockapi.io/departments/${id}`, {
-      method: 'DELETE',
-    })
-
-    res.status === 200
-    ? setDepartments(departments.filter((department) => department.id !== id))
-    : alert('Error Deleting This Task')
+    try {
+      const { data } = await remove(id);
+      const newDepartment = departments.filter((item) => item.id !== data.id);
+      setDepartments(newDepartment);
+    } catch (error) {
+      console.log(error);
+    }
   }
-
-  // Add Task
-  const addDepartments = async (department) => {
-    const res = await fetch('https://6129f47c068adf001789b9ad.mockapi.io/departments', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(department),
-    })
-
-    const data = await res.json()
-
-    setDepartments([...department, data])
-
-    // const id = Math.floor(Math.random() * 10000) + 1
-    // const newTask = { id, ...task }
-    // setTasks([...tasks, newTask])
-  }
-
-  // Toggle Reminder
-  // const toggleReminder = async (id) => {
-  //   const taskToToggle = await fetchTask(id)
-  //   const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
-
-  //   const res = await fetch(`http://localhost:5000/tasks/${id}`, {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-type': 'application/json',
-  //     },
-  //     body: JSON.stringify(updTask),
-  //   })
-
-  //   const data = await res.json()
-
-  //   setTasks(
-  //     tasks.map((task) =>
-  //       task.id === id ? { ...task, reminder: data.reminder } : task
-  //     )
-  //   )
-  // }
-
   return (
     <Content title="Căn Hộ">
       <table className="table table-striped">
@@ -118,16 +62,17 @@ const DepartmentList = () => {
               <td>
                 <button onClick={() => deleteDepartment(department.id)}
                   className="btn btn-sm btn-danger btn-flat"
-                  to="/admin/department/add"
                 >
                   Xóa
                 </button>
                 <Link
                 className="btn btn-sm btn-success btn-flat"
                 to={`/admin/department/edit/${department.id}`}
+                onId={department.id}
               >
                 Sửa
               </Link>
+              
               </td>
             </tr>
           ))}

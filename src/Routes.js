@@ -11,19 +11,23 @@ const Routes = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={SignIn} />
+        <Switch>
+          <PrivateRoute>
+            <Route exact path="/admin/dashboard">
+              <Dashboard />
+            </Route>
+            <Route exact path="/admin/department">
+              <DepartmentList />
+            </Route>
+            <Route exact path="/admin/department/add">
+              <DepartmentFormAdd />
+            </Route>
+            <Route exact path="/admin/department/edit/:postId">
+              <DepartmentFormEdit />
+            </Route>
+          </PrivateRoute>
 
-        <PrivateRoute exact path="/admin/dashboard">
-            <Dashboard />
-        </PrivateRoute>
-        <PrivateRoute exact path="/admin/department">
-          <DepartmentList />
-        </PrivateRoute>
-        <PrivateRoute exact path="/admin/department/add">
-          <DepartmentFormAdd/>
-        </PrivateRoute>
-        <PrivateRoute exact path="/admin/department/edit/:id">
-          <DepartmentFormEdit/>
-        </PrivateRoute>
+        </Switch>
         <Route exact path="*" component={NotFound} />
       </Switch>
 
