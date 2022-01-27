@@ -61,12 +61,12 @@ const Menu = () => {
                 <NavLink
                   exact
                   activeClassName="active"
-                  to="/admin/home"
+                  to="/admin/department"
                   className="nav-link"
                 >
                   <i className="nav-icon fas fa-th" />
                   <p>
-                    Home
+                    Căn hộ
                     {/* <span className="right badge badge-danger">New</span> */}
                   </p>
                 </NavLink>
