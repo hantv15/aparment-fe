@@ -6,6 +6,16 @@ export const getAll = () => {
     return instance.get(url);
 }
 
+export const get = ($id) => {
+    const url = `/departments/${$id}`;
+    return instance.get(url);
+}
+
+export const edit = (item) => {
+    const url = `/departments/${item.id}`;
+    return instance.put(url, item);
+  };
+
 export const remove = (id) => {
     const url = `/departments/${id}`;
     return instance.delete(url);

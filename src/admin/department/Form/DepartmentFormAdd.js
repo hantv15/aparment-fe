@@ -45,7 +45,7 @@ const DepartmentFormAdd = () => {
                       placeholder="Nhập mã căn hộ"
                       {...register('department_id', {
                         required: true,
-                        pattern: /^[A-Za-z]+$/i
+                        pattern: /^[a-zA-Z0-9_.-]*$/i
                       })}
                     />
                     {errors?.department_id?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
@@ -60,7 +60,6 @@ const DepartmentFormAdd = () => {
                       placeholder="Nhập mã căn hộ"
                       {...register('floor', {
                         required: true,
-                        pattern: /^[A-Za-z]+$/i
                       })}
                     />
                     {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
@@ -94,12 +93,13 @@ const DepartmentFormAdd = () => {
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Kích thước căn hộ</label>
                     <input
-                      {...register('square_meters', {
+                      {...register('square_meter', {
                         pattern: /^[0-9]*$/
                       })}
                       type="text"
                       className="form-control"
                       id="number"
+                      name="square_meter"
                       placeholder="Nhập kích thước căn hộ"
                     />
                     {errors?.square_meters?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ là số</p>}
