@@ -55,12 +55,6 @@ const DepartmentList = () => {
   };
 
 
-  const handleSearch = (event) => {
-    const keyWord = event.target.value;
-    const newData = data.filter((value) => {
-      return value.department_id.includes(keyWord)
-    })
-  }
 
   // const fetchSearch = async () => {
   //   try {
@@ -109,7 +103,6 @@ const DepartmentList = () => {
                         type="search"
                         placeholder="Mã căn hộ"
                         className="form-control justify-content-rig justify-content-right"
-                        onChange={handleSearch}
                       />
                     </div>
                   </div>
