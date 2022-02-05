@@ -10,7 +10,6 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.25.1",
-    "react-paginate": "^8.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "5.0.0",
     "sweetalert2": "^11.3.8",
@@ -39,5 +38,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "query-string": "^7.1.0",
+    "react-paginate": "^8.1.0"
   }
 }
