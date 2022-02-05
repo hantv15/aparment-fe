@@ -56,25 +56,25 @@ const DepartmentList = () => {
 
 
 
-  // const fetchSearch = async () => {
-  //   try {
-  //     console.log(searchDepartment);
-  //     const { data } = await searchName(searchDepartment);
-  //     setDepartments(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  const fetchSearch = async () => {
+    try {
+      console.log(searchTerm);
+      // const { data } = await searchName(searchTerm);
+      // setDepartments(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  // const handleSeach = async (e) => {
-  //   if (typingTimeoutRef.current) {
-  //     clearTimeout(typingTimeoutRef.current);
-  //   }
-  //   typingTimeoutRef.current = setTimeout(() => {
-  //     setSearchDepartment(e.target.value);
-  //   }, 300);
-  //   fetchSearch();
-  // };
+  const handleSeach = async (e) => {
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    typingTimeoutRef.current = setTimeout(() => {
+      setSearchTerm(e.target.value);
+    }, 300);
+    fetchSearch();
+  };
 
   const deleteDepartment = async (id) => {
     try {
@@ -103,6 +103,7 @@ const DepartmentList = () => {
                         type="search"
                         placeholder="Mã căn hộ"
                         className="form-control justify-content-rig justify-content-right"
+                        onChange={handleSeach}
                       />
                     </div>
                   </div>
