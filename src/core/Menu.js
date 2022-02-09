@@ -72,6 +72,20 @@ const Menu = () => {
                   </p>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  activeClassName="active"
+                  to="/admin/user"
+                  className="nav-link"
+                >
+                  <i className="nav-icon fas fa-th" />
+                  <p>
+                    Người dùng
+                    {/* <span className="right badge badge-danger">New</span> */}
+                  </p>
+                </NavLink>
+              </li>
             </ul>
           </nav>
           {/* /.sidebar-menu */}
