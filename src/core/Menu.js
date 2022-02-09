@@ -3,6 +3,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { isAuthenticate, sigOut } from "../auth";
 
 const Menu = () => {
+  const user = isAuthenticate();
   return (
     <>
       {/* Main Sidebar Container */}
@@ -30,7 +31,7 @@ const Menu = () => {
             </div>
             <div className="info">
               <a href="#" className="d-block">
-                Alexander Pierce
+                {user.name}
               </a>
             </div>
           </div>
@@ -61,12 +62,12 @@ const Menu = () => {
                 <NavLink
                   exact
                   activeClassName="active"
-                  to="/admin/home"
+                  to="/admin/department"
                   className="nav-link"
                 >
                   <i className="nav-icon fas fa-th" />
                   <p>
-                    Home
+                    Căn hộ
                     {/* <span className="right badge badge-danger">New</span> */}
                   </p>
                 </NavLink>
