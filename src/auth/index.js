@@ -19,19 +19,19 @@ export const sigUp = (user) => {
         },
         body: JSON.stringify(user)
     })
-    .then(response => response.json())
-    .catch(error => console.log(error))
+        .then(response => response.json())
+        .catch(error => console.log(error))
 }
 
 export const authenticate = (data, next) => {
-    if ( typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(data));
         next();
     }
 }
 
 export const sigOut = (next) => {
-    if ( typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
         localStorage.removeItem('user')
         next()
         // return fetch(`${API}/signout`, {

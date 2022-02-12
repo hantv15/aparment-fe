@@ -9,6 +9,7 @@ import UserList from "./admin/user/UserList";
 import NotFound from "./pages/NotFound";
 import UserAddForm from "./admin/user/Form/UserAddForm";
 import UserEditForm from "./admin/user/Form/UserEditForm";
+import DepartmentDetail from "./admin/department/DepartmentDetail";
 const Routes = () => {
   return (
     <Router>
@@ -36,6 +37,9 @@ const Routes = () => {
             </Route>
             <Route exact path="/admin/user/edit/:id">
               <UserEditForm />
+            </Route>
+            <Route exact path="/admin/department/detail">
+              <DepartmentDetail />
             </Route>
           </PrivateRoute>
 

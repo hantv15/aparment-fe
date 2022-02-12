@@ -11,6 +11,7 @@ import {
 } from "../../common/departmentAPI";
 import Content from "../../core/Content";
 import DepartmentSearch from "./DepartmentSearch";
+import DepartmentDetail from "./DepartmentDetail";
 const DepartmentList = () => {
   const [departments, setDepartments] = useState([]);
   const [floorList, setFloorList] = useState([]);
@@ -19,9 +20,19 @@ const DepartmentList = () => {
   const typingTimeoutRef = useRef(null);
   const limit = 10;
   const [filters, setFilters] = useState({
-    floor: '',
+    tower: '',
     department_id: '',
   })
+  const statusOptions = [
+    {
+      value: 1,
+      name: "Active"
+    },
+    {
+      value: 2,
+      name: "InActive"
+    }
+  ]
   useEffect(() => {
     const getAllDepartments = async () => {
       const paramString = querystring.stringify(filters)
@@ -55,11 +66,10 @@ const DepartmentList = () => {
         const data = await res.json();
         const newFloors = [];
         data.map((item) => (
-          newFloors.push(item.floor)
+          newFloors.push(item.tower)
         ))
         let uniqueFloors = [...new Set(newFloors)];
         setFloorList(uniqueFloors);
-        console.log('newfloor: ', uniqueFloors);
       } catch (error) {
         console.log('Failed tp fetch floor list: ', error.message);
       }
@@ -67,7 +77,7 @@ const DepartmentList = () => {
     getFloors();
 
   }, [filters]);
-
+  console.log(floorList);
   const fetchDepartments = async (currentPage) => {
     try {
       const { data } = await fetchPagination(currentPage, limit);
@@ -109,7 +119,7 @@ const DepartmentList = () => {
   function handleFilterFloor(e) {
     console.log('Floor option: ', e.target.value);
     setFilters({
-      floor: e.target.value,
+      tower: e.target.value,
     })
   }
 
@@ -147,12 +157,13 @@ const DepartmentList = () => {
                       <tr>
                         <th scope="col">STT</th>
                         <th scope="col">Mã căn hộ</th>
-                        <th scope="col">Tầng</th>
-                        <th scope="col">Loại căn hộ</th>
-                        <th scope="col">Mô tả</th>
+                        <th scope="col">Tòa</th>
+                        <th scope="col">Diện tích</th>
+                        <th scope="col">Chủ sở hữu</th>
+                        <th scope="col">Trạng thái</th>
                         <th>
                           <Link
-                            className="btn btn-sm btn-success btn-flat"
+                            className="btn btn-sm btn-outline-success btn-flat"
                             to="/admin/department/add"
                           >
                             Thêm mới
@@ -166,25 +177,35 @@ const DepartmentList = () => {
                           <th scope="row">{index + 1}</th>
                           <td>{department.department_id}</td>
                           <td>
-                            {department.floor
+                            {department.tower
                             }
                           </td>
-                          <td>{department.type_department}</td>
-                          <td>{department.description}</td>
+                          <td>{department.square_meter}</td>
+                          <td>{department.owner}</td>
+                          <td>{statusOptions.map((status) => (
+                            status.value == department.status ? status.name : ''
+                          ))}</td>
                           <td>
-                            <button
-                              onClick={() => deleteDepartment(department.id)}
-                              className="btn btn-sm btn-danger btn-flat"
-                            >
-                              Xóa
-                            </button>
                             <Link
-                              className="btn btn-sm btn-success btn-flat"
+                              className="btn btn-sm btn-outline-primary btn-flat"
+                              to={`/admin/department/detail`}
+                            >
+                              Chi tiết
+                            </Link>
+                            <Link
+                              className="btn btn-sm btn-outline-success btn-flat"
                               to={`/admin/department/edit/${department.id}`}
                             // onId={department.id}
                             >
                               Sửa
                             </Link>
+                            <button
+                              onClick={() => deleteDepartment(department.id)}
+                              className="btn btn-sm btn-outline-danger btn-flat"
+                            >
+                              Xóa
+                            </button>
+
                           </td>
                         </tr>
                       ))}
