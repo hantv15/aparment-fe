@@ -140,7 +140,7 @@ const DepartmentList = () => {
                     </div>
                     <div className="form-outline mr-4">
                       <select className="form-control" onChange={handleFilterFloor}>
-                        <option selected value="">Chọn tầng</option>
+                        <option selected value="">Chọn tòa</option>
                         {floorList.map((item, index) => (
                           <option key={index}>{item}</option>
                         ))}
@@ -160,6 +160,7 @@ const DepartmentList = () => {
                         <th scope="col">Tòa</th>
                         <th scope="col">Diện tích</th>
                         <th scope="col">Chủ sở hữu</th>
+                        <th scope="col">Số điện thoại</th>
                         <th scope="col">Trạng thái</th>
                         <th>
                           <Link
@@ -180,8 +181,9 @@ const DepartmentList = () => {
                             {department.tower
                             }
                           </td>
-                          <td>{department.square_meter}</td>
+                          <td>{department.square_meter}m2</td>
                           <td>{department.owner}</td>
+                          <td>{department.phone}</td>
                           <td>{statusOptions.map((status) => (
                             status.value == department.status ? status.name : ''
                           ))}</td>
