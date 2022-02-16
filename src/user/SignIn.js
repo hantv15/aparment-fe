@@ -55,21 +55,6 @@ const SignIn = () => {
   // Tạo form
   const signInForm = () => {
     return (
-      // <form onSubmit={handleSubmit(onSubmit)}>
-      //     <div className="mb-3">
-      //         <label htmlFor="email" className="form-label">
-      //             Email của bạn
-      //         </label>
-      //         <input {...register('email')} type="text" className="form-control" id="email" />
-      //     </div>
-      //     <div className="mb-3">
-      //         <label htmlFor="password" className="form-label">
-      //             Mật khẩu
-      //         </label>
-      //         <input {...register('password')} type="password" className="form-control" id="password" />
-      //     </div>
-      //     <button className="btn btn-primary">Đăng nhập</button>
-      // </form>
       <div className="login-box">
         <div className="login-logo">
           <a href="../../index2.html">

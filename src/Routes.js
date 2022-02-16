@@ -38,7 +38,7 @@ const Routes = () => {
             <Route exact path="/admin/user/edit/:id">
               <UserEditForm />
             </Route>
-            <Route exact path="/admin/department/detail">
+            <Route exact path="/admin/department/detail/:id">
               <DepartmentDetail />
             </Route>
           </PrivateRoute>

@@ -4,6 +4,7 @@ import { isAuthenticate, sigOut } from "../auth";
 
 const Menu = () => {
   const user = isAuthenticate();
+  const history = useHistory();
   return (
     <>
       {/* Main Sidebar Container */}
@@ -85,6 +86,22 @@ const Menu = () => {
                     {/* <span className="right badge badge-danger">New</span> */}
                   </p>
                 </NavLink>
+              </li>
+              <li className="nav-item">
+                <a
+                  exact
+                  activeClassName="active"
+                  className="nav-link"
+                  onClick={() => sigOut(() => {
+                    history.push("/");
+                  })}
+                >
+                  <i className="nav-icon fas fa-arrow-right-from-bracket" />
+                  <p>
+                    Đăng xuất
+                    {/* <span className="right badge badge-danger">New</span> */}
+                  </p>
+                </a>
               </li>
             </ul>
           </nav>
