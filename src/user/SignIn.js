@@ -68,9 +68,9 @@ const SignIn = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="input-group mb-3">
                 <input
-                  type="email"
+                  type="text"
                   className="form-control"
-                  placeholder="Email"
+                  placeholder="Tên căn hộ"
                   {...register('email')}
                 />
                 <div className="input-group-append">
