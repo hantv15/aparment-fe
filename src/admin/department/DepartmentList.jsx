@@ -37,27 +37,25 @@ const DepartmentList = () => {
   useEffect(() => {
     const getAllDepartments = async () => {
       const paramString = querystring.stringify(filters);
-      const res = await fetch(
-        `https://61feeb495e1c4100174f6d88.mockapi.io/departments?${paramString}`
-      );
-      const data = await res.json();
-      setPageCount(Math.ceil(data.length / 10));
-      setDepartments(data);
-      console.log(res);
+      const res = await axios.get(`http://localhost:8000/api/department`);
+      // const data = await res.json();
+      // setPageCount(Math.ceil(data.length / 10));
+      setDepartments(res.data.data);
+      console.log(res.data.data);
     };
 
     getAllDepartments();
 
-    const getDepartments = async () => {
-      try {
-        const { data } = await getPagination(1, limit);
-        setDepartments(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    // const getDepartments = async () => {
+    //   try {
+    //     const { data } = await getPagination(1, limit);
+    //     setDepartments(data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
-    getDepartments();
+    // getDepartments();
 
     const getFloors = async () => {
       try {
@@ -181,7 +179,7 @@ const DepartmentList = () => {
                           <td>{department.department_id}</td>
                           <td>{department.tower}</td>
                           <td>{department.square_meter}m2</td>
-                          <td>{department.owner}</td>
+                          <td>{department.users.name}</td>
                           <td>{department.phone}</td>
                           <td>
                             {statusOptions.map((status) =>
@@ -217,7 +215,7 @@ const DepartmentList = () => {
                   </table>
                 </div>
               </div>
-              <div className="row">
+              {/* <div className="row">
                 <div className="col-sm-12">
                   <ReactPaginate
                     previousLabel={"previous"}
@@ -237,7 +235,7 @@ const DepartmentList = () => {
                     activeClassName={"active"}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

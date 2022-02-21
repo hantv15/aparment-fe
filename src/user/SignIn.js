@@ -25,7 +25,7 @@ const SignIn = () => {
     })
       .then(function (response) {
         console.log(response);
-        authenticate(response, () => {
+        authenticate(response.data, () => {
           setRedirectToref(true);
         });
       })
