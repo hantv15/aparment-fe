@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import querystring from "query-string";
+import axios from "axios";
 import {
   fetchPagination,
   getAll,

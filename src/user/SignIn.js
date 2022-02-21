@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Redirect, useHistory } from "react-router-dom";
 import { authenticate, isAuthenticate, sigIn } from "../auth";
 import Layout from "../core/Layout";
+const axios = require('axios');
 const SignIn = () => {
   const {
     register,
@@ -16,17 +17,21 @@ const SignIn = () => {
   const { user } = isAuthenticate();
 
   const onSubmit = (data) => {
-    console.log(data);
     setLoading(true);
-    sigIn(data).then((dataUser) => {
-      if (dataUser.error) {
-        setError(dataUser.error);
-      } else {
-        authenticate(dataUser, () => {
+    console.log('data: ', data);
+    axios.post('http://localhost:8000/api/login', {
+      department_id: data.department_id,
+      password: data.password
+    })
+      .then(function (response) {
+        console.log(response);
+        authenticate(response, () => {
           setRedirectToref(true);
         });
-      }
-    });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const showError = () => {
     return (
@@ -71,7 +76,7 @@ const SignIn = () => {
                   type="text"
                   className="form-control"
                   placeholder="Tên căn hộ"
-                  {...register('email')}
+                  {...register('department_id')}
                 />
                 <div className="input-group-append">
                   <div className="input-group-text">
@@ -81,7 +86,7 @@ const SignIn = () => {
               </div>
               <div className="input-group mb-3">
                 <input
-                  type="password"
+                  type="text"
                   className="form-control"
                   placeholder="Password"
                   {...register('password')}
