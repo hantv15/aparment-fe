@@ -19,8 +19,8 @@ const SignIn = () => {
   const onSubmit = (data) => {
     setLoading(true);
     console.log('data: ', data);
-    axios.post('http://localhost:8000/api/login', {
-      department_id: data.department_id,
+    axios.post('http://apartment-system.xyz/api/login', {
+      username: data.username,
       password: data.password
     })
       .then(function (response) {
@@ -76,7 +76,7 @@ const SignIn = () => {
                   type="text"
                   className="form-control"
                   placeholder="Tên căn hộ"
-                  {...register('department_id')}
+                  {...register('username')}
                 />
                 <div className="input-group-append">
                   <div className="input-group-text">

@@ -197,13 +197,6 @@ const DepartmentList = () => {
                             >
                               Chi tiết
                             </Link>
-                            <Link
-                              className="btn btn-sm btn-outline-success btn-flat"
-                              to={`/admin/department/edit/${department.id}`}
-                              // onId={department.id}
-                            >
-                              Sửa
-                            </Link>
                             <button
                               onClick={() => deleteDepartment(department.id)}
                               className="btn btn-sm btn-outline-danger btn-flat"
