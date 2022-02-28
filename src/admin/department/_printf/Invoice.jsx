@@ -51,17 +51,17 @@ const Invoice = () => {
                       <table className="table table-striped">
                         <thead>
                           <tr>
-                            <th>Qty</th>
-                            <th>Product</th>
-                            <th>Serial #</th>
-                            <th>Description</th>
-                            <th>Subtotal</th>
+                            <th>STT</th>
+                            <th>Tên dịch vụ</th>
+                            <th>Số lượng</th>
+                            <th>Giá</th>
+                            <th>Giá tổng</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
                             <td>1</td>
-                            <td>Call of Duty</td>
+                            <td>Tiền nước</td>
                             <td>455-981-221</td>
                             <td>
                               El snort testosterone trophy driving gloves
