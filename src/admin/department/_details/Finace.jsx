@@ -3,7 +3,7 @@ import ReactPaginate from "react-paginate";
 import PaymentHistory from "./PaymentHistory";
 import { Button, Modal } from "react-bootstrap";
 import BillModal from "../_modal/BillModal";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Finace = () => {
   const [showPaymentHistory, setShowPaymentHistory] = useState(false);
@@ -55,18 +55,12 @@ const Finace = () => {
                             <td>500.000đ</td>
                             <td>Đã thanh toán</td>
                             <td className="d-flex justify-content-center">
-                              <Button
-                                variant="btn btn-sm btn-outline-primary btn-flat"
-                                onClick={handleShows}
-                              >
-                                Chi tiết
-                              </Button>
                               <Link
                                 className="btn btn-sm btn-outline-success btn-flat"
                                 variant="btn btn-sm btn-outline-primary btn-flat"
                                 to="/admin/department/invoice"
                               >
-                                In
+                                Chi tiết
                               </Link>
                               <a
                                 className="btn btn-sm btn-outline-success btn-flat"
