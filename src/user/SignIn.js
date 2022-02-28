@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Redirect, useHistory } from "react-router-dom";
-import { authenticate, isAuthenticate, sigIn } from "../auth";
+import { Redirect } from "react-router-dom";
+import { authenticate, isAuthenticate } from "../auth";
 import Layout from "../core/Layout";
 const axios = require('axios');
 const SignIn = () => {
@@ -14,13 +14,11 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const [redirectToref, setRedirectToref] = useState(false);
 
-  const { user } = isAuthenticate();
-
   const onSubmit = (data) => {
     setLoading(true);
     console.log('data: ', data);
-    axios.post('http://localhost:8000/api/login', {
-      department_id: data.department_id,
+    axios.post('http://apartment-system.xyz/api/login', {
+      username: data.username,
       password: data.password
     })
       .then(function (response) {
@@ -76,7 +74,7 @@ const SignIn = () => {
                   type="text"
                   className="form-control"
                   placeholder="Tên căn hộ"
-                  {...register('department_id')}
+                  {...register('username')}
                 />
                 <div className="input-group-append">
                   <div className="input-group-text">

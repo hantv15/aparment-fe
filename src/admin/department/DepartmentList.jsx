@@ -5,10 +5,8 @@ import querystring from "query-string";
 import axios from "axios";
 import {
   fetchPagination,
-  getAll,
   getPagination,
   remove,
-  searchName,
 } from "../../common/departmentAPI";
 import Content from "../../core/Content";
 import DepartmentSearch from "./DepartmentSearch";
@@ -17,12 +15,10 @@ const DepartmentList = () => {
   const [departments, setDepartments] = useState([]);
   const [floorList, setFloorList] = useState([]);
   const [pageCount, setPageCount] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
-  const typingTimeoutRef = useRef(null);
   const limit = 10;
   const [filters, setFilters] = useState({
-    tower: "",
-    department_id: "",
+    building_id: "",
+    keyword: "",
   });
   const statusOptions = [
     {
@@ -30,7 +26,7 @@ const DepartmentList = () => {
       name: "Active",
     },
     {
-      value: 2,
+      value: 0,
       name: "InActive",
     },
   ];
@@ -38,37 +34,21 @@ const DepartmentList = () => {
     const getAllDepartments = async () => {
       const paramString = querystring.stringify(filters);
       const res = await fetch(
-        `https://61feeb495e1c4100174f6d88.mockapi.io/departments?${paramString}`
+        `http://apartment-system.xyz/api/apartment?${paramString}`
       );
       const data = await res.json();
-      setPageCount(Math.ceil(data.length / 10));
-      setDepartments(data);
-      console.log(res);
+      setDepartments(data.data);
+      console.log("data: ", data.data);
     };
 
     getAllDepartments();
 
-    const getDepartments = async () => {
-      try {
-        const { data } = await getPagination(1, limit);
-        setDepartments(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getDepartments();
-
     const getFloors = async () => {
       try {
-        const res = await fetch(
-          `https://61feeb495e1c4100174f6d88.mockapi.io/departments`
-        );
+        const res = await fetch(`http://apartment-system.xyz/api/building`);
         const data = await res.json();
-        const newFloors = [];
-        data.map((item) => newFloors.push(item.tower));
-        let uniqueFloors = [...new Set(newFloors)];
-        setFloorList(uniqueFloors);
+        setFloorList(data.data);
+        console.log(data.data);
       } catch (error) {
         console.log("Failed tp fetch floor list: ", error.message);
       }
@@ -110,14 +90,14 @@ const DepartmentList = () => {
     }
     setFilters({
       ...filters,
-      department_id: newFilters.searchTerm,
+      keyword: newFilters.searchTerm,
     });
   }
 
   function handleFilterFloor(e) {
     console.log("Floor option: ", e.target.value);
     setFilters({
-      tower: e.target.value,
+      building_id: e.target.value,
     });
   }
 
@@ -178,11 +158,11 @@ const DepartmentList = () => {
                       {departments.map((department, index) => (
                         <tr key={department.id}>
                           <th scope="row">{index + 1}</th>
-                          <td>{department.department_id}</td>
-                          <td>{department.tower}</td>
+                          <td>{department.apartment_id}</td>
+                          <td>{department.building_id}</td>
                           <td>{department.square_meter}m2</td>
-                          <td>{department.owner}</td>
-                          <td>{department.phone}</td>
+                          <td>{department.name}</td>
+                          <td>{department.phone_number}</td>
                           <td>
                             {statusOptions.map((status) =>
                               status.value == department.status

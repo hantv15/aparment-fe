@@ -3,6 +3,7 @@ import ReactPaginate from "react-paginate";
 import PaymentHistory from "./PaymentHistory";
 import { Button, Modal } from "react-bootstrap";
 import BillModal from "../_modal/BillModal";
+import { Link } from "react-router-dom";
 
 const Finace = () => {
   const [showPaymentHistory, setShowPaymentHistory] = useState(false);
@@ -60,10 +61,13 @@ const Finace = () => {
                               >
                                 Chi tiết
                               </Button>
-                              <a
+                              <Link
                                 className="btn btn-sm btn-outline-success btn-flat"
-                                // onId={department.id}
+                                to="/admin/department/finance"
                               >
+                                In
+                              </Link>
+                              <a className="btn btn-sm btn-outline-success btn-flat">
                                 Sửa
                               </a>
                               <button className="btn btn-sm btn-outline-danger btn-flat">

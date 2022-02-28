@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { useParams } from "react-router-dom";
 import { get } from "../../common/departmentAPI";
 import Content from "../../core/Content";
@@ -8,6 +7,7 @@ import Finace from "./_details/Finace";
 import { Information } from "./_details/Information";
 const DepartmentDetail = () => {
   const { id } = useParams();
+  console.log('id useParams: ', id)
   const [department, setDepartment] = useState({});
   const [showBasic, setShowBasic] = useState(true);
   const [showFiance, setShowFiance] = useState(false);

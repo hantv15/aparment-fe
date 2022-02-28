@@ -1,8 +1,8 @@
 import React from "react";
-
+import { } from 'react-router-dom'
 const NotFound = () => {
   return (
-    <div>
+    <>
       <section className="content">
         <div className="error-page">
           <h2 className="headline text-warning"> 404</h2>
@@ -41,7 +41,7 @@ const NotFound = () => {
         </div>
         {/* /.error-page */}
       </section>
-    </div>
+    </>
   );
 };
 
