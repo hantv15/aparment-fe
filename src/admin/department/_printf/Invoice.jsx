@@ -48,109 +48,110 @@ const Invoice = () => {
                   {/* Table row */}
                   <div className="row">
                     <div className="col-12 table-responsive">
-                      <table className="table table-striped">
+                      <table className="table">
                         <thead>
                           <tr>
-                            <th>STT</th>
-                            <th>Tên dịch vụ</th>
-                            <th>Số lượng</th>
-                            <th>Giá</th>
-                            <th>Giá tổng</th>
+                            <th>1</th>
+                            <th>Phí dịch vụ</th>
+                            <th>Diện tích M2</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td>1</td>
-                            <td>Tiền nước</td>
-                            <td>455-981-221</td>
-                            <td>
-                              El snort testosterone trophy driving gloves
-                              handsome
-                            </td>
-                            <td>$64.50</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>Need for Speed IV</td>
-                            <td>247-925-726</td>
-                            <td>Wes Anderson umami biodiesel</td>
-                            <td>$50.00</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>Monsters DVD</td>
-                            <td>735-845-642</td>
-                            <td>
-                              Terry Richardson helvetica tousled street art
-                              master
-                            </td>
-                            <td>$10.70</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>Grown Ups Blue Ray</td>
-                            <td>422-568-642</td>
-                            <td>Tousled lomo letterpress</td>
-                            <td>$25.99</td>
+                            <td></td>
+                            <td></td>
+                            <td>120</td>
+                            <td>6.000đ</td>
+                            <td>720.000đ</td>
                           </tr>
                         </tbody>
+                      </table>
+                      <br />
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th>2</th>
+                            <th>Phí gửi xe</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td></td>
+                            <td>Ô tô</td>
+                            <td>1</td>
+                            <td>1.100.000đ</td>
+                            <td>1.100.000đ</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <br />
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th>3</th>
+                            <th>Tiền nước</th>
+                            <th>Số m3</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td></td>
+                            <td>Đầu: 420</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td>Cuối: 430</td>
+                            <td>10</td>
+                            <td></td>
+                            <td>110.000đ</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <br />
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th>Tổng thu</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>1.930.000đ</th>
+                          </tr>
+                        </thead>
                       </table>
                     </div>
                     {/* /.col */}
                   </div>
                   {/* /.row */}
-                  <div className="row">
+                  <div className="d-flex justify-content-around">
+                    <div className=""></div>
+                    <div className="">
+                      <p>Hà nội, ngày ... tháng 02 năm 2022</p>
+                    </div>
+                  </div>
+                  <div className="row d-flex justify-content-around">
                     {/* accepted payments column */}
-                    <div className="col-6">
-                      <p className="lead">Payment Methods:</p>
-                      <img src="../../dist/img/credit/visa.png" alt="Visa" />
-                      <img
-                        src="../../dist/img/credit/mastercard.png"
-                        alt="Mastercard"
-                      />
-                      <img
-                        src="../../dist/img/credit/american-express.png"
-                        alt="American Express"
-                      />
-                      <img
-                        src="../../dist/img/credit/paypal2.png"
-                        alt="Paypal"
-                      />
-                      <p
-                        className="text-muted well well-sm shadow-none"
-                        style={{ marginTop: 10 }}
-                      >
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy
-                        zoodles, weebly ning heekya handango imeem plugg dopplr
-                        jibjab, movity jajah plickers sifteo edmodo ifttt
-                        zimbra.
-                      </p>
+                    <div className="">
+                      <p className="lead">Người thu</p>
                     </div>
                     {/* /.col */}
-                    <div className="col-6">
-                      <p className="lead">Amount Due 2/22/2014</p>
-                      <div className="table-responsive">
-                        <table className="table">
-                          <tbody>
-                            <tr>
-                              <th style={{ width: "50%" }}>Subtotal:</th>
-                              <td>$250.30</td>
-                            </tr>
-                            <tr>
-                              <th>Tax (9.3%)</th>
-                              <td>$10.34</td>
-                            </tr>
-                            <tr>
-                              <th>Shipping:</th>
-                              <td>$5.80</td>
-                            </tr>
-                            <tr>
-                              <th>Total:</th>
-                              <td>$265.24</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                    <div className="">
+                      <p className="lead">Người nộp</p>
                     </div>
                     {/* /.col */}
                   </div>
@@ -166,19 +167,6 @@ const Invoice = () => {
                       >
                         <i className="fas fa-print" /> Print
                       </a>
-                      <button
-                        type="button"
-                        className="btn btn-success float-right"
-                      >
-                        <i className="far fa-credit-card" /> Submit Payment
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-primary float-right"
-                        style={{ marginRight: 5 }}
-                      >
-                        <i className="fas fa-download" /> Generate PDF
-                      </button>
                     </div>
                   </div>
                 </div>
