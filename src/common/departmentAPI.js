@@ -2,12 +2,12 @@ import instance from "./instance";
 import { isAuthenticate } from "../auth";
 
 export const getAll = () => {
-    const url = '/apartments';
+    const url = '/departments';
     return instance.get(url);
 }
 
 export const get = (id) => {
-    const url = `/apartments/${id}`;
+    const url = `/departments/${id}`;
     return instance.get(url);
 }
 
