@@ -40,24 +40,26 @@ const DepartmentList = () => {
       const data = await res.json();
       setPageCount(Math.ceil(data.length / 10));
       setDepartments(data.data);
+      console.log(res.url);
     };
 
     getAllDepartments();
 
     const getFloors = async () => {
       try {
-        const res = await fetch(`http://apartment-system.xyz/api/apartment`);
+        const res = await fetch(`http://apartment-system.xyz/api/building`);
         const data = await res.json();
-        const newFloors = [];
-        data.data.map((item) => newFloors.push(item.building_id));
-        let uniqueFloors = [...new Set(newFloors)];
-        setFloorList(uniqueFloors);
+        // const newFloors = [];
+        // data.data.map((item) => newFloors.push(item.id, item.name));
+        // let uniqueFloors = [...new Set(newFloors)];
+        setFloorList(data.data);
       } catch (error) {
         console.log("Failed tp fetch floor list: ", error.message);
       }
     };
     getFloors();
   }, [filters]);
+  console.log(floorList);
   const fetchDepartments = async (currentPage) => {
     try {
       const { data } = await fetchPagination(currentPage, limit);
@@ -126,7 +128,9 @@ const DepartmentList = () => {
                           Chọn tòa
                         </option>
                         {floorList.map((item, index) => (
-                          <option key={index}>{item}</option>
+                          <option key={index} value={item.id}>
+                            {item.name}
+                          </option>
                         ))}
                       </select>
                     </div>
