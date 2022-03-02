@@ -10,12 +10,21 @@ import {
 import Content from "../../core/Content";
 import DepartmentSearch from "./DepartmentSearch";
 import DepartmentDetail from "./DepartmentDetail";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 const DepartmentList = () => {
   const [departments, setDepartments] = useState([]);
   const [floorList, setFloorList] = useState([]);
+  const [importExcel, setImportExcel] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
-  const typingTimeoutRef = useRef(null);
+  const [file, setFile] = useState({});
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const limit = 10;
   const [filters, setFilters] = useState({
     building_id: "",
@@ -49,9 +58,6 @@ const DepartmentList = () => {
       try {
         const res = await fetch(`http://apartment-system.xyz/api/building`);
         const data = await res.json();
-        // const newFloors = [];
-        // data.data.map((item) => newFloors.push(item.id, item.name));
-        // let uniqueFloors = [...new Set(newFloors)];
         setFloorList(data.data);
       } catch (error) {
         console.log("Failed tp fetch floor list: ", error.message);
@@ -104,6 +110,24 @@ const DepartmentList = () => {
     });
   }
 
+  const handleChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("file", file);
+    axios
+      .post("http://localhost:8000/api/file-import", data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <Content title="Căn Hộ">
       <div className="row">
@@ -114,12 +138,62 @@ const DepartmentList = () => {
             </div>
             <div className="card-body">
               <div className="row ">
-                <div className="col-sm-12 ">
+                <div className="col-sm-6">
+                  <div className="input-group my-2 ms-2">
+                    <div className="custom-file ">
+                      <form
+                        id="quickForm"
+                        method="post"
+                        onSubmit={submitHandler}
+                        encType="multipart/form-data"
+                        noValidate="novalidate d-flex"
+                      >
+                        <div className="d-flex form-outline pt-3">
+                          <div className="form-group">
+                            <div className=" input-form custom-file">
+                              <input
+                                type="file"
+                                className="custom-file-input"
+                                id="customFile"
+                                onChange={handleChange}
+                              />
+                              <label
+                                className="custom-file-label"
+                                htmlFor="customFile"
+                              >
+                                Choose file
+                              </label>
+                            </div>
+                          </div>
+                          <div className="form-group ml-2">
+                            <button
+                              type="submit"
+                              className="btn btn-block btn-outline-primary"
+                            >
+                              Import
+                            </button>
+                          </div>
+                        </div>
+                        {/* /.card-body */}
+                      </form>
+                      <div className="form-outline ml-2">
+                        <a
+                          type="button"
+                          href="http://localhost:8000/file-export"
+                          className="btn btn-block btn-outline-primary"
+                        >
+                          Export
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-6">
                   <div className="input-group d-flex flex-row-reverse rounded my-2 ms-2">
                     <div className="form-outline ">
                       <DepartmentSearch onSubmit={handleSearchChange} />
                     </div>
-                    <div className="form-outline mr-4">
+                    <div className="form-outline mr-2">
                       <select
                         className="form-control"
                         onChange={handleFilterFloor}

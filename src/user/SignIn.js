@@ -5,6 +5,7 @@ import { authenticate, isAuthenticate, sigIn } from "../auth";
 import Layout from "../core/Layout";
 const axios = require('axios');
 const SignIn = () => {
+  const [success, setSuccess] = useState();
   const {
     register,
     handleSubmit,
@@ -14,7 +15,7 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const [redirectToref, setRedirectToref] = useState(false);
 
-
+  const { data } = isAuthenticate();
   const onSubmit = (data) => {
     setLoading(true);
     console.log('data: ', data);
@@ -26,12 +27,26 @@ const SignIn = () => {
         console.log(response);
         authenticate(response, () => {
           setRedirectToref(true);
+          setSuccess(true);
         });
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  const redirecUser = () => {
+    if (success) {
+      if (data.data.role_id == 1) {
+        return <Redirect to="/admin/dashboard" />;
+      } else {
+        return <Redirect to="/" />;
+      }
+    }
+  };
+
+  redirecUser();
+
   const showError = () => {
     return (
       <div
