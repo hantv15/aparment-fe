@@ -35,7 +35,7 @@ export const authenticate = (data, next) => {
 export const sigOut = (next) => {
     if (typeof window !== 'undefined') {
         localStorage.removeItem('user')
-        next()
+        // next()
         // return fetch(`${API}/signout`, {
         //     method: "POST",
         //     headers: {

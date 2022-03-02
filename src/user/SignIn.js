@@ -14,7 +14,6 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const [redirectToref, setRedirectToref] = useState(false);
 
-  const { user } = isAuthenticate();
 
   const onSubmit = (data) => {
     setLoading(true);

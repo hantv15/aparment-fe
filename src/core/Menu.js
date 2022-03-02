@@ -1,10 +1,29 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { isAuthenticate, sigOut } from "../auth";
 
 const Menu = () => {
-  const user = isAuthenticate();
   const history = useHistory();
+  const { data } = isAuthenticate();
+  console.log(data.data.token);
+  const logout = async () => {
+    let headersList = {
+      "Accept": "*/*",
+      "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+      "Authorization": `Bearer ${data.data.token}`
+    }
+
+    fetch("http://apartment-system.xyz/api/logout", {
+      method: "POST",
+      headers: headersList
+    }).then(function (response) {
+      history.push("/");
+    }).then(function (data) {
+      console.log(data);
+    })
+    sigOut();
+  }
   return (
     <>
       {/* Main Sidebar Container */}
@@ -25,14 +44,14 @@ const Menu = () => {
           <div className="user-panel mt-3 pb-3 mb-3 d-flex">
             <div className="image">
               <img
-                src={process.env.PUBLIC_URL + "/dist/img/user2-160x160.jpg"}
+                src={data.data.avatar ? data.data.avatar : process.env.PUBLIC_URL + "/dist/img/user2-160x160.jpg"}
                 className="img-circle elevation-2"
                 alt="User Image"
               />
             </div>
             <div className="info">
               <a href="#" className="d-block">
-                {user.name}
+                {data.data.name}
               </a>
             </div>
           </div>
@@ -92,9 +111,7 @@ const Menu = () => {
                   exact
                   activeClassName="active"
                   className="nav-link"
-                  onClick={() => sigOut(() => {
-                    history.push("/");
-                  })}
+                  onClick={() => logout()}
                 >
                   <i className="nav-icon fas fa-arrow-right-from-bracket" />
                   <p>
