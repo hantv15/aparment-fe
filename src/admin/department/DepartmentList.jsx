@@ -66,6 +66,7 @@ const DepartmentList = () => {
     getFloors();
   }, [filters]);
   console.log(floorList);
+  console.log(departments);
   const fetchDepartments = async (currentPage) => {
     try {
       const { data } = await fetchPagination(currentPage, limit);
@@ -118,8 +119,9 @@ const DepartmentList = () => {
     e.preventDefault();
     const data = new FormData();
     data.append("file", file);
+    console.log("excel");
     axios
-      .post("http://localhost:8000/api/file-import", data)
+      .post("http://localhost:8000/api/apartment-import", data)
       .then((response) => {
         console.log(response);
       })
@@ -179,7 +181,7 @@ const DepartmentList = () => {
                       <div className="form-outline ml-2">
                         <a
                           type="button"
-                          href="http://localhost:8000/file-export"
+                          href="http://localhost:8000/api/apartment-export"
                           className="btn btn-block btn-outline-primary"
                         >
                           Export
