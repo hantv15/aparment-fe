@@ -2,11 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import querystring from "query-string";
-import {
-  fetchPagination,
-  getPagination,
-  remove,
-} from "../../common/departmentAPI";
+import { fetchPagination, remove } from "../../common/departmentAPI";
 import Content from "../../core/Content";
 import DepartmentSearch from "./DepartmentSearch";
 import DepartmentDetail from "./DepartmentDetail";
