@@ -27,7 +27,7 @@ export const getPagination = (page, limit) => {
 }
 
 export const fetchPagination = (currentPage, limit) => {
-    const url = `/departments?page=${currentPage}&limit=${limit}`;
+    const url = `http://apartment-system.xyz/api/apartment?page_size=${currentPage}&page=${limit}`;
     return instance.get(url, currentPage, limit);
 }
 
