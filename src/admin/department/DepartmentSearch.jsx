@@ -33,7 +33,7 @@ function DepartmentSearch(props) {
   }
   return (
     <input
-      placeholder="Mã căn hộ"
+      placeholder="Tìm kiếm"
       className="form-control justify-content-rig justify-content-right"
       type="text"
       value={searchTerm}

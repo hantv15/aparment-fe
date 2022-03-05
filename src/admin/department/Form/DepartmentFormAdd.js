@@ -12,7 +12,7 @@ const DepartmentFormAdd = () => {
 
   const { id } = useParams();
   console.log(id);
-  
+
   const addDepartments = async (item) => {
     console.log(item);
     try {
@@ -29,7 +29,7 @@ const DepartmentFormAdd = () => {
     return (
       <div className="col-md-12">
         <div className="card card-primary">
-          
+
           {/* /.card-header */}
           {/* form start */}
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -52,43 +52,18 @@ const DepartmentFormAdd = () => {
                     {errors?.department_id?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tầng của căn hộ</label>
+                    <label htmlFor="exampleInputEmail1">Tên tòa nhà</label>
                     <input
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
                       placeholder="Nhập mã căn hộ"
-                      {...register('floor', {
+                      {...register('tower', {
                         required: true,
                       })}
                     />
-                    {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
-                    {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
-                  </div>
-                  <div class="form-group">
-                    <label>Loại căn hộ</label>
-                    <select {...register('type_department')} class="form-control">
-                      <option value="1">Cao cấp</option>
-                      <option value="2">Trung bình</option>
-                      <option value="3">Thường</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Chủ sở hữu</label>
-                    <select {...register('user_id')} class="form-control">
-                      <option value="1">Hân</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Mô tả</label>
-                    <textarea
-                      {...register('description')}
-                      class="form-control rounded-0"
-                      id="exampleFormControlTextarea1"
-                      rows="10"
-                    ></textarea>
+                    {errors?.tower?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
+                    {errors?.tower?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Kích thước căn hộ</label>
@@ -104,11 +79,19 @@ const DepartmentFormAdd = () => {
                     />
                     {errors?.square_meters?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ là số</p>}
                   </div>
+                </div>
+                <div className="col-md-6">
+                  <div class="form-group">
+                    <label>Chủ sở hữu</label>
+                    <select {...register('user_id')} class="form-control">
+                      <option value="1">Hân</option>
+                    </select>
+                  </div>
                   <div class="form-group">
                     <label>Trạng thái</label>
                     <select {...register('status')} class="form-control">
-                      <option value="1">Đã bán</option>
-                      <option value="2">Chưa bán</option>
+                      <option value="1">Active</option>
+                      <option value="2">InActive</option>
                     </select>
                   </div>
                 </div>

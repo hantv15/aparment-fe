@@ -9,6 +9,8 @@ import UserList from "./admin/user/UserList";
 import NotFound from "./pages/NotFound";
 import UserAddForm from "./admin/user/Form/UserAddForm";
 import UserEditForm from "./admin/user/Form/UserEditForm";
+import DepartmentDetail from "./admin/department/DepartmentDetail";
+import Invoice from "./admin/department/_printf/Invoice";
 const Routes = () => {
   return (
     <Router>
@@ -36,6 +38,12 @@ const Routes = () => {
             </Route>
             <Route exact path="/admin/user/edit/:id">
               <UserEditForm />
+            </Route>
+            <Route exact path="/admin/department/detail/:id">
+              <DepartmentDetail />
+            </Route>
+            <Route exact path="/admin/department/invoice">
+              <Invoice />
             </Route>
           </PrivateRoute>
 

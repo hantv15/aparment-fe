@@ -2,11 +2,11 @@ import React from "react";
 import Header from "./Header";
 import Menu from "./Menu";
 import Footer from "./Footer";
-const Content = ({title = "Dashboard", subName = "Admin", children }) => {
+const Content = ({ title = "Dashboard", subName = "Admin", children }) => {
   return (
     <div>
-      <Header/>
-      <Menu/>
+      <Header />
+      <Menu />
       <div className="content-wrapper">
         {/* Content Header (Page header) */}
         <div className="content-header">
@@ -19,7 +19,7 @@ const Content = ({title = "Dashboard", subName = "Admin", children }) => {
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <a href="#">{subName}</a>
+                    <p href="#">{subName}</p>
                   </li>
                   <li className="breadcrumb-item active">{title}</li>
                 </ol>
@@ -35,14 +35,14 @@ const Content = ({title = "Dashboard", subName = "Admin", children }) => {
         <section className="content">
           <div className="container-fluid">
             {/* Small boxes (Stat box) */}
-              {children} 
+            {children}
             {/* /.row */}
           </div>
           {/* /.container-fluid */}
         </section>
         {/* /.content */}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

@@ -12,29 +12,14 @@ const DepartmentFormEdit = () => {
   } = useForm();
   const { id } = useParams();
   const [department, setDepartment] = useState({});
-  const typesOptions = [
-    {
-      value: 1,
-      name: "Cao cấp"
-    },
-    {
-      value: 2,
-      name: "Trung bình"
-    },
-    {
-      value: 3,
-      name: "Thường"
-    }
-  ]
-
   const statusOptions = [
     {
       value: 1,
-      name: "Đã bán"
+      name: "Active"
     },
     {
       value: 2,
-      name: "Chưa bán"
+      name: "InActive"
     }
   ]
 
@@ -52,7 +37,7 @@ const DepartmentFormEdit = () => {
     getDepartment();
   }, []);
 
-  console.log(typeof(department.department_id));
+  console.log(typeof (department.department_id));
   const onSubmit = (item) => {
     const updateItem = {
       id,
@@ -88,48 +73,20 @@ const DepartmentFormEdit = () => {
                     )}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tầng của căn hộ</label>
+                    <label htmlFor="exampleInputEmail1">Tên tòa nhà</label>
                     <input
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
                       placeholder="Nhập mã căn hộ"
-                      defaultValue={department.floor}
-                      {...register("floor", {
+                      defaultValue={department.tower}
+                      {...register("tower", {
                         required: true,
                       })}
                     />
-                    {errors?.floor?.type === "required" && (
+                    {errors?.tower?.type === "required" && (
                       <p className="text-danger">Hãy nhập trường này</p>
                     )}
-                  </div>
-                  <div class="form-group">
-                    <label>Loại căn hộ</label>
-                    <select
-                      {...register("type_department")}
-                      class="form-control"
-                    >
-                      {typesOptions.map((option) => (
-                        <option selected={option.value == department.type_department} value={option.value}>{option.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Chủ sở hữu</label>
-                    <select {...register("user_id")} class="form-control">
-                      <option value="1">Hân</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Mô tả</label>
-                    <textarea
-                      {...register("description")}
-                      class="form-control rounded-0"
-                      id="exampleFormControlTextarea1"
-                      rows="10"
-                    >{department.description}</textarea>
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">
@@ -148,6 +105,15 @@ const DepartmentFormEdit = () => {
                     {errors?.square_meters?.type === "pattern" && (
                       <p className="text-danger">Hãy nhập các ký từ là số</p>
                     )}
+                  </div>
+
+                </div>
+                <div className="col-md-6">
+                  <div class="form-group">
+                    <label>Chủ sở hữu</label>
+                    <select {...register("user_id")} class="form-control">
+                      <option value="1">Hân</option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label>Trạng thái</label>
@@ -182,4 +148,3 @@ const DepartmentFormEdit = () => {
 };
 
 export default DepartmentFormEdit;
-    

@@ -1,14 +1,16 @@
 import { API } from '../config'
-export const sigIn = (user) => {
-    return fetch(`https://6129f47c068adf001789b9ad.mockapi.io/user`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
+const axios = require('axios');
+export const sigIn = (data) => {
+    axios.post('http://localhost:8000/api/login', {
+        email: data.email,
+        password: data.password,
     })
-        .then(response => response.json())
-        .catch(error => console.log(error))
+        .then(function (response) {
+            console.log(response.json());
+        })
+        .catch(function (error) {
+            return error;
+        });
 }
 
 export const sigUp = (user) => {
@@ -19,29 +21,20 @@ export const sigUp = (user) => {
         },
         body: JSON.stringify(user)
     })
-    .then(response => response.json())
-    .catch(error => console.log(error))
+        .then(response => response.json())
+        .catch(error => console.log(error))
 }
 
 export const authenticate = (data, next) => {
-    if ( typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(data));
         next();
     }
 }
 
 export const sigOut = (next) => {
-    if ( typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
         localStorage.removeItem('user')
-        next()
-        // return fetch(`${API}/signout`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     }
-        // })
-        // .then(response => response.json())
-        // .catch(error => console.log(error))
     }
 }
 

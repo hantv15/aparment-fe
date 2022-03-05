@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import { Redirect, useHistory } from "react-router-dom";
 import { authenticate, isAuthenticate, sigIn } from "../auth";
 import Layout from "../core/Layout";
+const axios = require('axios');
 const SignIn = () => {
+  const [success, setSuccess] = useState();
   const {
     register,
     handleSubmit,
@@ -13,21 +15,38 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const [redirectToref, setRedirectToref] = useState(false);
 
-  const { user } = isAuthenticate();
-
+  const { data } = isAuthenticate();
   const onSubmit = (data) => {
-    console.log(data);
     setLoading(true);
-    sigIn(data).then((dataUser) => {
-      if (dataUser.error) {
-        setError(dataUser.error);
-      } else {
-        authenticate(dataUser, () => {
+    console.log('data: ', data);
+    axios.post('http://apartment-system.xyz/api/login', {
+      username: data.username,
+      password: data.password
+    })
+      .then(function (response) {
+        console.log(response);
+        authenticate(response, () => {
           setRedirectToref(true);
+          setSuccess(true);
         });
-      }
-    });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
+
+  const redirecUser = () => {
+    if (success) {
+      if (data.data.role_id == 1) {
+        return <Redirect to="/admin/dashboard" />;
+      } else {
+        return <Redirect to="/" />;
+      }
+    }
+  };
+
+  redirecUser();
+
   const showError = () => {
     return (
       <div
@@ -55,21 +74,6 @@ const SignIn = () => {
   // Tạo form
   const signInForm = () => {
     return (
-      // <form onSubmit={handleSubmit(onSubmit)}>
-      //     <div className="mb-3">
-      //         <label htmlFor="email" className="form-label">
-      //             Email của bạn
-      //         </label>
-      //         <input {...register('email')} type="text" className="form-control" id="email" />
-      //     </div>
-      //     <div className="mb-3">
-      //         <label htmlFor="password" className="form-label">
-      //             Mật khẩu
-      //         </label>
-      //         <input {...register('password')} type="password" className="form-control" id="password" />
-      //     </div>
-      //     <button className="btn btn-primary">Đăng nhập</button>
-      // </form>
       <div className="login-box">
         <div className="login-logo">
           <a href="../../index2.html">
@@ -83,10 +87,10 @@ const SignIn = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="input-group mb-3">
                 <input
-                  type="email"
+                  type="text"
                   className="form-control"
-                  placeholder="Email"
-                  {...register('email')}
+                  placeholder="Tên căn hộ"
+                  {...register('username')}
                 />
                 <div className="input-group-append">
                   <div className="input-group-text">
@@ -96,7 +100,7 @@ const SignIn = () => {
               </div>
               <div className="input-group mb-3">
                 <input
-                  type="password"
+                  type="text"
                   className="form-control"
                   placeholder="Password"
                   {...register('password')}
