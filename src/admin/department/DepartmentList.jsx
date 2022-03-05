@@ -21,7 +21,6 @@ const DepartmentList = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const limit = 10;
   const [filters, setFilters] = useState({
     building_id: "",
     keyword: "",
@@ -36,6 +35,7 @@ const DepartmentList = () => {
       name: "InActive",
     },
   ];
+  let limit = 1;
   useEffect(() => {
     const getAllDepartments = async () => {
       const paramString = querystring.stringify(filters);
@@ -43,9 +43,9 @@ const DepartmentList = () => {
         `http://apartment-system.xyz/api/apartment?${paramString}`
       );
       const data = await res.json();
-      setPageCount(Math.ceil(data.length / 10));
+      setPageCount(Math.ceil(data.data.length / 5));
       setDepartments(data.data);
-      console.log(res.url);
+      console.log(data);
     };
 
     getAllDepartments();
@@ -61,12 +61,16 @@ const DepartmentList = () => {
     };
     getFloors();
   }, [filters]);
+
   console.log(floorList);
   console.log(departments);
+
   const fetchDepartments = async (currentPage) => {
     try {
-      const { data } = await fetchPagination(currentPage, limit);
-      setDepartments(data);
+      const data = await fetchPagination(currentPage, limit);
+      // const data = await res.json();
+      setDepartments(data.data);
+      console.log(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -114,12 +118,12 @@ const DepartmentList = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("file", file);
+    data.append("file_upload", file);
     console.log("excel");
     axios
-      .post("http://localhost:8000/api/apartment-import", data)
+      .post("http://apartment-system.xyz/api/apartment/upload-excel", data)
       .then((response) => {
-        console.log(response);
+        console.log("data: ", response.data);
       })
       .catch((error) => {
         console.error(error);
