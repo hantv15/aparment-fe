@@ -16,7 +16,7 @@ const DepartmentList = () => {
   const [pageCount, setPageCount] = useState(0);
   const [file, setFile] = useState({});
 
-  const limit = 10;
+  const limit = 2;
   const [filters, setFilters] = useState({
     building_id: "",
     keyword: "",
@@ -40,7 +40,7 @@ const DepartmentList = () => {
       const data = await res.json();
       setPageCount(Math.ceil(data.data.length / 10));
       setDepartments(data.data);
-      console.log(res.url);
+      console.log(data);
     };
 
     getAllDepartments();
@@ -56,12 +56,16 @@ const DepartmentList = () => {
     };
     getFloors();
   }, [filters]);
+
   console.log(floorList);
   console.log(departments);
+
   const fetchDepartments = async (currentPage) => {
     try {
-      const { data } = await fetchPagination(currentPage, limit);
-      setDepartments(data);
+      const data = await fetchPagination(currentPage, limit);
+      // const data = await res.json();
+      setDepartments(data.data);
+      console.log(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -108,36 +112,41 @@ const DepartmentList = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("file_upload", file);
-    console.log("excel");
-    axios
-      .post("http://apartment-system.xyz/api/apartment/upload-excel", data)
-      .then((response) => {
-        // console.log(response);
-        var Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
+    if (
+      file.type ===
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ) {
+      const data = new FormData();
+      data.append("file_upload", file);
+      console.log("excel");
+      axios
+        .post("http://apartment-system.xyz/api/apartment/upload-excel", data)
+        .then((response) => {
+          // console.log(response);
+          var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Import excel thành công.",
+          });
         });
-        Toast.fire({
-          icon: "success",
-          title: "Import excel thành công.",
-        });
-      })
-      .catch((error) => {
-        var Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-        });
-        Toast.fire({
-          icon: "error",
-          title: "Import excel không thành công.",
-        });
+    } else {
+      var Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
       });
+      Toast.fire({
+        icon: "error",
+        title:
+          "Import excel không thành công, vui lòng xem lại định dạng file.",
+      });
+    }
   };
 
   return (
@@ -167,6 +176,7 @@ const DepartmentList = () => {
                                 type="file"
                                 className="custom-file-input"
                                 id="customFile"
+                                onChange={handleChange}
                               />
                               <label
                                 className="custom-file-label"
