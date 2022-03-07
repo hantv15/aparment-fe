@@ -37,12 +37,13 @@ const Finace = () => {
                             <th scope="col">Tổng tiền</th>
                             <th scope="col">Trạng thái</th>
                             <th className="d-flex justify-content-center">
-                              <a
+                              {/* <a
                                 className="btn btn-sm btn-outline-success btn-flat"
                                 to="/admin/department/add"
                               >
                                 Thêm mới
-                              </a>
+                              </a> */}
+                              Chức năng
                             </th>
                           </tr>
                         </thead>
@@ -68,15 +69,6 @@ const Finace = () => {
                               >
                                 In
                               </Link>
-                              <a
-                                className="btn btn-sm btn-outline-success btn-flat"
-                                // onId={department.id}
-                              >
-                                Sửa
-                              </a>
-                              <button className="btn btn-sm btn-outline-danger btn-flat">
-                                Xóa
-                              </button>
                             </td>
                           </tr>
                         </tbody>

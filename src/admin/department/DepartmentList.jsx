@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import querystring from "query-string";
+import Swal from "sweetalert2";
+// ES6 Modules or TypeScript
 import { fetchPagination, remove } from "../../common/departmentAPI";
 import Content from "../../core/Content";
 import DepartmentSearch from "./DepartmentSearch";
@@ -11,16 +13,10 @@ import { useForm } from "react-hook-form";
 const DepartmentList = () => {
   const [departments, setDepartments] = useState([]);
   const [floorList, setFloorList] = useState([]);
-  const [importExcel, setImportExcel] = useState([]);
   const [pageCount, setPageCount] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
   const [file, setFile] = useState({});
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+
+  const limit = 2;
   const [filters, setFilters] = useState({
     building_id: "",
     keyword: "",
@@ -31,11 +27,10 @@ const DepartmentList = () => {
       name: "Active",
     },
     {
-      value: 2,
+      value: 0,
       name: "InActive",
     },
   ];
-  let limit = 1;
   useEffect(() => {
     const getAllDepartments = async () => {
       const paramString = querystring.stringify(filters);
@@ -43,7 +38,7 @@ const DepartmentList = () => {
         `http://apartment-system.xyz/api/apartment?${paramString}`
       );
       const data = await res.json();
-      setPageCount(Math.ceil(data.data.length / 5));
+      setPageCount(Math.ceil(data.data.length / 10));
       setDepartments(data.data);
       console.log(data);
     };
@@ -117,17 +112,41 @@ const DepartmentList = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("file_upload", file);
-    console.log("excel");
-    axios
-      .post("http://apartment-system.xyz/api/apartment/upload-excel", data)
-      .then((response) => {
-        console.log("data: ", response.data);
-      })
-      .catch((error) => {
-        console.error(error);
+    if (
+      file.type ===
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ) {
+      const data = new FormData();
+      data.append("file_upload", file);
+      console.log("excel");
+      axios
+        .post("http://apartment-system.xyz/api/apartment/upload-excel", data)
+        .then((response) => {
+          // console.log(response);
+          var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Import excel thành công.",
+          });
+        });
+    } else {
+      var Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
       });
+      Toast.fire({
+        icon: "error",
+        title:
+          "Import excel không thành công, vui lòng xem lại định dạng file.",
+      });
+    }
   };
 
   return (
@@ -152,7 +171,7 @@ const DepartmentList = () => {
                       >
                         <div className="d-flex form-outline pt-3">
                           <div className="form-group">
-                            <div className=" input-form custom-file">
+                            <div className="custom-file">
                               <input
                                 type="file"
                                 className="custom-file-input"
@@ -167,6 +186,7 @@ const DepartmentList = () => {
                               </label>
                             </div>
                           </div>
+
                           <div className="form-group ml-2">
                             <button
                               type="submit"
@@ -257,6 +277,12 @@ const DepartmentList = () => {
                               to={`/admin/department/detail/${department.id}`}
                             >
                               Chi tiết
+                            </Link>
+                            <Link
+                              className="btn btn-sm btn-outline-success btn-flat"
+                              to={`/admin/department/edit/${department.id}`}
+                            >
+                              Sửa
                             </Link>
                             <button
                               onClick={() => deleteDepartment(department.id)}
