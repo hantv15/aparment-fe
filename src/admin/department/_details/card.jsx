@@ -23,14 +23,6 @@ const Card = () => {
                             <th scope="col">Lần cấp</th>
                             <th scope="col">Biển xe</th>
                             <th scope="col">Loại</th>
-                            <th>
-                              <a
-                                className="btn btn-sm btn-outline-success btn-flat"
-                                to="/admin/department/add"
-                              >
-                                Thêm mới
-                              </a>
-                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -42,17 +34,6 @@ const Card = () => {
                             <td>1</td>
                             <td>29A1-88666</td>
                             <td>Ô tô</td>
-                            <td>
-                              <a
-                                className="btn btn-sm btn-outline-success btn-flat"
-                                // onId={department.id}
-                              >
-                                Sửa
-                              </a>
-                              <button className="btn btn-sm btn-outline-danger btn-flat">
-                                Xóa
-                              </button>
-                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -60,7 +41,7 @@ const Card = () => {
                   </div>
                   <div className="row">
                     <div className="col-sm-12">
-                      <ReactPaginate
+                      {/* <ReactPaginate
                         previousLabel={"previous"}
                         nextLabel={"next"}
                         breakLabel={"..."}
@@ -76,7 +57,7 @@ const Card = () => {
                         nextClassName={"page-item"}
                         nextLinkClassName={"page-link"}
                         activeClassName={"active"}
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>

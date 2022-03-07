@@ -279,7 +279,7 @@ const DepartmentList = () => {
                               Chi tiết
                             </Link>
                             <Link
-                              className="btn btn-sm btn-outline-primary btn-flat"
+                              className="btn btn-sm btn-outline-success btn-flat"
                               to={`/admin/department/edit/${department.id}`}
                             >
                               Sửa
