@@ -107,6 +107,20 @@ const Menu = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
+                <NavLink
+                  exact
+                  activeClassName="active"
+                  to="/admin/service"
+                  className="nav-link"
+                >
+                  <i className="nav-icon fas fa-th" />
+                  <p>
+                    Dịch vụ
+                    {/* <span className="right badge badge-danger">New</span> */}
+                  </p>
+                </NavLink>
+              </li>
+              <li className="nav-item">
                 <a
                   exact
                   activeClassName="active"

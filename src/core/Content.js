@@ -19,7 +19,7 @@ const Content = ({ title = "Dashboard", subName = "Admin", children }) => {
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <p href="#">{subName}</p>
+                    <p href="#">Admin</p>
                   </li>
                   <li className="breadcrumb-item active">{title}</li>
                 </ol>

@@ -11,6 +11,8 @@ import UserAddForm from "./admin/user/Form/UserAddForm";
 import UserEditForm from "./admin/user/Form/UserEditForm";
 import DepartmentDetail from "./admin/department/DepartmentDetail";
 import Invoice from "./admin/department/_printf/Invoice";
+import ServiceList from "./admin/service/ServiceList";
+import ServiceFormAdd from "./admin/service/Form/ServiceFormAdd";
 const Routes = () => {
   return (
     <Router>
@@ -44,6 +46,13 @@ const Routes = () => {
             </Route>
             <Route exact path="/admin/department/invoice">
               <Invoice />
+            </Route>
+            {/* Service */}
+            <Route exact path="/admin/service">
+              <ServiceList />
+            </Route>
+            <Route exact path="/admin/service/add">
+              <ServiceFormAdd />
             </Route>
           </PrivateRoute>
 
