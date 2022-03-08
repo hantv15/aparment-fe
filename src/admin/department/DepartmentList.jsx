@@ -4,23 +4,44 @@ import ReactPaginate from "react-paginate";
 import querystring from "query-string";
 import Swal from "sweetalert2";
 // ES6 Modules or TypeScript
-import { fetchPagination, remove } from "../../common/departmentAPI";
 import Content from "../../core/Content";
-import DepartmentSearch from "./DepartmentSearch";
 import DepartmentDetail from "./DepartmentDetail";
 import axios from "axios";
-import { useForm } from "react-hook-form";
+import { get } from "../../common/apartment";
+import SelectOption from "../../components/SelectOption";
 const DepartmentList = () => {
-  const [departments, setDepartments] = useState([]);
-  const [floorList, setFloorList] = useState([]);
+  const [apartments, setApartments] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [file, setFile] = useState({});
-
-  const limit = 2;
   const [filters, setFilters] = useState({
+    page_size: 10,
+    page: 1,
     building_id: "",
     keyword: "",
   });
+  const pageSize = [
+    {
+      label: "Hiển thị 10 mục",
+      value: 10,
+    },
+    {
+      label: "Hiển thị 2 mục",
+      value: 2,
+    },
+    {
+      label: "Hiển thị 5 mục",
+      value: 5,
+    },
+
+    {
+      label: "Hiển thị 15 mục",
+      value: 15,
+    },
+    {
+      label: "Hiển thị 20 mục",
+      value: 20,
+    },
+  ];
   const statusOptions = [
     {
       value: 1,
@@ -31,85 +52,48 @@ const DepartmentList = () => {
       name: "InActive",
     },
   ];
+
+  const paramString = querystring.stringify(filters);
+
   useEffect(() => {
-    const getAllDepartments = async () => {
-      const paramString = querystring.stringify(filters);
-      const res = await fetch(
-        `http://apartment-system.xyz/api/apartment?${paramString}`
-      );
-      const data = await res.json();
-      setPageCount(Math.ceil(data.data.length / 10));
-      setDepartments(data.data);
-      console.log(data);
-    };
-
-    getAllDepartments();
-
-    const getFloors = async () => {
-      try {
-        const res = await fetch(`http://apartment-system.xyz/api/building`);
-        const data = await res.json();
-        setFloorList(data.data);
-      } catch (error) {
-        console.log("Failed tp fetch floor list: ", error.message);
-      }
-    };
-    getFloors();
-  }, [filters]);
-
-  console.log(floorList);
-  console.log(departments);
-
-  const fetchDepartments = async (currentPage) => {
     try {
-      const data = await fetchPagination(currentPage, limit);
-      // const data = await res.json();
-      setDepartments(data.data);
-      console.log(data.data);
+      const getApartments = async () => {
+        const { data } = await get();
+        const countData = Math.ceil(data.data.length / filters.page_size);
+        setPageCount(countData);
+      };
+      getApartments();
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
+  });
+
+  useEffect(() => {
+    try {
+      const getApartments = async () => {
+        const { data } = await get(paramString);
+        setApartments(data.data);
+      };
+      getApartments();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [paramString]);
+
+  const handleChangePageSize = (value) => {
+    setFilters({
+      ...filters,
+      page_size: value,
+    });
   };
 
-  const handlePageClick = async (data) => {
+  const handlePageClick = (data) => {
     const currentPage = data.selected + 1;
-    fetchDepartments(currentPage);
-  };
-
-  const deleteDepartment = async (id) => {
-    try {
-      const { data } = await remove(id);
-      const newDepartment = departments.filter((item) => item.id !== data.id);
-      setDepartments(newDepartment);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  function handleSearchChange(newFilters) {
-    console.log("New filter: ", newFilters);
-    if (newFilters == "") {
-      setFilters({
-        ...filters,
-      });
-    }
     setFilters({
       ...filters,
-      keyword: newFilters.searchTerm,
+      page: currentPage,
     });
-  }
-
-  function handleFilterFloor(e) {
-    setFilters({
-      ...filters,
-      building_id: e.target.value,
-    });
-  }
-
-  const handleChange = (e) => {
-    setFile(e.target.files[0]);
   };
-
   const submitHandler = (e) => {
     e.preventDefault();
     if (
@@ -176,7 +160,7 @@ const DepartmentList = () => {
                                 type="file"
                                 className="custom-file-input"
                                 id="customFile"
-                                onChange={handleChange}
+                                // onChange={handleChange}
                               />
                               <label
                                 className="custom-file-label"
@@ -213,22 +197,13 @@ const DepartmentList = () => {
                 <div className="col-sm-6">
                   <div className="input-group d-flex flex-row-reverse rounded my-2 ms-2">
                     <div className="form-outline ">
-                      <DepartmentSearch onSubmit={handleSearchChange} />
+                      {/* <DepartmentSearch onSubmit={handleSearchChange} /> */}
                     </div>
                     <div className="form-outline mr-2">
-                      <select
-                        className="form-control"
-                        onChange={handleFilterFloor}
-                      >
-                        <option selected value="">
-                          Chọn tòa
-                        </option>
-                        {floorList.map((item, index) => (
-                          <option key={index} value={item.id}>
-                            {item.name}
-                          </option>
-                        ))}
-                      </select>
+                      <SelectOption
+                        array={pageSize}
+                        handleGetValue={handleChangePageSize}
+                      />
                     </div>
                   </div>
                 </div>
@@ -256,7 +231,7 @@ const DepartmentList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {departments.map((department, index) => (
+                      {apartments.map((department, index) => (
                         <tr key={department.id}>
                           <th scope="row">{index + 1}</th>
                           <td>{department.apartment_id}</td>
@@ -284,10 +259,7 @@ const DepartmentList = () => {
                             >
                               Sửa
                             </Link>
-                            <button
-                              onClick={() => deleteDepartment(department.id)}
-                              className="btn btn-sm btn-outline-danger btn-flat"
-                            >
+                            <button className="btn btn-sm btn-outline-danger btn-flat">
                               Xóa
                             </button>
                           </td>

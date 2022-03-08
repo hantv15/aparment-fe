@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import PageSize from "../../common/PageSize";
 import Content from "../../core/Content";
 import axios from "axios";
 import querystring from "query-string";
 import ReactPaginate from "react-paginate";
+import SelectOption from "../../components/SelectOption";
+import { get } from "../../common/service";
 const ServiceList = () => {
   const [services, setServices] = useState([]);
   const [pageCount, setPageCount] = useState("");
@@ -15,27 +16,24 @@ const ServiceList = () => {
 
   const pageSize = [
     {
-      label: "Chọn size",
+      label: "Hiển thị 10 mục",
       value: 10,
     },
     {
-      label: 2,
+      label: "Hiển thị 2 mục",
       value: 2,
     },
     {
-      label: 5,
+      label: "Hiển thị 5 mục",
       value: 5,
     },
+
     {
-      label: 10,
-      value: 10,
-    },
-    {
-      label: 15,
+      label: "Hiển thị 15 mục",
       value: 15,
     },
     {
-      label: 20,
+      label: "Hiển thị 20 mục",
       value: 20,
     },
   ];
@@ -60,9 +58,7 @@ const ServiceList = () => {
   useEffect(() => {
     try {
       const getServices = async () => {
-        const { data } = await axios.get(
-          `http://apartment-system.xyz/api/service`
-        );
+        const { data } = await get();
         const countData = data.data.length;
         setPageCount(Math.ceil(countData / filters.page_size));
       };
@@ -75,16 +71,14 @@ const ServiceList = () => {
   useEffect(() => {
     try {
       const getAllService = async () => {
-        const res = await axios.get(
-          `http://apartment-system.xyz/api/service?${paramString}`
-        );
-        setServices(res.data.data);
+        const { data } = await get(paramString);
+        setServices(data.data);
       };
       getAllService();
     } catch (error) {
       console.log(error.message);
     }
-  }, [filters]);
+  }, [paramString]);
 
   const handleArrange = (value) => {
     setFilters({
@@ -101,7 +95,6 @@ const ServiceList = () => {
   };
 
   const handlePageClick = (data) => {
-    console.log(data.selected + 1);
     let currentPage = data.selected + 1;
     setFilters({
       ...filters,
@@ -115,9 +108,9 @@ const ServiceList = () => {
           <div className="col-12">
             <div className="card">
               <div className="card-body">
-                <div className="row ">
+                <div className="row">
                   <div className="col-sm-12">
-                    <div className="input-group d-flex flex-row-reverse rounded my-2 ms-2">
+                    <div className="d-flex flex-row-reverse rounded my-2 ms-2">
                       {/* <div className="form-outline ">
                         <input
                           placeholder="Tìm kiếm"
@@ -125,18 +118,18 @@ const ServiceList = () => {
                           type="text"
                         />
                       </div> */}
+                      {/* desc asc */}
+                      <SelectOption
+                        array={options}
+                        handleGetValue={handleArrange}
+                      />
+                      {/* desc asc */}
                       {/* pagesize */}
-                      <PageSize
-                        pageSize={pageSize}
-                        handleChangePageSize={handleChangePageSize}
+                      <SelectOption
+                        array={pageSize}
+                        handleGetValue={handleChangePageSize}
                       />
                       {/* end pagesize */}
-                      {/* desc asc */}
-                      <PageSize
-                        pageSize={options}
-                        handleChangePageSize={handleArrange}
-                      />
-                      {/* desc asc */}
                     </div>
                   </div>
                 </div>

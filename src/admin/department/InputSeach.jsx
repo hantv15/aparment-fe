@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-DepartmentSearch.propTypes = {
+InputSeach.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-DepartmentSearch.defaultProps = {
+InputSeach.defaultProps = {
   onSubmit: null,
 };
 
-function DepartmentSearch(props) {
+function InputSeach(props) {
   const { onSubmit } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const typingTimeoutRef = useRef(null);
@@ -42,4 +42,4 @@ function DepartmentSearch(props) {
   );
 }
 
-export default DepartmentSearch;
+export default InputSeach;
