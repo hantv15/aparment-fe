@@ -85,7 +85,7 @@ const Menu = () => {
                   to="/admin/department"
                   className="nav-link"
                 >
-                  <i className="nav-icon fas fa-th" />
+                  <i class="fa-solid fa-apartment"></i>
                   <p>
                     Căn hộ
                     {/* <span className="right badge badge-danger">New</span> */}

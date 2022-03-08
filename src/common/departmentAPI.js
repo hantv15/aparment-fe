@@ -1,5 +1,4 @@
 import instance from "./instance";
-import { isAuthenticate } from "../auth";
 
 export const getAll = () => {
     const url = '/departments';
