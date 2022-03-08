@@ -37,11 +37,7 @@ const SignIn = () => {
 
   const redirecUser = () => {
     if (success) {
-      if (data.data.role_id == 1) {
-        return <Redirect to="/admin/dashboard" />;
-      } else {
-        return <Redirect to="/" />;
-      }
+      return <Redirect to="/admin/dashboard" />;
     }
   };
 

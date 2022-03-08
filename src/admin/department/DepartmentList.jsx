@@ -9,6 +9,7 @@ import DepartmentDetail from "./DepartmentDetail";
 import axios from "axios";
 import { get } from "../../common/apartment";
 import SelectOption from "../../components/SelectOption";
+import InputSearch from "../../components/InputSearch";
 const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -66,7 +67,7 @@ const DepartmentList = () => {
     } catch (error) {
       console.log(error.message);
     }
-  });
+  }, [filters.page_size]);
 
   useEffect(() => {
     try {
@@ -78,7 +79,7 @@ const DepartmentList = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }, [paramString]);
+  }, [filters]);
 
   const handleChangePageSize = (value) => {
     setFilters({
@@ -87,12 +88,19 @@ const DepartmentList = () => {
     });
   };
 
+  const handleGetValue = (value) => {
+    setFilters({
+      ...filters,
+      keyword: value,
+    });
+  };
   const handlePageClick = (data) => {
     const currentPage = data.selected + 1;
     setFilters({
       ...filters,
       page: currentPage,
     });
+    console.log("currentPage: ", currentPage);
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -198,6 +206,7 @@ const DepartmentList = () => {
                   <div className="input-group d-flex flex-row-reverse rounded my-2 ms-2">
                     <div className="form-outline ">
                       {/* <DepartmentSearch onSubmit={handleSearchChange} /> */}
+                      <InputSearch handleGetValue={handleGetValue} />
                     </div>
                     <div className="form-outline mr-2">
                       <SelectOption
