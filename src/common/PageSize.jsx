@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
-const PageSize = ({ handlePageSize }) => {
+const PageSize = ({ pageSize, handleChangePageSize }) => {
+  const handleSelect = (e) => {
+    handleChangePageSize(e.target.value);
+  };
   return (
     <>
       <div className="form-outline mr-2">
-        <select className="form-control">
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
+        <select onChange={handleSelect} className="form-control">
+          {pageSize.map((item) => (
+            <option value={item.value}>{item.label}</option>
+          ))}
         </select>
       </div>
     </>

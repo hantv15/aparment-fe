@@ -3,21 +3,81 @@ import PageSize from "../../common/PageSize";
 import Content from "../../core/Content";
 import axios from "axios";
 import querystring from "query-string";
+import ReactPaginate from "react-paginate";
 const ServiceList = () => {
   const [services, setServices] = useState([]);
+  const [pageCount, setPageCount] = useState("");
   const [filters, setFilters] = useState({
-    page_size: "",
+    page_size: 10,
     page: 1,
     price: "",
   });
+
+  const pageSize = [
+    {
+      label: "Chọn size",
+      value: 10,
+    },
+    {
+      label: 2,
+      value: 2,
+    },
+    {
+      label: 5,
+      value: 5,
+    },
+    {
+      label: 10,
+      value: 10,
+    },
+    {
+      label: 15,
+      value: 15,
+    },
+    {
+      label: 20,
+      value: 20,
+    },
+  ];
+
+  const options = [
+    {
+      label: "Sắp xếp",
+      value: "",
+    },
+    {
+      label: "Giảm dần",
+      value: 1,
+    },
+    {
+      label: "Tăng dần",
+      value: 2,
+    },
+  ];
+
   const paramString = querystring.stringify(filters);
+
+  useEffect(() => {
+    try {
+      const getServices = async () => {
+        const { data } = await axios.get(
+          `http://apartment-system.xyz/api/service`
+        );
+        const countData = data.data.length;
+        setPageCount(Math.ceil(countData / filters.page_size));
+      };
+      getServices();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [filters.page_size]);
+
   useEffect(() => {
     try {
       const getAllService = async () => {
         const res = await axios.get(
           `http://apartment-system.xyz/api/service?${paramString}`
         );
-        console.log(res.data.data);
         setServices(res.data.data);
       };
       getAllService();
@@ -26,10 +86,28 @@ const ServiceList = () => {
     }
   }, [filters]);
 
-  const handleSapXep = (e) => {
-    console.log(e.target.value);
+  const handleArrange = (value) => {
+    setFilters({
+      ...filters,
+      price: value,
+    });
   };
 
+  const handleChangePageSize = (value) => {
+    setFilters({
+      ...filters,
+      page_size: value,
+    });
+  };
+
+  const handlePageClick = (data) => {
+    console.log(data.selected + 1);
+    let currentPage = data.selected + 1;
+    setFilters({
+      ...filters,
+      page: currentPage,
+    });
+  };
   return (
     <>
       <Content title="Danh sách dịch vụ" subName="Dịch vụ">
@@ -40,25 +118,25 @@ const ServiceList = () => {
                 <div className="row ">
                   <div className="col-sm-12">
                     <div className="input-group d-flex flex-row-reverse rounded my-2 ms-2">
-                      <div className="form-outline ">
+                      {/* <div className="form-outline ">
                         <input
                           placeholder="Tìm kiếm"
                           className="form-control justify-content-rig justify-content-right"
                           type="text"
                         />
-                      </div>
-                      <div className="form-outline mr-2">
-                        <select className="form-control">
-                          <option value>Filter</option>
-                          <option value={1}>VP1</option>
-                          <option value={2}>VP 2</option>
-                          <option value={3}>VP3</option>
-                          <option value={4}>VP3</option>
-                        </select>
-                      </div>
+                      </div> */}
                       {/* pagesize */}
-                      <PageSize handlePageSize={handleSapXep} />
+                      <PageSize
+                        pageSize={pageSize}
+                        handleChangePageSize={handleChangePageSize}
+                      />
                       {/* end pagesize */}
+                      {/* desc asc */}
+                      <PageSize
+                        pageSize={options}
+                        handleChangePageSize={handleArrange}
+                      />
+                      {/* desc asc */}
                     </div>
                   </div>
                 </div>
@@ -115,44 +193,23 @@ const ServiceList = () => {
                 </div>
                 <div className="row">
                   <div className="col-sm-12">
-                    <ul className="pagination justify-content-center">
-                      <li className="page-item disabled">
-                        <a
-                          className="page-link "
-                          tabIndex={-1}
-                          role="button"
-                          aria-disabled="true"
-                          aria-label="Previous page"
-                          rel="prev"
-                        >
-                          previous
-                        </a>
-                      </li>
-                      <li className="page-item active">
-                        <a
-                          rel="canonical"
-                          role="button"
-                          className="page-link"
-                          tabIndex={-1}
-                          aria-label="Page 1 is your current page"
-                          aria-current="page"
-                        >
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item disabled">
-                        <a
-                          className="page-link "
-                          tabIndex={-1}
-                          role="button"
-                          aria-disabled="true"
-                          aria-label="Next page"
-                          rel="next"
-                        >
-                          next
-                        </a>
-                      </li>
-                    </ul>
+                    <ReactPaginate
+                      previousLabel={"previous"}
+                      nextLabel={"next"}
+                      breakLabel={"..."}
+                      pageCount={pageCount}
+                      marginPagesDisplayed={3}
+                      pageRangeDisplayed={3}
+                      onPageChange={handlePageClick}
+                      containerClassName={"pagination justify-content-center"}
+                      pageClassName={"page-item"}
+                      pageLinkClassName={"page-link"}
+                      previousClassName={"page-item"}
+                      previousLinkClassName={"page-link"}
+                      nextClassName={"page-item"}
+                      nextLinkClassName={"page-link"}
+                      activeClassName={"active"}
+                    />
                   </div>
                 </div>
               </div>
