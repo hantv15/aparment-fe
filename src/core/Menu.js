@@ -6,7 +6,6 @@ import { isAuthenticate, sigOut } from "../auth";
 const Menu = () => {
   const history = useHistory();
   const { data } = isAuthenticate();
-  console.log(data.data.token);
   const logout = async () => {
     let headersList = {
       "Accept": "*/*",
@@ -85,7 +84,7 @@ const Menu = () => {
                   to="/admin/department"
                   className="nav-link"
                 >
-                  <i class="fa-solid fa-apartment"></i>
+                  <i className="nav-icon fas fa-th" />
                   <p>
                     Căn hộ
                     {/* <span className="right badge badge-danger">New</span> */}
