@@ -5,6 +5,7 @@ import querystring from "query-string";
 import ReactPaginate from "react-paginate";
 import SelectOption from "../../components/SelectOption";
 import { get } from "../../common/service";
+import InputSearch from "../../components/InputSearch";
 const ServiceList = () => {
   const [services, setServices] = useState([]);
   const [pageCount, setPageCount] = useState("");
@@ -103,6 +104,14 @@ const ServiceList = () => {
     });
   };
   console.log(typeof services);
+
+  const handleGetValue = (value) => {
+    setFilters({
+      ...filters,
+      keyword: value,
+    });
+    console.log(value);
+  };
   return (
     <>
       <Content title="Danh sách dịch vụ" subName="Dịch vụ">
@@ -121,6 +130,7 @@ const ServiceList = () => {
                         />
                       </div> */}
                       {/* desc asc */}
+                      <InputSearch handleGetValue={handleGetValue} />
                       <SelectOption
                         array={options}
                         handleGetValue={handleArrange}
@@ -131,6 +141,7 @@ const ServiceList = () => {
                         array={pageSize}
                         handleGetValue={handleChangePageSize}
                       />
+
                       {/* end pagesize */}
                     </div>
                   </div>

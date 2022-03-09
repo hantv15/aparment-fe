@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const InputSearch = ({ handleGetValue }) => {
+const InputSearch = ({ handleGetValue, className }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchTermChange = (e) => {
@@ -9,13 +9,15 @@ const InputSearch = ({ handleGetValue }) => {
   };
   return (
     <>
-      <input
-        placeholder="Tìm kiếm"
-        className="form-control justify-content-rig justify-content-right"
-        type="text"
-        value={searchTerm}
-        onChange={handleSearchTermChange}
-      />
+      <div className="form-group">
+        <input
+          placeholder="Tìm kiếm"
+          className={`form-control justify-content-rig justify-content-right ${className}`}
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchTermChange}
+        />
+      </div>
     </>
   );
 };
