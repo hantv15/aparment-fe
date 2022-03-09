@@ -6,13 +6,14 @@ import ReactPaginate from "react-paginate";
 import SelectOption from "../../components/SelectOption";
 import { get } from "../../common/service";
 import InputSearch from "../../components/InputSearch";
+import DepartmentSearch from "../department/DepartmentSearch";
 const ServiceList = () => {
   const [services, setServices] = useState([]);
   const [pageCount, setPageCount] = useState("");
   const [filters, setFilters] = useState({
     page_size: 10,
     page: 1,
-    price: "",
+    sort: "",
   });
 
   const pageSize = [
@@ -52,6 +53,14 @@ const ServiceList = () => {
       label: "Tăng dần",
       value: 2,
     },
+    {
+      label: "Từ A-Z",
+      value: 3,
+    },
+    {
+      label: "Từ Z-A",
+      value: 4,
+    },
   ];
 
   const paramString = querystring.stringify(filters);
@@ -85,7 +94,7 @@ const ServiceList = () => {
   const handleArrange = (value) => {
     setFilters({
       ...filters,
-      price: value,
+      sort: value,
     });
   };
 
@@ -105,13 +114,19 @@ const ServiceList = () => {
   };
   console.log(typeof services);
 
-  const handleGetValue = (value) => {
+  function handleSearchChange(newFilters) {
+    console.log("New filter: ", newFilters);
+    if (newFilters == "") {
+      setFilters({
+        ...filters,
+      });
+    }
     setFilters({
       ...filters,
-      keyword: value,
+      keyword: newFilters.searchTerm,
     });
-    console.log(value);
-  };
+  }
+  const pageNumber = filters.page;
   return (
     <>
       <Content title="Danh sách dịch vụ" subName="Dịch vụ">
@@ -130,7 +145,7 @@ const ServiceList = () => {
                         />
                       </div> */}
                       {/* desc asc */}
-                      <InputSearch handleGetValue={handleGetValue} />
+                      <DepartmentSearch onSubmit={handleSearchChange} />
                       <SelectOption
                         array={options}
                         handleGetValue={handleArrange}
@@ -200,6 +215,7 @@ const ServiceList = () => {
                 <div className="row">
                   <div className="col-sm-12">
                     <ReactPaginate
+                      forcePage={0}
                       previousLabel={"previous"}
                       nextLabel={"next"}
                       breakLabel={"..."}

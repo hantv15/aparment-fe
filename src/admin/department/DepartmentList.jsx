@@ -10,6 +10,7 @@ import axios from "axios";
 import { get } from "../../common/apartment";
 import SelectOption from "../../components/SelectOption";
 import InputSearch from "../../components/InputSearch";
+import DepartmentSearch from "./DepartmentSearch";
 const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -88,12 +89,18 @@ const DepartmentList = () => {
     });
   };
 
-  const handleGetValue = (value) => {
+  function handleSearchChange(newFilters) {
+    console.log("New filter: ", newFilters);
+    if (newFilters == "") {
+      setFilters({
+        ...filters,
+      });
+    }
     setFilters({
       ...filters,
-      keyword: value,
+      keyword: newFilters.searchTerm,
     });
-  };
+  }
   const handlePageClick = (data) => {
     const currentPage = data.selected + 1;
     setFilters({
@@ -205,8 +212,8 @@ const DepartmentList = () => {
                 <div className="col-sm-6">
                   <div className="input-group d-flex flex-row-reverse rounded my-2 ms-2">
                     <div className="form-outline ">
-                      {/* <DepartmentSearch onSubmit={handleSearchChange} /> */}
-                      <InputSearch handleGetValue={handleGetValue} />
+                      <DepartmentSearch onSubmit={handleSearchChange} />
+                      {/* <InputSearch handleGetValue={handleGetValue} /> */}
                     </div>
                     <div className="form-outline mr-2">
                       <SelectOption

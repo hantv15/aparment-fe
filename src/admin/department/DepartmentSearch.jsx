@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-InputSeach.propTypes = {
+DepartmentSearch.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-InputSeach.defaultProps = {
+DepartmentSearch.defaultProps = {
   onSubmit: null,
 };
 
-function InputSeach(props) {
+function DepartmentSearch(props) {
   const { onSubmit } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const typingTimeoutRef = useRef(null);
@@ -32,14 +32,16 @@ function InputSeach(props) {
     }, 300);
   }
   return (
-    <input
-      placeholder="Tìm kiếm"
-      className="form-control justify-content-rig justify-content-right"
-      type="text"
-      value={searchTerm}
-      onChange={handleSearchTermChange}
-    />
+    <div className="form-group">
+      <input
+        placeholder="Tìm kiếm"
+        className="form-control justify-content-rig justify-content-right"
+        type="text"
+        value={searchTerm}
+        onChange={handleSearchTermChange}
+      />
+    </div>
   );
 }
 
-export default InputSeach;
+export default DepartmentSearch;
