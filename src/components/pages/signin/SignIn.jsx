@@ -27,7 +27,7 @@ const SignIn = () => {
     if (success) {
       if (role_id == 2) {
         console.log("client: ", role_id);
-        return <Redirect to="/client" />;
+        return <Redirect to="/dashboard" />;
       } else {
         localStorage.removeItem("user");
         return <Redirect to="/" />;

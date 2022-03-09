@@ -4,7 +4,7 @@ import { isAuthenticate, logOut } from "../auth";
 import Navbar from "./_part/Navbar";
 import Sidebar from "./_part/Sidebar";
 
-const Content = ({ title = "Dashboard", subName = "Admin", children }) => {
+const Content = ({ title = "Dashboard", subTitle = "Dashboard", children }) => {
   const history = useHistory();
   const { data } = isAuthenticate();
   const logout = async () => {
@@ -29,15 +29,6 @@ const Content = ({ title = "Dashboard", subName = "Admin", children }) => {
     <>
       <div>
         {/* Preloader */}
-        <div className="preloader flex-column justify-content-center align-items-center">
-          <img
-            className="animation__shake"
-            src="dist/img/AdminLTELogo.png"
-            alt="AdminLTELogo"
-            height={60}
-            width={60}
-          />
-        </div>
         {/* Navbar */}
         <Navbar />
         {/* /.navbar */}
@@ -51,42 +42,12 @@ const Content = ({ title = "Dashboard", subName = "Admin", children }) => {
               className="brand-image img-circle elevation-3"
               style={{ opacity: ".8" }}
             />
-            <span className="brand-text font-weight-light">AdminLTE 3</span>
+            <span className="brand-text font-weight-light">
+              Apartment Admin
+            </span>
           </a>
           {/* Sidebar */}
           <div className="sidebar">
-            {/* Sidebar user panel (optional) */}
-            <div className="user-panel mt-3 pb-3 mb-3 d-flex">
-              <div className="image">
-                <img
-                  src="dist/img/user2-160x160.jpg"
-                  className="img-circle elevation-2"
-                  alt="User Image"
-                />
-              </div>
-              <div className="info">
-                <a href="#" className="d-block">
-                  Alexander Pierce
-                </a>
-              </div>
-            </div>
-            {/* SidebarSearch Form */}
-            <div className="form-inline">
-              <div className="input-group" data-widget="sidebar-search">
-                <input
-                  className="form-control form-control-sidebar"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <div className="input-group-append">
-                  <button className="btn btn-sidebar">
-                    <i className="fas fa-search fa-fw" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* Sidebar Menu */}
             <Sidebar />
             {/* /.sidebar-menu */}
           </div>
@@ -99,7 +60,7 @@ const Content = ({ title = "Dashboard", subName = "Admin", children }) => {
             <div className="container-fluid">
               <div className="row mb-2">
                 <div className="col-sm-6">
-                  <h1 className="m-0">Dashboard</h1>
+                  <h1 className="m-0">{title}</h1>
                 </div>
                 {/* /.col */}
                 <div className="col-sm-6">
@@ -107,7 +68,7 @@ const Content = ({ title = "Dashboard", subName = "Admin", children }) => {
                     <li className="breadcrumb-item">
                       <a href="#">Home</a>
                     </li>
-                    <li className="breadcrumb-item active">Dashboard v1</li>
+                    <li className="breadcrumb-item active">{subTitle}</li>
                   </ol>
                 </div>
                 {/* /.col */}
