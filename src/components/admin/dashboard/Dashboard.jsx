@@ -6,7 +6,6 @@ import Content from "../../core/Content";
 const Dashboard = () => {
   const [file, setFile] = useState({});
   const { data } = isAuthenticate();
-  console.log("token: ", data.token);
   const handleChange = (e) => {
     setFile(e.target.files[0]);
   };

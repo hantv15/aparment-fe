@@ -11,49 +11,19 @@ const SignIn = () => {
     formState: { errors },
   } = useForm();
 
-  const { role_id } = isAuthenticate();
-
-  const onSubmit = async (user) => {
-    try {
-      const { data } = await signIn(user);
-      authenticate(data);
-      setSuccess(true);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const redirecUser = () => {
-    if (success) {
-      if (role_id == 2) {
-        console.log("client: ", role_id);
-        return <Redirect to="/dashboard" />;
-      } else {
-        localStorage.removeItem("user");
-        return <Redirect to="/" />;
-      }
-    }
-  };
-
-  redirecUser();
-
-  if (isAuthenticate()) {
-    return <Redirect to="/client" />;
-  }
-
   return (
     <>
       <div className="login-box">
         <div className="login-logo">
           <a href="../../index2.html">
-            <b>Admin</b>LTE
+            <b>Admin</b> Apartment
           </a>
         </div>
         {/* /.login-logo */}
         <div className="card">
           <div className="card-body login-card-body">
-            <p className="login-box-msg">Sign in to start your session</p>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <p className="login-box-msg">Đăng nhập</p>
+            <form onSubmit={handleSubmit()}>
               <div className="input-group mb-3">
                 <input
                   className="form-control"
@@ -93,7 +63,7 @@ const SignIn = () => {
               </div>
             </form>
             <p className="mb-1">
-              <a href="forgot-password.html">I forgot my password</a>
+              <a href="forgot-password.html">Quên mật khẩu</a>
             </p>
           </div>
           {/* /.login-card-body */}

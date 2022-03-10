@@ -17,7 +17,7 @@ export const logOut = () => {
 }
 
 export const authenticate = (data) => {
-    if (typeof window != undefined) {
+    if (typeof window != 'undefined') {
         localStorage.setItem('user', JSON.stringify(data));
     }
 }
