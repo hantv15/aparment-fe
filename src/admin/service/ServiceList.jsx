@@ -215,7 +215,7 @@ const ServiceList = () => {
                 <div className="row">
                   <div className="col-sm-12">
                     <ReactPaginate
-                      forcePage={filters.page}
+                      // forcePage={}
                       previousLabel={"previous"}
                       nextLabel={"next"}
                       breakLabel={"..."}
