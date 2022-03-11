@@ -10,7 +10,6 @@ const DepartmentFormAdd = () => {
     formState: { errors }
   } = useForm();
 
-
   const { id } = useParams();
   console.log(id);
 
@@ -38,7 +37,7 @@ const DepartmentFormAdd = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tên căn hộ</label>
+                    <label htmlFor="exampleInputEmail1">Mã căn hộ</label>
                     <input
                       type="text"
                       className="form-control"
