@@ -107,6 +107,9 @@ const ServiceList = () => {
         <div className="row">
           <div className="col-12">
             <div className="card">
+              <div className="card-header">
+                <h3>Danh sách dịch vụ</h3>
+              </div>
               <div className="card-body">
                 <div className="row">
                   <div className="col-sm-12">
