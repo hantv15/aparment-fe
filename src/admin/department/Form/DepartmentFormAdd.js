@@ -43,6 +43,7 @@ const DepartmentFormAdd = () => {
 
   const handleSelectBuilding = (e) => {
     console.log(e.target.value);
+
   }
 
   const addDepartment = () => {
@@ -73,7 +74,7 @@ const DepartmentFormAdd = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Tòa nhà</label>
-                    <select onChange={handleSelectBuilding} className="form-control">
+                    <select {...register('building_id')} className="form-control">
                       {buildings.map((item) => (
                         <option value={item.id}>{item.name}</option>
                       ))}
