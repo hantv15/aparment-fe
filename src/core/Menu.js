@@ -6,7 +6,6 @@ import { isAuthenticate, sigOut } from "../auth";
 const Menu = () => {
   const history = useHistory();
   const { data } = isAuthenticate();
-  console.log(data.data.token);
   const logout = async () => {
     let headersList = {
       "Accept": "*/*",

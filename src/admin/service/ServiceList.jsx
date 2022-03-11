@@ -73,6 +73,7 @@ const ServiceList = () => {
       const getAllService = async () => {
         const { data } = await get(paramString);
         setServices(data.data);
+        console.log(data.data);
       };
       getAllService();
     } catch (error) {
@@ -101,6 +102,7 @@ const ServiceList = () => {
       page: currentPage,
     });
   };
+  console.log(typeof services);
   return (
     <>
       <Content title="Danh sách dịch vụ" subName="Dịch vụ">
