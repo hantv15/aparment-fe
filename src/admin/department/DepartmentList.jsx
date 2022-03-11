@@ -9,7 +9,7 @@ import DepartmentDetail from "./DepartmentDetail";
 import axios from "axios";
 import { get } from "../../common/apartment";
 import SelectOption from "../../components/SelectOption";
-import InputSearch from "../../components/InputSearch";
+import InputSeach from "./InputSeach";
 const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -206,7 +206,7 @@ const DepartmentList = () => {
                   <div className="input-group d-flex flex-row-reverse rounded my-2 ms-2">
                     <div className="form-outline ">
                       {/* <DepartmentSearch onSubmit={handleSearchChange} /> */}
-                      <InputSearch handleGetValue={handleGetValue} />
+                      <InputSeach onSubmit={handleSearchChange} />
                     </div>
                     <div className="form-outline mr-2">
                       <SelectOption
