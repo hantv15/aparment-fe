@@ -4,7 +4,8 @@ import axios from "axios";
 import querystring from "query-string";
 import ReactPaginate from "react-paginate";
 import SelectOption from "../../components/SelectOption";
-import { get } from "../../common/service";
+import { get } from "../../api/service";
+import InputSearch from "../../components/InputSearch";
 const ServiceList = () => {
   const [services, setServices] = useState([]);
   const [pageCount, setPageCount] = useState("");
@@ -12,6 +13,7 @@ const ServiceList = () => {
     page_size: 10,
     page: 1,
     sort: "",
+    keyword: "",
   });
 
   const pageSize = [
@@ -106,6 +108,13 @@ const ServiceList = () => {
     });
   };
   console.log(filters);
+
+  const handleGetValue = (value) => {
+    setFilters({
+      ...filters,
+      keyword: value,
+    });
+  };
   return (
     <>
       <Content title="Danh sách dịch vụ" subName="Dịch vụ">
@@ -124,6 +133,10 @@ const ServiceList = () => {
                         />
                       </div> */}
                       {/* desc asc */}
+                      <div className="form-outline ">
+                        {/* <DepartmentSearch onSubmit={handleSearchChange} /> */}
+                        <InputSearch handleGetValue={handleGetValue} />
+                      </div>
                       <SelectOption
                         array={options}
                         handleGetValue={handleArrange}
