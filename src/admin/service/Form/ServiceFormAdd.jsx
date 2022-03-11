@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
@@ -9,7 +10,10 @@ const ServiceFormAdd = () => {
     formState: { errors },
   } = useForm();
 
-  const handleAddService = async (item) => {};
+  const handleAddService = async (item) => {
+    await addService(item);
+    console.log(1);
+  };
   const onSubmit = (item) => {
     handleAddService(item);
   };
@@ -24,75 +28,45 @@ const ServiceFormAdd = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Mã căn hộ</label>
+                    <label htmlFor="exampleInputEmail1">Tên dịch vụ</label>
                     <input
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
-                      placeholder="Nhập mã căn hộ"
-                      {...register("department_id", {
+                      placeholder="Nhập tên dịch vụ"
+                      {...register("name", {
                         required: true,
-                        pattern: /^[a-zA-Z0-9_.-]*$/i,
                       })}
                     />
                     {errors?.department_id?.type === "required" && (
                       <p className="text-danger">Hãy nhập trường này</p>
                     )}
-                    {errors?.department_id?.type === "pattern" && (
-                      <p className="text-danger">Hãy nhập các ký từ A-z</p>
-                    )}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tên tòa nhà</label>
+                    <label htmlFor="exampleInputEmail1">Giá</label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="exampleInputEmail1"
-                      placeholder="Nhập mã căn hộ"
-                      {...register("tower", {
+                      placeholder="Nhập giá dịch vụ"
+                      {...register("price", {
                         required: true,
                       })}
                     />
                     {errors?.tower?.type === "required" && (
                       <p className="text-danger">Hãy nhập trường này</p>
                     )}
-                    {errors?.tower?.type === "pattern" && (
-                      <p className="text-danger">Hãy nhập các ký từ A-z</p>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">
-                      Kích thước căn hộ
-                    </label>
-                    <input
-                      {...register("square_meter", {
-                        pattern: /^[0-9]*$/,
-                      })}
-                      type="text"
-                      className="form-control"
-                      id="number"
-                      name="square_meter"
-                      placeholder="Nhập kích thước căn hộ"
-                    />
-                    {errors?.square_meters?.type === "pattern" && (
-                      <p className="text-danger">Hãy nhập các ký từ là số</p>
-                    )}
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div class="form-group">
-                    <label>Chủ sở hữu</label>
-                    <select {...register("user_id")} class="form-control">
-                      <option value="1">Hân</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Trạng thái</label>
-                    <select {...register("status")} class="form-control">
-                      <option value="1">Active</option>
-                      <option value="2">InActive</option>
-                    </select>
-                  </div>
+                  <label htmlFor="exampleInputEmail1">Mô tả</label>
+                  <textarea
+                    {...register("description")}
+                    className="form-control"
+                    rows={5}
+                    placeholder="Mô tả ..."
+                    defaultValue={""}
+                  />
                 </div>
               </div>
             </div>

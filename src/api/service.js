@@ -5,6 +5,7 @@ export const get = (param) => {
     return instance.get(url);
 }
 
-export const removeService = (id) => {
-    const url = `/ar`
+export const addService = (data) => {
+    const url = `/service/add`;
+    return instance.post(url, data);
 }
