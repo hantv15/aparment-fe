@@ -4,7 +4,7 @@ import axios from "axios";
 import querystring from "query-string";
 import ReactPaginate from "react-paginate";
 import SelectOption from "../../components/SelectOption";
-import { get } from "../../api/service";
+import { get, NoGetPageService } from "../../api/service";
 import InputSearch from "../../components/InputSearch";
 import { Link } from "react-router-dom";
 const ServiceList = () => {
@@ -13,6 +13,11 @@ const ServiceList = () => {
   const [filters, setFilters] = useState({
     page_size: 10,
     page: 1,
+    sort: "",
+    keyword: "",
+  });
+
+  const [filtersNoPage, setFiltersNoPage] = useState({
     sort: "",
     keyword: "",
   });
@@ -54,14 +59,23 @@ const ServiceList = () => {
       label: "Tăng dần",
       value: 2,
     },
+    {
+      label: "Từ A->Z",
+      value: 3,
+    },
+    {
+      label: "Từ Z->A",
+      value: 4,
+    },
   ];
 
   const paramString = querystring.stringify(filters);
+  const paramNoPageSize = querystring.stringify(filtersNoPage);
 
   useEffect(() => {
     try {
       const getServices = async () => {
-        const { data } = await get();
+        const { data } = await NoGetPageService(paramNoPageSize);
         const countData = data.data.length;
         setPageCount(Math.ceil(countData / filters.page_size));
       };
@@ -69,14 +83,13 @@ const ServiceList = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }, [filters.page_size]);
+  }, [filters]);
 
   useEffect(() => {
     try {
       const getAllService = async () => {
         const { data } = await get(paramString);
         setServices(data.data);
-        console.log(data.data);
       };
       getAllService();
     } catch (error) {
@@ -116,6 +129,8 @@ const ServiceList = () => {
       keyword: value,
     });
   };
+
+  console.log(services);
   return (
     <>
       <Content title="Danh sách dịch vụ" subName="Dịch vụ">
@@ -126,13 +141,6 @@ const ServiceList = () => {
                 <div className="row">
                   <div className="col-sm-12">
                     <div className="d-flex flex-row-reverse rounded my-2 ms-2">
-                      {/* <div className="form-outline ">
-                        <input
-                          placeholder="Tìm kiếm"
-                          className="form-control justify-content-rig justify-content-right"
-                          type="text"
-                        />
-                      </div> */}
                       {/* desc asc */}
                       <div className="form-outline ">
                         {/* <DepartmentSearch onSubmit={handleSearchChange} /> */}
@@ -160,6 +168,7 @@ const ServiceList = () => {
                           <th scope="col">STT</th>
                           <th scope="col">Tên dịch vụ</th>
                           <th scope="col">Giá</th>
+                          <th scope="col">Trạng thái</th>
                           <th scope="col">Mô tả</th>
                           <th>
                             <a
@@ -178,6 +187,11 @@ const ServiceList = () => {
                                 <th scope="row">{index + 1}</th>
                                 <td>{item.name}</td>
                                 <td>{item.price}đ</td>
+                                <td>
+                                  {item.status == 0
+                                    ? "Hoạt động"
+                                    : "Không hoạt động"}
+                                </td>
                                 <td>{item.description}</td>
                                 <td>
                                   {/* <a
@@ -192,9 +206,6 @@ const ServiceList = () => {
                                   >
                                     Sửa
                                   </Link>
-                                  <button className="btn btn-sm btn-outline-danger btn-flat">
-                                    Xóa
-                                  </button>
                                 </td>
                               </tr>
                             ))
@@ -206,6 +217,7 @@ const ServiceList = () => {
                 <div className="row">
                   <div className="col-sm-12">
                     <ReactPaginate
+                      forcePage={0}
                       previousLabel={"previous"}
                       nextLabel={"next"}
                       breakLabel={"..."}
@@ -221,6 +233,7 @@ const ServiceList = () => {
                       nextClassName={"page-item"}
                       nextLinkClassName={"page-link"}
                       activeClassName={"active"}
+                      disableInitialCallback={false}
                     />
                   </div>
                 </div>

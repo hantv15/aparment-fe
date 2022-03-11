@@ -320,9 +320,6 @@ const DepartmentList = () => {
                             >
                               Sửa
                             </Link>
-                            <button className="btn btn-sm btn-outline-danger btn-flat">
-                              Xóa
-                            </button>
                           </td>
                         </tr>
                       ))}
@@ -333,6 +330,7 @@ const DepartmentList = () => {
               <div className="row">
                 <div className="col-sm-12">
                   <ReactPaginate
+                    forcePage={0}
                     previousLabel={"previous"}
                     nextLabel={"next"}
                     breakLabel={"..."}
@@ -347,7 +345,6 @@ const DepartmentList = () => {
                     previousLinkClassName={"page-link"}
                     nextClassName={"page-item"}
                     nextLinkClassName={"page-link"}
-                    activeClassName={"active"}
                   />
                 </div>
               </div>

@@ -1,35 +1,38 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { getServiceById } from "../../../api/service";
 import Content from "../../../core/Content";
 
 const ServiceFormEdit = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: "onBlur" });
 
+  const [service, setService] = useState({});
+
+  const { id } = useParams();
   useEffect(() => {
     try {
       const getService = async () => {
         await axios
-          .get("http://apartment-system.xyz/api/service/3")
-          .then((response) => console.log(response));
+          .get(`http://apartment-system.xyz/api/service/${id}`)
+          .then((response) => setService(response.data.data));
       };
       getService();
     } catch (error) {
       console.log(error);
     }
-  });
+  }, []);
 
   const onSubmit = (item) => {
     try {
       axios
-        .post("http://apartment-system.xyz/api/service/add", item)
+        .post(`http://apartment-system.xyz/api/service/edit/${id}`, item)
         .then(() => {
           var Toast = Swal.mixin({
             toast: true,
@@ -39,7 +42,7 @@ const ServiceFormEdit = () => {
           });
           Toast.fire({
             icon: "success",
-            title: "Thêm mới dịch vụ thành công.",
+            title: "Sủa dịch vụ thành công.",
           });
         });
     } catch (error) {
@@ -63,6 +66,7 @@ const ServiceFormEdit = () => {
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
+                      defaultValue={service.name}
                       placeholder="Nhập tên dịch vụ"
                       {...register("name", {
                         required: true,
@@ -78,6 +82,7 @@ const ServiceFormEdit = () => {
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
+                      defaultValue={service.price}
                       placeholder="Nhập giá dịch vụ"
                       {...register("price", {
                         required: true,
@@ -97,9 +102,9 @@ const ServiceFormEdit = () => {
                   <textarea
                     {...register("description")}
                     className="form-control"
+                    defaultValue={service.description}
                     rows={5}
                     placeholder="Mô tả ..."
-                    defaultValue={""}
                   />
                 </div>
               </div>

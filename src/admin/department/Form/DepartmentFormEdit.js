@@ -1,8 +1,10 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
-import { getBuildings } from "../../../api/buildingAPI";
-import { edit, get } from "../../../common/departmentAPI";
+import Swal from "sweetalert2";
+import { getBuilding, getBuildings } from "../../../api/buildingAPI";
+import { get } from "../../../common/departmentAPI";
 import Content from "../../../core/Content";
 const DepartmentFormEdit = () => {
   const {
@@ -13,6 +15,18 @@ const DepartmentFormEdit = () => {
   } = useForm();
 
   const [buildings, setBuildings] = useState([])
+
+
+  const options = [
+    {
+      label: "Hoạt động",
+      value: 0
+    },
+    {
+      label: "Không hoạt động",
+      value: 1
+    },
+  ]
 
   const { id } = useParams();
   const [department, setDepartment] = useState({});
@@ -43,19 +57,48 @@ const DepartmentFormEdit = () => {
     getDepartment();
   }, []);
 
+  useEffect(() => {
+    const getBuild = async () => {
+      const { data } = await getBuilding();
+      console.log('building: ', data);
+    }
+    getBuild();
+  }, [])
   console.log(typeof (department));
-  console.log(department.id);
-  const onSubmit = (item) => {
-    const updateItem = {
-      id,
-      ...item
-    };
-    console.log(updateItem);
-    edit(updateItem);
-  }
+  console.log(department);
+  // const onSubmit = (item) => {
+  //   const updateItem = {
+  //     id,
+  //     ...item
+  //   };
+  //   console.log(updateItem);
+  //   edit(updateItem);
+  // }
 
-  const optionSelect = {
-    name: "VP 1"
+  const addDepartments = async (item) => {
+    console.log(item);
+    try {
+      alert('Thêm mới thành công');
+      axios
+        .post(`http://apartment-system.xyz/api/apartment/edit/${id}`, item)
+        .then(() => {
+          var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Sửa thành công.",
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const onSubmit = (item) => {
+    addDepartments(item)
   }
 
   const editDepartment = () => {
@@ -73,7 +116,7 @@ const DepartmentFormEdit = () => {
                     <label htmlFor="exampleInputEmail1">Tên căn hộ</label>
                     <input
                       type="text"
-                      value={department.apartment_id}
+                      defaultValue={department.apartment_id}
                       className="form-control"
                       id="exampleInputEmail1"
                       placeholder="Nhập mã căn hộ"
@@ -87,18 +130,19 @@ const DepartmentFormEdit = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Tòa nhà</label>
-                    <select value={optionSelect} {...register('building_id')} className="form-control">
+                    <select {...register('building_id')} className="form-control">
                       {buildings.map((item) => (
-                        <option value={item.id}>{item.name}</option>
+                        <option selected={item.id == 3} value={item.id}>{item.name}</option>
                       ))}
                     </select>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Diện tích căn hộ căn hộ</label>
+                    <label htmlFor="exampleInputEmail1">Diện tích căn hộ căn hộ (m2)</label>
                     <input
                       {...register('square_meter', {
                         pattern: /^[0-9]*$/
                       })}
+                      defaultValue={department.square_meters}
                       type="text"
                       className="form-control"
                       id="number"
@@ -110,8 +154,9 @@ const DepartmentFormEdit = () => {
                   <div class="form-group">
                     <label>Trạng thái</label>
                     <select {...register('status')} class="form-control">
-                      <option value="1">Hoạt động</option>
-                      <option value="2">Không hoạt động</option>
+                      {options.map((item) => (
+                        <option value={item.value}>{item.label}</option>
+                      ))}
                     </select>
                   </div>
                   <div class="form-group">
@@ -127,6 +172,7 @@ const DepartmentFormEdit = () => {
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
+                      defaultValue={department.floor}
                       placeholder="Nhập tâng căn hộ"
                       {...register('floor', {
                         required: true,
@@ -140,7 +186,7 @@ const DepartmentFormEdit = () => {
                 <div className="col-md-6">
                   <div class="form-group">
                     <label>Trạng thái</label>
-                    <textarea {...register('description')} className="form-control" rows={12} placeholder="Mô tả ..." defaultValue={""} />
+                    <textarea {...register('description')} defaultValue={department.description} className="form-control" rows={12} placeholder="Mô tả ..." defaultValue={""} />
                   </div>
                 </div>
               </div>
@@ -155,8 +201,8 @@ const DepartmentFormEdit = () => {
               </button>
             </div>
           </form>
-        </div>
-      </div>
+        </div >
+      </div >
     );
   };
   return <Content title="Sửa thông tin căn hộ">{editDepartment()}</Content>;

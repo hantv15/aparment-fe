@@ -16,7 +16,7 @@ export const searchName = (keyWord) => {
 }
 
 export const edit = (item) => {
-    const url = `/departments/${item.id}`;
+    const url = `/apartments/${item.id}`;
     return instance.put(url, item);
 };
 

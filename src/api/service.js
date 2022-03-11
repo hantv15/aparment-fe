@@ -7,6 +7,11 @@ export const get = (param) => {
     return instance.get(url);
 }
 
+export const NoGetPageService = (param) => {
+    const url = `/service?${param}`;
+    return instance.get(url);
+}
+
 export const addService = (data) => {
     const url = `${API}/service/add`;
     return axios.post(url, data);
