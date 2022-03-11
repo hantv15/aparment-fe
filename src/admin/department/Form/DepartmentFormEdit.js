@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
+import { getBuildings } from "../../../api/buildingAPI";
 import { edit, get } from "../../../common/departmentAPI";
 import Content from "../../../core/Content";
 const DepartmentFormEdit = () => {
@@ -10,24 +11,29 @@ const DepartmentFormEdit = () => {
     reset,
     formState: { errors }
   } = useForm();
+
+  const [buildings, setBuildings] = useState([])
+
   const { id } = useParams();
   const [department, setDepartment] = useState({});
-  const statusOptions = [
-    {
-      value: 1,
-      name: "Active"
-    },
-    {
-      value: 2,
-      name: "InActive"
+
+  useEffect(() => {
+    try {
+      const getBuildingList = async () => {
+        const { data } = await getBuildings("");
+        setBuildings(data.data)
+      }
+      getBuildingList();
+    } catch (error) {
+      console.log(error.response.message);
     }
-  ]
+  }, [])
 
   useEffect(() => {
     const getDepartment = async () => {
       try {
         const { data } = await get(id);
-        setDepartment(data);
+        setDepartment(data.data[0]);
         reset(data);
       } catch (error) {
         console.log(error);
@@ -37,7 +43,8 @@ const DepartmentFormEdit = () => {
     getDepartment();
   }, []);
 
-  console.log(typeof (department.department_id));
+  console.log(typeof (department));
+  console.log(department.id);
   const onSubmit = (item) => {
     const updateItem = {
       id,
@@ -47,10 +54,15 @@ const DepartmentFormEdit = () => {
     edit(updateItem);
   }
 
+  const optionSelect = {
+    name: "VP 1"
+  }
+
   const editDepartment = () => {
     return (
       <div className="col-md-12">
         <div className="card card-primary">
+
           {/* /.card-header */}
           {/* form start */}
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -58,81 +70,84 @@ const DepartmentFormEdit = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Mã căn hộ</label>
+                    <label htmlFor="exampleInputEmail1">Tên căn hộ</label>
                     <input
                       type="text"
-                      defaultValue={department.department_id}
+                      value={department.apartment_id}
                       className="form-control"
+                      id="exampleInputEmail1"
                       placeholder="Nhập mã căn hộ"
-                      {...register("department_id", {
+                      {...register('apartment_id', {
                         required: true,
+                        pattern: /^[a-zA-Z0-9_.-]*$/i
                       })}
                     />
-                    {errors?.department_id?.type === "required" && (
-                      <p className="text-danger">Hãy nhập trường này</p>
-                    )}
+                    {errors?.apartment_id?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
+                    {errors?.apartment_id?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tên tòa nhà</label>
+                    <label htmlFor="exampleInputEmail1">Tòa nhà</label>
+                    <select value={optionSelect} {...register('building_id')} className="form-control">
+                      {buildings.map((item) => (
+                        <option value={item.id}>{item.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="exampleInputEmail1">Diện tích căn hộ căn hộ</label>
+                    <input
+                      {...register('square_meter', {
+                        pattern: /^[0-9]*$/
+                      })}
+                      type="text"
+                      className="form-control"
+                      id="number"
+                      name="square_meter"
+                      placeholder="Nhập kích thước căn hộ"
+                    />
+                    {errors?.square_meters?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ là số</p>}
+                  </div>
+                  <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select {...register('status')} class="form-control">
+                      <option value="1">Hoạt động</option>
+                      <option value="2">Không hoạt động</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Kiểu phòng</label>
+                    <select {...register('type_apartment')} class="form-control">
+                      <option value="0">Có ban công</option>
+                      <option value="1">Không có ban công</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="exampleInputEmail1">Tầng</label>
                     <input
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
-                      placeholder="Nhập mã căn hộ"
-                      defaultValue={department.tower}
-                      {...register("tower", {
+                      placeholder="Nhập tâng căn hộ"
+                      {...register('floor', {
                         required: true,
+                        pattern: /^[a-zA-Z0-9_.-]*$/i
                       })}
                     />
-                    {errors?.tower?.type === "required" && (
-                      <p className="text-danger">Hãy nhập trường này</p>
-                    )}
+                    {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
+                    {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">
-                      Kích thước căn hộ
-                    </label>
-                    <input
-                      {...register("square_meters", {
-                        pattern: /^[0-9]*$/,
-                      })}
-                      defaultValue={department.square_meter}
-                      type="text"
-                      className="form-control"
-                      id="number"
-                      placeholder="Nhập kích thước căn hộ"
-                    />
-                    {errors?.square_meters?.type === "pattern" && (
-                      <p className="text-danger">Hãy nhập các ký từ là số</p>
-                    )}
-                  </div>
-
                 </div>
                 <div className="col-md-6">
                   <div class="form-group">
-                    <label>Chủ sở hữu</label>
-                    <select {...register("user_id")} class="form-control">
-                      <option value="1">Hân</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
                     <label>Trạng thái</label>
-                    <select {...register("status")} class="form-control">
-                      {statusOptions.map((status) => (
-                        <option selected={status.value == department.status} value={status.value}>{status.name}</option>
-                      ))}
-                    </select>
+                    <textarea {...register('description')} className="form-control" rows={12} placeholder="Mô tả ..." defaultValue={""} />
                   </div>
                 </div>
               </div>
             </div>
             {/* /.card-body */}
             <div class="card-footer">
-              <Link
-                to="/admin/department"
-                type="submit"
-                class="btn btn-default float-left"
-              >
+              <Link to="/admin/department" type="submit" class="btn btn-default float-left">
                 Quay lại
               </Link>
               <button type="submit" class="btn btn-info float-right">

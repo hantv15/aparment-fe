@@ -1,15 +1,30 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { getServiceById } from "../../../api/service";
 import Content from "../../../core/Content";
-const ServiceFormAdd = () => {
+
+const ServiceFormEdit = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    try {
+      const getService = async () => {
+        await axios
+          .get("http://apartment-system.xyz/api/service/3")
+          .then((response) => console.log(response));
+      };
+      getService();
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   const onSubmit = (item) => {
     try {
@@ -31,8 +46,9 @@ const ServiceFormAdd = () => {
       console.log(error);
     }
   };
-  const addService = () => {
-    return (
+
+  return (
+    <Content title="Chỉnh sửa dịch vụ">
       <div className="col-md-12">
         <div className="card card-primary">
           {/* /.card-header */}
@@ -104,9 +120,8 @@ const ServiceFormAdd = () => {
           </form>
         </div>
       </div>
-    );
-  };
-  return <Content title="Thêm dịch vụ">{addService()}</Content>;
+    </Content>
+  );
 };
 
-export default ServiceFormAdd;
+export default ServiceFormEdit;

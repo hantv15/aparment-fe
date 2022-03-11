@@ -6,7 +6,7 @@ export const getAll = () => {
 }
 
 export const get = (id) => {
-    const url = `/departments/${id}`;
+    const url = `/apartment/${id}`;
     return instance.get(url);
 }
 

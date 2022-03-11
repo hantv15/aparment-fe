@@ -1,4 +1,6 @@
+import axios from "axios";
 import instance from "../common/instance";
+import { API } from "../config";
 
 export const get = (param) => {
     const url = `/service?${param}`;
@@ -6,6 +8,11 @@ export const get = (param) => {
 }
 
 export const addService = (data) => {
-    const url = `/service/add`;
-    return instance.post(url, data);
+    const url = `${API}/service/add`;
+    return axios.post(url, data);
+}
+
+export const getServiceById = (id) => {
+    const url = `${API}/service/edit/${id}`;
+    return axios.post(url);
 }

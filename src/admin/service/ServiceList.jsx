@@ -6,6 +6,7 @@ import ReactPaginate from "react-paginate";
 import SelectOption from "../../components/SelectOption";
 import { get } from "../../api/service";
 import InputSearch from "../../components/InputSearch";
+import { Link } from "react-router-dom";
 const ServiceList = () => {
   const [services, setServices] = useState([]);
   const [pageCount, setPageCount] = useState("");
@@ -185,12 +186,12 @@ const ServiceList = () => {
                             >
                               Chi tiết
                             </a> */}
-                                  <a
+                                  <Link
                                     className="btn btn-sm btn-outline-success btn-flat"
-                                    href="/admin/department/edit/13"
+                                    to={`/admin/service/edit/${item.id}`}
                                   >
                                     Sửa
-                                  </a>
+                                  </Link>
                                   <button className="btn btn-sm btn-outline-danger btn-flat">
                                     Xóa
                                   </button>

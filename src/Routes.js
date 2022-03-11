@@ -13,6 +13,7 @@ import DepartmentDetail from "./admin/department/DepartmentDetail";
 import Invoice from "./admin/department/_printf/Invoice";
 import ServiceList from "./admin/service/ServiceList";
 import ServiceFormAdd from "./admin/service/Form/ServiceFormAdd";
+import ServiceFormEdit from "./admin/service/Form/ServiceFormEdit";
 const Routes = () => {
   return (
     <Router>
@@ -53,6 +54,9 @@ const Routes = () => {
             </Route>
             <Route exact path="/admin/service/add">
               <ServiceFormAdd />
+            </Route>
+            <Route exact path="/admin/service/edit/:id">
+              <ServiceFormEdit />
             </Route>
           </PrivateRoute>
 

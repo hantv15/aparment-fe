@@ -5,6 +5,8 @@ import { addApartment } from "../../../api/apartmentAPI";
 import { getBuildings } from "../../../api/buildingAPI";
 import { add } from "../../../common/departmentAPI";
 import Content from "../../../core/Content";
+import axios from "axios";
+import Swal from "sweetalert2";
 const DepartmentFormAdd = () => {
   const {
     register,
@@ -31,20 +33,28 @@ const DepartmentFormAdd = () => {
     console.log(item);
     try {
       alert('Thêm mới thành công');
-      return await addApartment(item);
+      axios
+        .post("http://apartment-system.xyz/api/apartment/add", item)
+        .then(() => {
+          var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Thêm mới dịch vụ thành công.",
+          });
+        });
     } catch (error) {
       console.log(error);
     }
   }
   const onSubmit = (item) => {
     addDepartments(item)
-    console.log(item);
   }
 
-  const handleSelectBuilding = (e) => {
-    console.log(e.target.value);
-
-  }
 
   const addDepartment = () => {
     return (
@@ -64,17 +74,18 @@ const DepartmentFormAdd = () => {
                       className="form-control"
                       id="exampleInputEmail1"
                       placeholder="Nhập mã căn hộ"
-                      {...register('department_id', {
+                      {...register('apartment_id', {
                         required: true,
                         pattern: /^[a-zA-Z0-9_.-]*$/i
                       })}
                     />
-                    {errors?.department_id?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
-                    {errors?.department_id?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
+                    {errors?.apartment_id?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
+                    {errors?.apartment_id?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Tòa nhà</label>
                     <select {...register('building_id')} className="form-control">
+                      <option selected value="">Chọn tòa nhà</option>
                       {buildings.map((item) => (
                         <option value={item.id}>{item.name}</option>
                       ))}
@@ -100,6 +111,28 @@ const DepartmentFormAdd = () => {
                       <option value="1">Hoạt động</option>
                       <option value="2">Không hoạt động</option>
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Kiểu phòng</label>
+                    <select {...register('type_apartment')} class="form-control">
+                      <option value="0">Có ban công</option>
+                      <option value="1">Không có ban công</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="exampleInputEmail1">Tầng</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="exampleInputEmail1"
+                      placeholder="Nhập tâng căn hộ"
+                      {...register('floor', {
+                        required: true,
+                        pattern: /^[a-zA-Z0-9_.-]*$/i
+                      })}
+                    />
+                    {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
+                    {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
                   </div>
                 </div>
                 <div className="col-md-6">
