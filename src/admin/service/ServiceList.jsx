@@ -11,7 +11,7 @@ const ServiceList = () => {
   const [filters, setFilters] = useState({
     page_size: 10,
     page: 1,
-    price: "",
+    sort: "",
   });
 
   const pageSize = [
@@ -84,7 +84,7 @@ const ServiceList = () => {
   const handleArrange = (value) => {
     setFilters({
       ...filters,
-      price: value,
+      sort: value,
     });
   };
 
@@ -92,17 +92,20 @@ const ServiceList = () => {
     setFilters({
       ...filters,
       page_size: value,
+      page: 1,
     });
+    console.log(paramString);
   };
 
   const handlePageClick = (data) => {
+    console.log("data: ", data);
     let currentPage = data.selected + 1;
     setFilters({
       ...filters,
       page: currentPage,
     });
   };
-  console.log(typeof services);
+  console.log(filters);
   return (
     <>
       <Content title="Danh sách dịch vụ" subName="Dịch vụ">
