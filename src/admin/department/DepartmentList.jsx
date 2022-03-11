@@ -7,16 +7,22 @@ import Swal from "sweetalert2";
 import Content from "../../core/Content";
 import DepartmentDetail from "./DepartmentDetail";
 import axios from "axios";
-import { get } from "../../common/apartment";
+import { get, NoGetPage } from "../../common/apartment";
 import SelectOption from "../../components/SelectOption";
 import InputSearch from "../../components/InputSearch";
+import { getBuildings } from "../../api/buildingAPI";
 const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
+  const [buildings, setBuildings] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [file, setFile] = useState({});
   const [filters, setFilters] = useState({
     page_size: 10,
     page: 1,
+    building_id: "",
+    keyword: "",
+  });
+  const [filtersNoPage, setFiltersNoPage] = useState({
     building_id: "",
     keyword: "",
   });
@@ -55,11 +61,12 @@ const DepartmentList = () => {
   ];
 
   const paramString = querystring.stringify(filters);
+  const paramNoPageSize = querystring.stringify(filtersNoPage);
 
   useEffect(() => {
     try {
       const getApartments = async () => {
-        const { data } = await get();
+        const { data } = await NoGetPage(paramNoPageSize);
         const countData = Math.ceil(data.data.length / filters.page_size);
         setPageCount(countData);
       };
@@ -67,19 +74,34 @@ const DepartmentList = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }, [filters.page_size]);
+  }, [filters]);
 
+  console.log(pageCount);
   useEffect(() => {
     try {
       const getApartments = async () => {
         const { data } = await get(paramString);
         setApartments(data.data);
+        // const countData = Math.ceil(data.data.length / filters.page_size);
+        // setPageCount(countData);
       };
       getApartments();
     } catch (error) {
       console.log(error.message);
     }
   }, [filters]);
+
+  useEffect(() => {
+    try {
+      const getBuildingList = async () => {
+        const { data } = await getBuildings();
+        setBuildings(data.data);
+      };
+      getBuildingList();
+    } catch (error) {
+      console.log(error.response.message);
+    }
+  }, []);
 
   const handleChangePageSize = (value) => {
     setFilters({
@@ -93,6 +115,10 @@ const DepartmentList = () => {
       ...filters,
       keyword: value,
     });
+    setFiltersNoPage({
+      ...filtersNoPage,
+      keyword: value,
+    });
   };
   const handlePageClick = (data) => {
     const currentPage = data.selected + 1;
@@ -102,6 +128,19 @@ const DepartmentList = () => {
     });
     console.log("currentPage: ", currentPage);
   };
+
+  const handleSelectBuilding = (e) => {
+    console.log(e.target.value);
+    setFilters({
+      ...filters,
+      building_id: e.target.value,
+    });
+    setFiltersNoPage({
+      ...filtersNoPage,
+      building_id: e.target.value,
+    });
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (
@@ -213,6 +252,19 @@ const DepartmentList = () => {
                         array={pageSize}
                         handleGetValue={handleChangePageSize}
                       />
+                    </div>
+                    <div className="form-outline mr-2">
+                      <select
+                        onChange={handleSelectBuilding}
+                        className="form-control"
+                      >
+                        <option selected value="">
+                          Chọn tòa
+                        </option>
+                        {buildings.map((item) => (
+                          <option value={item.id}>{item.name}</option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                 </div>
