@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 const BillModal = ({ handleClose, show }) => {
+  // đổi san
   return (
     <>
       <Modal show={show} size="xl" onHide={handleClose} animation={false}>
