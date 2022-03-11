@@ -6,7 +6,11 @@ export const getAll = () => {
 }
 
 export const get = (id) => {
-    const url = `/departments/${id}`;
+    const url = `/apartment/${id}`;
+    return instance.get(url);
+}
+export const getBill = (id) => {
+    const url = `/apartment/${id}/finance/unpaid`;
     return instance.get(url);
 }
 

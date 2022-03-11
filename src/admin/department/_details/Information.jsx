@@ -1,6 +1,21 @@
-import React from "react";
+import React,{ useEffect,useState} from "react";
+import { get } from "../../../common/departmentAPI";
 
-export const Information = ({ department, statusOptions }) => {
+export const Information = ({ department, statusOptions,id }) => {
+  // const [department, setDepartment] = useState({});
+  // useEffect(() => {
+  //   const getDepartment = async () => {
+  //     try {
+  //       const { data } = await get(id);
+  //       setDepartment(data);
+  //       reset(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   getDepartment();
+  // }, []);
   return (
     <>
       <div className="row mb-3">
@@ -12,22 +27,22 @@ export const Information = ({ department, statusOptions }) => {
                 <strong>
                   <i className="fas fa-door-closed" /> Mã căn hộ:{" "}
                 </strong>{" "}
-                <span className="text-muted">{department.department_id}</span>
+                <span className="text-muted">{department.apartment_id}</span>
                 <hr />
                 <strong>
                   <i className="fas fa-phone" /> Số điện thoại:{" "}
                 </strong>{" "}
-                <span className="text-muted">{department.phone}</span>
+                <span className="text-muted">{department.phone_number}</span>
                 <hr />
                 <strong>
                   <i className="fas fa-building" /> Tòa nhà:{" "}
                 </strong>{" "}
-                <span className="text-muted">{department.tower}</span>
+                <span className="text-muted">{department.building_name}</span>
                 <hr />
                 <strong>
                   <i className="fas fa-block-brick" /> Diện tich:{" "}
                 </strong>{" "}
-                <span className="text-muted">{department.square_meter}m2</span>
+                <span className="text-muted">{department.square_meters}m2</span>
                 <hr />
                 <strong>
                   <i className="fas fa-key" /> Trạng thái căn hộ:{" "}
@@ -53,7 +68,7 @@ export const Information = ({ department, statusOptions }) => {
                 />
               </div>
               <h3 className="profile-username text-center">
-                {department.owner}
+                {department.name}
               </h3>
               <p className="text-muted text-center">Chủ sở hữu</p>
             </div>

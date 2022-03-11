@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import PaymentHistory from "./PaymentHistory";
+import { useParams } from "react-router-dom";
+import { get,getBill } from "../../../common/departmentAPI";
 import { Button, Modal } from "react-bootstrap";
 import BillModal from "../_modal/BillModal";
 import { Link } from "react-router-dom";
@@ -8,12 +10,39 @@ import { Link } from "react-router-dom";
 const Finace = () => {
   const [showPaymentHistory, setShowPaymentHistory] = useState(false);
   const [show, setShow] = useState(false);
-
+  const [departments, setDepartments] = useState([]);
   const handleClose = () => setShow(false);
   const handleShows = () => setShow(true);
   const handleShow = () => {
     setShowPaymentHistory(!showPaymentHistory);
   };
+  const statusOptions = [
+    {
+      value: 1,
+      name: "Active",
+    },
+    {
+      value: 0,
+      name: "InActive",
+    },
+  ];
+  const { id } = useParams();
+  useEffect(() => {
+    const getDepartments = async () => {
+      try {
+        const { data } = await getBill(id);
+        
+        setDepartments(data.data);
+        console.log(data);
+        // console.log(datas);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getDepartments();
+  }, []);
+  console.log(id);
   return (
     <>
       <div className="row mb-3">
@@ -33,7 +62,7 @@ const Finace = () => {
                             <th scope="col">STT</th>
                             <th scope="col">Tên hóa đơn</th>
                             <th scope="col">Tên chủ hộ</th>
-                            <th scope="col">Địa chỉ</th>
+                            
                             <th scope="col">Tổng tiền</th>
                             <th scope="col">Trạng thái</th>
                             <th className="d-flex justify-content-center">
@@ -48,29 +77,38 @@ const Finace = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Phiếu thu tiền phí tháng 02/2022</td>
-                            <td>Nguyễn Văn A</td>
-                            <td>P02711</td>
-                            <td>500.000đ</td>
-                            <td>Đã thanh toán</td>
-                            <td className="d-flex justify-content-center">
-                              <Button
-                                variant="btn btn-sm btn-outline-primary btn-flat"
-                                onClick={handleShows}
-                              >
-                                Chi tiết
-                              </Button>
-                              <Link
-                                className="btn btn-sm btn-outline-success btn-flat"
-                                variant="btn btn-sm btn-outline-primary btn-flat"
-                                to="/admin/department/invoice"
-                              >
-                                In
-                              </Link>
-                            </td>
-                          </tr>
+                        {departments.map((item,index)=>(
+                              <tr key={item.id}>                          
+                              <th scope="row">{index + 1}</th>
+                              <td>{item.ten_hoa_don}</td>
+                              <td>{item.ten_chu_ho}</td>
+                              <td>{item.amount}</td>
+                              
+                              <td>
+                            {statusOptions.map((status) =>
+                              status.value == item.status
+                                ? status.name
+                                : ""
+                            )}
+                          </td>
+                              <td className="d-flex justify-content-center">
+                                <Button
+                                  variant="btn btn-sm btn-outline-primary btn-flat"
+                                  onClick={handleShows}
+                                >
+                                  Chi tiết
+                                </Button>
+                                <Link
+                                  className="btn btn-sm btn-outline-success btn-flat"
+                                  variant="btn btn-sm btn-outline-primary btn-flat"
+                                  to="/admin/department/invoice"
+                                >
+                                  In
+                                </Link>
+                              </td>
+                            </tr>
+                              ))}
+                          
                         </tbody>
                       </table>
                     </div>
