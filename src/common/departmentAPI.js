@@ -21,9 +21,9 @@ export const getBillDetail = (id) => {
     const url = `/apartment/13/finance/${id}/bill-detail`;
     return instance.get(url);
 }
-export const addBillDetail = (id,item) => {
+export const addBillDetail = (id, item) => {
     const url = `/bill-detail/edit/${id}`;
-    return instance.post(url,item);
+    return instance.post(url, item);
 }
 
 export const searchName = (keyWord) => {
@@ -32,7 +32,7 @@ export const searchName = (keyWord) => {
 }
 
 export const edit = (item) => {
-    const url = `/departments/${item.id}`;
+    const url = `/apartments/${item.id}`;
     return instance.put(url, item);
 };
 

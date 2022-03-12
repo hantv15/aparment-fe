@@ -1,20 +1,48 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import Content from "../../../core/Content";
-const ServiceFormAdd = () => {
+
+const ServiceFormEdit = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: "onBlur" });
+
+  const options = [
+    {
+      label: "Hoạt động",
+      value: 1,
+    },
+    {
+      label: "Không hoạt động",
+      value: 0,
+    },
+  ];
+
+  const [service, setService] = useState({});
   const history = useHistory();
+  const { id } = useParams();
+  useEffect(() => {
+    try {
+      const getService = async () => {
+        await axios
+          .get(`http://apartment-system.xyz/api/service/${id}`)
+          .then((response) => setService(response.data.data));
+      };
+      getService();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   const onSubmit = (item) => {
     try {
       axios
-        .post("http://apartment-system.xyz/api/service/add", item)
+        .post(`http://apartment-system.xyz/api/service/edit/${id}`, item)
         .then(() => {
           var Toast = Swal.mixin({
             toast: true,
@@ -24,18 +52,16 @@ const ServiceFormAdd = () => {
           });
           Toast.fire({
             icon: "success",
-            title: "Thêm mới dịch vụ thành công.",
+            title: "Sủa dịch vụ thành công.",
           });
         });
     } catch (error) {
       console.log(error);
     }
   };
-  const addService = () => {
-    const demo = () => {
-      console.log(1);
-    };
-    return (
+
+  return (
+    <Content title="Chỉnh sửa dịch vụ">
       <div className="col-md-12">
         <div className="card card-primary">
           {/* /.card-header */}
@@ -50,6 +76,7 @@ const ServiceFormAdd = () => {
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
+                      defaultValue={service.name}
                       placeholder="Nhập tên dịch vụ"
                       {...register("name", {
                         required: true,
@@ -65,6 +92,7 @@ const ServiceFormAdd = () => {
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
+                      defaultValue={service.price}
                       placeholder="Nhập giá dịch vụ"
                       {...register("price", {
                         required: true,
@@ -80,26 +108,31 @@ const ServiceFormAdd = () => {
                   </div>
                   <div class="form-group">
                     <label>Trạng thái</label>
-                    <select {...register("status")} class="form-control">
-                      <option selected value="1">
-                        Chọn trạng thái
-                      </option>
-                      <option value="1">Hoạt động</option>
-                      <option value="0">Không hoạt động</option>
+                    <select
+                      defaultValue={service.status}
+                      {...register("status")}
+                      class="form-control"
+                    >
+                      {options.map((item) => (
+                        <option
+                          selected={item.value == service.status}
+                          value={item.value}
+                        >
+                          {item.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div class="form-group">
-                    <label htmlFor="exampleInputEmail1">Mô tả</label>
-                    <textarea
-                      {...register("description")}
-                      className="form-control"
-                      rows={8}
-                      placeholder="Mô tả ..."
-                      defaultValue={""}
-                    />
-                  </div>
+                  <label htmlFor="exampleInputEmail1">Mô tả</label>
+                  <textarea
+                    {...register("description")}
+                    className="form-control"
+                    defaultValue={service.description}
+                    rows={8}
+                    placeholder="Mô tả ..."
+                  />
                 </div>
               </div>
             </div>
@@ -121,9 +154,8 @@ const ServiceFormAdd = () => {
           </form>
         </div>
       </div>
-    );
-  };
-  return <Content title="Thêm dịch vụ">{addService()}</Content>;
+    </Content>
+  );
 };
 
-export default ServiceFormAdd;
+export default ServiceFormEdit;
