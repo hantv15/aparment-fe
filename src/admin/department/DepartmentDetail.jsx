@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useParams } from "react-router-dom";
-import { get } from "../../common/departmentAPI";
+import { get,getBill } from "../../common/departmentAPI";
 import Content from "../../core/Content";
 import Card from "./_details/card";
 import Finace from "./_details/Finace";
@@ -9,6 +9,7 @@ import { Information } from "./_details/Information";
 const DepartmentDetail = () => {
   const { id } = useParams();
   const [department, setDepartment] = useState({});
+  
   const [showBasic, setShowBasic] = useState(true);
   const [showFiance, setShowFiance] = useState(false);
   const [showCard, setShowCard] = useState(false);
@@ -27,7 +28,8 @@ const DepartmentDetail = () => {
     const getDepartment = async () => {
       try {
         const { data } = await get(id);
-        setDepartment(data);
+        console.log(data,data[0])
+        setDepartment(data.data[0]);
       } catch (error) {
         console.log(error);
       }
@@ -35,6 +37,10 @@ const DepartmentDetail = () => {
 
     getDepartment();
   }, []);
+  
+ 
+
+  
 
   const addDepartment = () => {
     return (
@@ -93,9 +99,14 @@ const DepartmentDetail = () => {
                 <Information
                   department={department}
                   statusOptions={statusOptions}
+                  id={id}
                 />
               )}
-              {showFiance && <Finace />}
+              {showFiance && <Finace 
+               
+               statusOptions={statusOptions}
+               id = {id}
+              />}
               {showCard && <Card />}
             </div>
             {/* /.card-body */}

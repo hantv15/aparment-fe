@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import BillModal from "../_modal/BillModal";
+import BillModal from "../Modal/BillModal";
 const PaymentHistory = ({ handleClose, handleShows, show }) => {
   return (
     <>

@@ -32,6 +32,9 @@ const ServiceFormAdd = () => {
     }
   };
   const addService = () => {
+    const demo = () => {
+      console.log(1);
+    };
     return (
       <div className="col-md-12">
         <div className="card card-primary">

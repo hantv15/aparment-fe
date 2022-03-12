@@ -11,6 +11,7 @@ import UserAddForm from "./admin/user/Form/UserAddForm";
 import UserEditForm from "./admin/user/Form/UserEditForm";
 import DepartmentDetail from "./admin/department/DepartmentDetail";
 import Invoice from "./admin/department/_printf/Invoice";
+import BillModal from "./admin/department/BillModal";
 import ServiceList from "./admin/service/ServiceList";
 import ServiceFormAdd from "./admin/service/Form/ServiceFormAdd";
 import ServiceFormEdit from "./admin/service/Form/ServiceFormEdit";
@@ -45,6 +46,12 @@ const Routes = () => {
             <Route exact path="/admin/department/detail/:id">
               <DepartmentDetail />
             </Route>
+            <Route exact path="/admin/department/modal/:id">
+              <BillModal />
+            </Route>
+            <Route exact path="/admin/department/modal/:id">
+              <BillModal />
+            </Route>
             <Route exact path="/admin/department/invoice">
               <Invoice />
             </Route>
@@ -55,9 +62,7 @@ const Routes = () => {
             <Route exact path="/admin/service/add">
               <ServiceFormAdd />
             </Route>
-            <Route exact path="/admin/service/edit/:id">
-              <ServiceFormEdit />
-            </Route>
+
           </PrivateRoute>
 
         </Switch>

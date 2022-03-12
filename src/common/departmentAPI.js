@@ -9,6 +9,22 @@ export const get = (id) => {
     const url = `/apartment/${id}`;
     return instance.get(url);
 }
+export const getBill = (id) => {
+    const url = `/apartment/${id}/finance/unpaid`;
+    return instance.get(url);
+}
+export const getCard = (id) => {
+    const url = `/apartment/${id}/card`;
+    return instance.get(url);
+}
+export const getBillDetail = (id) => {
+    const url = `/apartment/13/finance/${id}/bill-detail`;
+    return instance.get(url);
+}
+export const addBillDetail = (id, item) => {
+    const url = `/bill-detail/edit/${id}`;
+    return instance.post(url, item);
+}
 
 export const searchName = (keyWord) => {
     const url = `/departments?department_id=${keyWord}`;
