@@ -15,6 +15,7 @@ import BillModal from "./admin/department/BillModal";
 import BillEditForm from "./admin/department/BillEditForm";
 import ServiceList from "./admin/service/ServiceList";
 import ServiceFormAdd from "./admin/service/Form/ServiceFormAdd";
+import ServiceFormEdit from "./admin/service/Form/ServiceFormEdit";
 const Routes = () => {
   return (
     <Router>
@@ -62,7 +63,7 @@ const Routes = () => {
             <Route exact path="/admin/service/add">
               <ServiceFormAdd />
             </Route>
-            
+
           </PrivateRoute>
 
         </Switch>
