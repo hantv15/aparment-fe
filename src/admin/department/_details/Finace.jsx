@@ -4,7 +4,7 @@ import PaymentHistory from "./PaymentHistory";
 import { useParams } from "react-router-dom";
 import { get,getBill } from "../../../common/departmentAPI";
 import { Button, Modal } from "react-bootstrap";
-import BillModal from "../_modal/BillModal";
+import BillModal from "../Modal/BillModal";
 import { Link } from "react-router-dom";
 
 const Finace = () => {
@@ -92,18 +92,18 @@ const Finace = () => {
                             )}
                           </td>
                               <td className="d-flex justify-content-center">
-                                <Button
+                                <Link
                                   variant="btn btn-sm btn-outline-primary btn-flat"
-                                  onClick={handleShows}
+                                  to={`/admin/department/modal/${item.id}`}
                                 >
                                   Chi tiết
-                                </Button>
+                                </Link>
                                 <Link
                                   className="btn btn-sm btn-outline-success btn-flat"
                                   variant="btn btn-sm btn-outline-primary btn-flat"
-                                  to="/admin/department/invoice"
+                                  to={`/admin/department/modalAdd/${item.id}`}
                                 >
-                                  In
+                                  Thêm
                                 </Link>
                               </td>
                             </tr>
@@ -159,7 +159,7 @@ const Finace = () => {
           handleShows={handleShows}
         />
       )}
-      {show && <BillModal handleClose={handleClose} show={show} />}
+      {/* {show && <BillModal handleClose={handleClose} show={show} />} */}
     </>
   );
 };

@@ -1,14 +1,14 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
-const BillModal = ({ handleClose, show }) => {
+const BillModal = ( ) => {
+  const { id } = useParams();
+  const { billId } = useParams();
+  console.log(id,billId);
   // đổi san
   return (
     <>
-      <Modal show={show} size="xl" onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Chi tiết hóa đơn</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+   
           <div className="card-body">
             <div className="row">
               <div className="col-sm-12">
@@ -40,13 +40,7 @@ const BillModal = ({ handleClose, show }) => {
               </div>
             </div> */}
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Đóng
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      
     </>
   );
 };
