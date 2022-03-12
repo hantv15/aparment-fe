@@ -15,6 +15,7 @@ const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
   const [buildings, setBuildings] = useState([]);
   const [pageCount, setPageCount] = useState(0);
+  const [curPage, setCurPage] = useState(1);
   const [file, setFile] = useState({});
   const [filters, setFilters] = useState({
     page_size: 10,
@@ -67,6 +68,7 @@ const DepartmentList = () => {
     try {
       const getApartments = async () => {
         const { data } = await NoGetPage(paramNoPageSize);
+        console.log(data.data);
         const countData = Math.ceil(data.data.length / filters.page_size);
         setPageCount(countData);
       };
@@ -82,8 +84,6 @@ const DepartmentList = () => {
       const getApartments = async () => {
         const { data } = await get(paramString);
         setApartments(data.data);
-        // const countData = Math.ceil(data.data.length / filters.page_size);
-        // setPageCount(countData);
       };
       getApartments();
     } catch (error) {
@@ -122,6 +122,7 @@ const DepartmentList = () => {
   };
   const handlePageClick = (data) => {
     const currentPage = data.selected + 1;
+    setCurPage(currentPage);
     setFilters({
       ...filters,
       page: currentPage,
@@ -297,7 +298,9 @@ const DepartmentList = () => {
                     <tbody>
                       {apartments.map((department, index) => (
                         <tr key={department.id}>
-                          <th scope="row">{index + 1}</th>
+                          <th scope="row">
+                            {(curPage - 1) * filters.page_size + (index + 1)}
+                          </th>
                           <td>{department.apartment_id}</td>
                           <td>{department.building_id}</td>
                           <td>{department.square_meters}m2</td>
@@ -318,14 +321,11 @@ const DepartmentList = () => {
                               Chi tiết
                             </Link>
                             <Link
-                              className="btn btn-sm btn-outline-success btn-flat"
+                              className="ml-1 btn btn-sm btn-outline-success btn-flat"
                               to={`/admin/department/edit/${department.id}`}
                             >
                               Sửa
                             </Link>
-                            <button className="btn btn-sm btn-outline-danger btn-flat">
-                              Xóa
-                            </button>
                           </td>
                         </tr>
                       ))}
@@ -336,6 +336,7 @@ const DepartmentList = () => {
               <div className="row">
                 <div className="col-sm-12">
                   <ReactPaginate
+                    forcePage={0}
                     previousLabel={"previous"}
                     nextLabel={"next"}
                     breakLabel={"..."}
@@ -350,7 +351,6 @@ const DepartmentList = () => {
                     previousLinkClassName={"page-link"}
                     nextClassName={"page-item"}
                     nextLinkClassName={"page-link"}
-                    activeClassName={"active"}
                   />
                 </div>
               </div>
