@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getBuilding, getBuildings } from "../../../api/buildingAPI";
 import { get } from "../../../common/departmentAPI";
@@ -15,7 +15,7 @@ const DepartmentFormEdit = () => {
   } = useForm();
 
   const [buildings, setBuildings] = useState([])
-
+  const history = useHistory();
 
   const options = [
     {
@@ -193,9 +193,11 @@ const DepartmentFormEdit = () => {
             </div>
             {/* /.card-body */}
             <div class="card-footer">
-              <Link to="/admin/department" type="submit" class="btn btn-default float-left">
+              <button onClick={() => {
+                history.goBack();
+              }} type="submit" class="btn btn-default float-left">
                 Quay lại
-              </Link>
+              </button>
               <button type="submit" class="btn btn-info float-right">
                 Thêm mới
               </button>

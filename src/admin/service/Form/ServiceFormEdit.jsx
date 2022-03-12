@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import Content from "../../../core/Content";
 
@@ -24,7 +24,7 @@ const ServiceFormEdit = () => {
   ];
 
   const [service, setService] = useState({});
-
+  const history = useHistory();
   const { id } = useParams();
   useEffect(() => {
     try {
@@ -138,13 +138,15 @@ const ServiceFormEdit = () => {
             </div>
             {/* /.card-body */}
             <div class="card-footer">
-              <Link
-                to="/admin/department"
+              <button
+                onClick={() => {
+                  history.goBack();
+                }}
                 type="submit"
                 class="btn btn-default float-left"
               >
                 Quay lại
-              </Link>
+              </button>
               <button type="submit" class="btn btn-info float-right">
                 Thêm mới
               </button>

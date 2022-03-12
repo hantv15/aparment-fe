@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { addApartment } from "../../../api/apartmentAPI";
 import { getBuildings } from "../../../api/buildingAPI";
 import { add } from "../../../common/departmentAPI";
@@ -13,9 +13,8 @@ const DepartmentFormAdd = () => {
     handleSubmit,
     formState: { errors }
   } = useForm();
-
+  const history = useHistory();
   const [buildings, setBuildings] = useState([])
-
   useEffect(() => {
     try {
       const getBuildingList = async () => {
@@ -145,9 +144,11 @@ const DepartmentFormAdd = () => {
             </div>
             {/* /.card-body */}
             <div class="card-footer">
-              <Link to="/admin/department" type="submit" class="btn btn-default float-left">
+              <button onClick={() => {
+                history.goBack();
+              }} type="submit" class="btn btn-default float-left">
                 Quay lại
-              </Link>
+              </button>
               <button type="submit" class="btn btn-info float-right">
                 Thêm mới
               </button>
