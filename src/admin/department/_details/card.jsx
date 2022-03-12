@@ -1,11 +1,10 @@
-
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { useParams } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import BillModal from "../Modal/BillModal";
 import { Link } from "react-router-dom";
-import { get,getCard } from "../../../common/departmentAPI";
+import { get, getCard } from "../../../common/departmentAPI";
 
 const Card = () => {
   const statusOptions = [
@@ -24,7 +23,7 @@ const Card = () => {
     const getDepartments = async () => {
       try {
         const { data } = await getCard(id);
-        
+
         setDepartments(data.data);
         console.log(data);
         // console.log(datas);
@@ -59,27 +58,22 @@ const Card = () => {
                           </tr>
                         </thead>
                         <tbody>
-                        {departments.map((item,index)=>(
-                              <tr key={item.id}>                          
+                          {departments.map((item, index) => (
+                            <tr key={item.id}>
                               <th scope="row">{index + 1}</th>
                               <td>{item.number}</td>
                               <td>{item.name}</td>
                               <td>{item.expire_time}</td>
-                              
+
                               <td>
-                            {statusOptions.map((status) =>
-                              status.value == item.status
-                                ? status.name
-                                : ""
-                            )}
-                          </td>
-                          <td>{item.plate_number}</td>
-                          <td>{item.loai_phuong_tien}</td>
+                                {statusOptions.map((status) =>
+                                  status.value == item.status ? status.name : ""
+                                )}
+                              </td>
+                              <td>{item.plate_number}</td>
+                              <td>{item.loai_phuong_tien}</td>
                               <td className="d-flex justify-content-center">
-                                <Button
-                                  variant="btn btn-sm btn-outline-primary btn-flat"
-                                  
-                                >
+                                <Button variant="btn btn-sm btn-outline-primary btn-flat">
                                   Them
                                 </Button>
                                 <Link
@@ -91,7 +85,7 @@ const Card = () => {
                                 </Link>
                               </td>
                             </tr>
-                              ))}
+                          ))}
                         </tbody>
                       </table>
                     </div>
