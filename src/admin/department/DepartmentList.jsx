@@ -67,6 +67,7 @@ const DepartmentList = () => {
     try {
       const getApartments = async () => {
         const { data } = await NoGetPage(paramNoPageSize);
+        console.log(data.data);
         const countData = Math.ceil(data.data.length / filters.page_size);
         setPageCount(countData);
       };
@@ -82,8 +83,6 @@ const DepartmentList = () => {
       const getApartments = async () => {
         const { data } = await get(paramString);
         setApartments(data.data);
-        // const countData = Math.ceil(data.data.length / filters.page_size);
-        // setPageCount(countData);
       };
       getApartments();
     } catch (error) {

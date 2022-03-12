@@ -233,7 +233,7 @@ const ServiceList = () => {
                       previousLinkClassName={"page-link"}
                       nextClassName={"page-item"}
                       nextLinkClassName={"page-link"}
-                      activeClassName={"active"}
+                      // activeClassName={"active"}
                       disableInitialCallback={false}
                     />
                   </div>
