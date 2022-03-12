@@ -9,6 +9,14 @@ export const get = (id) => {
     const url = `/apartment/${id}`;
     return instance.get(url);
 }
+export const gets = (id) => {
+    const url = `/bill-detail/${id}`;
+    return instance.get(url);
+}
+export const getBills = (id) => {
+    const url = `/apartment/${id}/finance/paid`;
+    return instance.get(url);
+}
 export const getBill = (id) => {
     const url = `/apartment/${id}/finance/unpaid`;
     return instance.get(url);
@@ -18,12 +26,12 @@ export const getCard = (id) => {
     return instance.get(url);
 }
 export const getBillDetail = (id) => {
-    const url = `/apartment/13/finance/${id}/bill-detail`;
+    const url = `bill/${id}`;
     return instance.get(url);
 }
-export const addBillDetail = (id, item) => {
+export const addBillDetail = (id,item) => {
     const url = `/bill-detail/edit/${id}`;
-    return instance.post(url, item);
+    return instance.post(url,item);
 }
 
 export const searchName = (keyWord) => {
@@ -32,8 +40,12 @@ export const searchName = (keyWord) => {
 }
 
 export const edit = (item) => {
-    const url = `/apartments/${item.id}`;
+    const url = `/departments/${item.id}`;
     return instance.put(url, item);
+};
+export const edits = (item) => {
+    const url = `/bill-detail/edit/${item.id}`;
+    return instance.post(url, item);
 };
 
 export const getPagination = (page, limit) => {

@@ -85,7 +85,7 @@ const Menu = () => {
                   to="/admin/department"
                   className="nav-link"
                 >
-                  <i className="nav-icon fas fa-building" />
+                  <i className="nav-icon fas fa-th" />
                   <p>
                     Căn hộ
                     {/* <span className="right badge badge-danger">New</span> */}
@@ -99,7 +99,7 @@ const Menu = () => {
                   to="/admin/user"
                   className="nav-link"
                 >
-                  <i className="nav-icon fas fa-users" />
+                  <i className="nav-icon fas fa-th" />
                   <p>
                     Người dùng
                     {/* <span className="right badge badge-danger">New</span> */}
@@ -113,7 +113,7 @@ const Menu = () => {
                   to="/admin/service"
                   className="nav-link"
                 >
-                  <i className="nav-icon fas fa-check" />
+                  <i className="nav-icon fas fa-th" />
                   <p>
                     Dịch vụ
                     {/* <span className="right badge badge-danger">New</span> */}
@@ -157,7 +157,7 @@ const Menu = () => {
                   className="nav-link"
                   onClick={() => logout()}
                 >
-                  <i className="nav-icon fa fa-share" />
+                  <i className="nav-icon fas fa-arrow-right-from-bracket" />
                   <p>
                     Đăng xuất
                     {/* <span className="right badge badge-danger">New</span> */}
