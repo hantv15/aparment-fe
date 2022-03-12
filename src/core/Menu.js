@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { NavLink, useHistory } from "react-router-dom";
 import { isAuthenticate, sigOut } from "../auth";
 
@@ -64,7 +65,7 @@ const Menu = () => {
               {/* Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library */}
               <li className="nav-item">
-                <NavLink
+                <Link
                   exact
                   activeClassName="active"
                   to="/admin/dashboard"
@@ -75,10 +76,10 @@ const Menu = () => {
                     Dashboard
                     {/* <span className="right badge badge-danger">New</span> */}
                   </p>
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item">
-                <NavLink
+                <Link
                   exact
                   activeClassName="active"
                   to="/admin/department"
@@ -89,10 +90,10 @@ const Menu = () => {
                     Căn hộ
                     {/* <span className="right badge badge-danger">New</span> */}
                   </p>
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item">
-                <NavLink
+                <Link
                   exact
                   activeClassName="active"
                   to="/admin/user"
@@ -103,10 +104,10 @@ const Menu = () => {
                     Người dùng
                     {/* <span className="right badge badge-danger">New</span> */}
                   </p>
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item">
-                <NavLink
+                <Link
                   exact
                   activeClassName="active"
                   to="/admin/service"
@@ -117,8 +118,38 @@ const Menu = () => {
                     Dịch vụ
                     {/* <span className="right badge badge-danger">New</span> */}
                   </p>
-                </NavLink>
+                </Link>
               </li>
+              <li className="nav-item">
+                <Link href="#" className="nav-link">
+                  <i className="nav-icon fas fa-table" />
+                  <p>
+                    Thông báo
+                    <i className="fas fa-angle-left right" />
+                  </p>
+                </Link>
+                <ul className="nav nav-treeview" style={{ display: 'none' }}>
+                  <li className="nav-item">
+                    <Link to="/admin/fire_notification" className="nav-link">
+                      <i className="fa fa-solid fa-fire nav-icon" />
+                      <p>Báo cháy</p>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <a href="../tables/data.html" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Báo diễn tập</p>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a href="../tables/jsgrid.html" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>jsGrid</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
               <li className="nav-item">
                 <a
                   exact

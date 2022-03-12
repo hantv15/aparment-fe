@@ -19,7 +19,6 @@ const UserAddForm = () => {
 
   const addUsers = (item) => {
     console.log(item);
-    alert('Thêm mới thành công');
     axios.post("http://apartment-system.xyz/api/user/add", item).then(() => {
       var Toast = Swal.mixin({
         toast: true,
@@ -145,14 +144,21 @@ const UserAddForm = () => {
                       })}
                     />
                     {errors?.phone?.type === "required" && <p className="text-danger">sNhập ngày sinh</p>}
-
+                  </div>
+                  <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select {...register('status')} class="form-control">
+                      <option selected value="0">Chọn trạng thái</option>
+                      <option value="1">Hoạt động</option>
+                      <option value="0">Không hoạt động</option>
+                    </select>
                   </div>
                 </div>
               </div>
             </div>
             {/* /.card-body */}
             <div class="card-footer">
-              <Link to="/admin/user" type="submit" class="btn btn-default float-left">
+              <Link to="/admin/user" type="button" class="btn btn-default float-left">
                 Quay lại
               </Link>
               <button type="submit" class="btn btn-info float-right">

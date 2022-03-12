@@ -32,9 +32,6 @@ const ServiceFormAdd = () => {
     }
   };
   const addService = () => {
-    const demo = () => {
-      console.log(1);
-    };
     return (
       <div className="col-md-12">
         <div className="card card-primary">
@@ -109,7 +106,7 @@ const ServiceFormAdd = () => {
                 onClick={() => {
                   history.goBack();
                 }}
-                type="submit"
+                type="button"
                 class="btn btn-default float-left"
               >
                 Quay lại

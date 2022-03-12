@@ -15,7 +15,7 @@ const UserEditForm = () => {
   const { id } = useParams();
   const [user, setUser] = useState({});
   const [apartmentNotOwned, setApartmentNotOwned] = useState([]);
-
+  const [loadPage, setLoadPage] = useState(0);
   useEffect(() => {
     try {
       const getData = async () => {
@@ -27,7 +27,7 @@ const UserEditForm = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [loadPage]);
 
   useEffect(() => {
     try {
@@ -40,7 +40,6 @@ const UserEditForm = () => {
     }
   }, [])
 
-  console.log(user);
 
   const option = {
     label: "P101",
@@ -58,9 +57,24 @@ const UserEditForm = () => {
         icon: "success",
         title: "Sửa người dùng thành công.",
       });
+    }).then(() => {
+      setLoadPage(1);
     })
   }
 
+
+  const options = [
+    {
+      label: "Hoạt động",
+      value: 1,
+    },
+    {
+      label: "Không hoạt động",
+      value: 0,
+    }
+  ]
+
+  console.log(user);
   const editUser = () => {
     return (
       <div className="col-md-12">
@@ -123,7 +137,7 @@ const UserEditForm = () => {
                   <div class="form-group">
                     <label>Chọn căn hộ</label>
                     <select {...register('apartment_id')} class="form-control">
-                      <option selected value={option.value}>{option.label}</option>
+                      <option selected value={user.id}>{user.apartment_id}</option>
                       {apartmentNotOwned.map((item) => (
                         <option value={item.id}>{item.apartment_id}</option>
                       ))}
@@ -144,12 +158,20 @@ const UserEditForm = () => {
                     {errors?.phone?.type === "required" && <p className="text-danger">sNhập ngày sinh</p>}
 
                   </div>
+                  <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select {...register('status')} class="form-control">
+                      {options.map((item) => (
+                        <option selected={item.value == user.status} value={item.value}>{item.label}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
             {/* /.card-body */}
             <div class="card-footer">
-              <Link to="/admin/user" type="submit" class="btn btn-default float-left">
+              <Link to="/admin/user" type="button" class="btn btn-default float-left">
                 Quay lại
               </Link>
               <button type="submit" class="btn btn-info float-right">

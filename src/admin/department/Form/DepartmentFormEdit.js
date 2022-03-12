@@ -132,7 +132,7 @@ const DepartmentFormEdit = () => {
                     <label htmlFor="exampleInputEmail1">Tòa nhà</label>
                     <select {...register('building_id')} className="form-control">
                       {buildings.map((item) => (
-                        <option selected={item.id == 3} value={item.id}>{item.name}</option>
+                        <option value={item.id}>{item.name}</option>
                       ))}
                     </select>
                   </div>
@@ -152,8 +152,8 @@ const DepartmentFormEdit = () => {
                     {errors?.square_meters?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ là số</p>}
                   </div>
                   <div class="form-group">
-                    <label>Trạng thái</label>
-                    <select {...register('status')} class="form-control">
+                    <label>Mô tả</label>
+                    <select {...register('description')} class="form-control">
                       {options.map((item) => (
                         <option value={item.value}>{item.label}</option>
                       ))}
@@ -166,7 +166,7 @@ const DepartmentFormEdit = () => {
                       <option value="1">Không có ban công</option>
                     </select>
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Tầng</label>
                     <input
                       type="text"
@@ -181,7 +181,7 @@ const DepartmentFormEdit = () => {
                     />
                     {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
                     {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
-                  </div>
+                  </div> */}
                 </div>
                 <div className="col-md-6">
                   <div class="form-group">
@@ -195,7 +195,7 @@ const DepartmentFormEdit = () => {
             <div class="card-footer">
               <button onClick={() => {
                 history.goBack();
-              }} type="submit" class="btn btn-default float-left">
+              }} type="button" class="btn btn-default float-left">
                 Quay lại
               </button>
               <button type="submit" class="btn btn-info float-right">

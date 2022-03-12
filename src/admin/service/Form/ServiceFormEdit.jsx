@@ -9,6 +9,7 @@ const ServiceFormEdit = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ mode: "onBlur" });
 
@@ -31,14 +32,17 @@ const ServiceFormEdit = () => {
       const getService = async () => {
         await axios
           .get(`http://apartment-system.xyz/api/service/${id}`)
-          .then((response) => setService(response.data.data));
+          .then((response) => setService(response.data.data))
+          .then((response) => {
+            reset(response);
+          });
       };
       getService();
     } catch (error) {
       console.log(error);
     }
   }, []);
-
+  console.log(id);
   const onSubmit = (item) => {
     try {
       axios
@@ -142,13 +146,13 @@ const ServiceFormEdit = () => {
                 onClick={() => {
                   history.goBack();
                 }}
-                type="submit"
+                type="button"
                 class="btn btn-default float-left"
               >
                 Quay lại
               </button>
               <button type="submit" class="btn btn-info float-right">
-                Thêm mới
+                Lưu sửa
               </button>
             </div>
           </form>

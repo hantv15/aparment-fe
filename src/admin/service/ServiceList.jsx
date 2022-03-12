@@ -170,7 +170,6 @@ const ServiceList = () => {
                           <th scope="col">STT</th>
                           <th scope="col">Tên dịch vụ</th>
                           <th scope="col">Giá</th>
-                          <th scope="col">Trạng thái</th>
                           <th scope="col">Mô tả</th>
                           <th scope="col">Trạng thái</th>
                           <th>
@@ -193,12 +192,12 @@ const ServiceList = () => {
                                 </th>
                                 <td>{item.name}</td>
                                 <td>{item.price}đ</td>
+                                <td>{item.description}</td>
                                 <td>
                                   {item.status == 1
                                     ? "Hoạt động"
                                     : "Không hoạt động"}
                                 </td>
-                                <td>{item.description}</td>
                                 <td>
                                   <Link
                                     to={`/admin/service/edit/${item.id}`}

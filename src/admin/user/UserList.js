@@ -166,7 +166,7 @@ const UserList = () => {
                         <th>
                           <a
                             className="btn btn-block btn-outline-success btn-sm"
-                            href="/admin/service/add"
+                            href="/admin/user/add"
                           >
                             Thêm mới
                           </a>

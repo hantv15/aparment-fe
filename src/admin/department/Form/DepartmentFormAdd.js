@@ -146,7 +146,7 @@ const DepartmentFormAdd = () => {
             <div class="card-footer">
               <button onClick={() => {
                 history.goBack();
-              }} type="submit" class="btn btn-default float-left">
+              }} type="button" class="btn btn-default float-left">
                 Quay lại
               </button>
               <button type="submit" class="btn btn-info float-right">

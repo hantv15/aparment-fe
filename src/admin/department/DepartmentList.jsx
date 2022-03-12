@@ -142,6 +142,10 @@ const DepartmentList = () => {
     });
   };
 
+  const handleChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (
@@ -153,8 +157,7 @@ const DepartmentList = () => {
       console.log("excel");
       axios
         .post("http://apartment-system.xyz/api/apartment/upload-excel", data)
-        .then((response) => {
-          // console.log(response);
+        .then(() => {
           var Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -208,7 +211,7 @@ const DepartmentList = () => {
                                 type="file"
                                 className="custom-file-input"
                                 id="customFile"
-                                // onChange={handleChange}
+                                onChange={handleChange}
                               />
                               <label
                                 className="custom-file-label"
