@@ -75,16 +75,28 @@ const ServiceFormAdd = () => {
                       <p className="text-danger">Nhập ký tự là số</p>
                     )}
                   </div>
+                  <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select {...register("status")} class="form-control">
+                      <option selected value="1">
+                        Chọn trạng thái
+                      </option>
+                      <option value="1">Hoạt động</option>
+                      <option value="0">Không hoạt động</option>
+                    </select>
+                  </div>
                 </div>
                 <div className="col-md-6">
-                  <label htmlFor="exampleInputEmail1">Mô tả</label>
-                  <textarea
-                    {...register("description")}
-                    className="form-control"
-                    rows={5}
-                    placeholder="Mô tả ..."
-                    defaultValue={""}
-                  />
+                  <div class="form-group">
+                    <label htmlFor="exampleInputEmail1">Mô tả</label>
+                    <textarea
+                      {...register("description")}
+                      className="form-control"
+                      rows={8}
+                      placeholder="Mô tả ..."
+                      defaultValue={""}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

@@ -9,9 +9,19 @@ const ServiceFormEdit = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm({ mode: "onBlur" });
+
+  const options = [
+    {
+      label: "Hoạt động",
+      value: 1,
+    },
+    {
+      label: "Không hoạt động",
+      value: 0,
+    },
+  ];
 
   const [service, setService] = useState({});
 
@@ -96,6 +106,23 @@ const ServiceFormEdit = () => {
                       <p className="text-danger">Nhập ký tự là số</p>
                     )}
                   </div>
+                  <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select
+                      defaultValue={service.status}
+                      {...register("status")}
+                      class="form-control"
+                    >
+                      {options.map((item) => (
+                        <option
+                          selected={item.value == service.status}
+                          value={item.value}
+                        >
+                          {item.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
                 <div className="col-md-6">
                   <label htmlFor="exampleInputEmail1">Mô tả</label>
@@ -103,7 +130,7 @@ const ServiceFormEdit = () => {
                     {...register("description")}
                     className="form-control"
                     defaultValue={service.description}
-                    rows={5}
+                    rows={8}
                     placeholder="Mô tả ..."
                   />
                 </div>

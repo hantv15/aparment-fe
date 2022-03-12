@@ -172,7 +172,7 @@ const ServiceList = () => {
                           <th scope="col">Mô tả</th>
                           <th>
                             <a
-                              className="btn btn-sm btn-outline-success btn-flat"
+                              className="btn btn-block btn-outline-success btn-sm"
                               href="/admin/service/add"
                             >
                               Thêm mới
@@ -188,7 +188,7 @@ const ServiceList = () => {
                                 <td>{item.name}</td>
                                 <td>{item.price}đ</td>
                                 <td>
-                                  {item.status == 0
+                                  {item.status == 1
                                     ? "Hoạt động"
                                     : "Không hoạt động"}
                                 </td>
@@ -201,8 +201,9 @@ const ServiceList = () => {
                               Chi tiết
                             </a> */}
                                   <Link
-                                    className="btn btn-sm btn-outline-success btn-flat"
+                                    type="button"
                                     to={`/admin/service/edit/${item.id}`}
+                                    className="btn btn-block btn-outline-success btn-sm"
                                   >
                                     Sửa
                                   </Link>
