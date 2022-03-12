@@ -30,6 +30,7 @@ const DepartmentFormAdd = () => {
 
     getDepartments();
   }, []);
+  // hahhahufhuaghai
 
   const addDepartments = async (item) => {
     console.log(item);
