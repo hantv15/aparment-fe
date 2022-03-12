@@ -147,6 +147,7 @@ const ServiceList = () => {
                           <th scope="col">Tên dịch vụ</th>
                           <th scope="col">Giá</th>
                           <th scope="col">Mô tả</th>
+                          <th scope="col">Trạng thái</th>
                           <th>
                             <a
                               className="btn btn-sm btn-outline-success btn-flat"
@@ -166,6 +167,11 @@ const ServiceList = () => {
                                 <td>{item.price}đ</td>
                                 <td>{item.description}</td>
                                 <td>
+                                  {item.status == 1
+                                    ? "Hoạt động"
+                                    : "Không hoạt động"}
+                                </td>
+                                <td>
                                   {/* <a
                               className="btn btn-sm btn-outline-primary btn-flat"
                               href="/admin/department/detail/13"
@@ -178,9 +184,6 @@ const ServiceList = () => {
                                   >
                                     Sửa
                                   </a>
-                                  <button className="btn btn-sm btn-outline-danger btn-flat">
-                                    Xóa
-                                  </button>
                                 </td>
                               </tr>
                             ))

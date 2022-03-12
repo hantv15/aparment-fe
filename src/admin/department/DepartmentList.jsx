@@ -52,11 +52,11 @@ const DepartmentList = () => {
   const statusOptions = [
     {
       value: 1,
-      name: "Active",
+      name: "Hoạt động",
     },
     {
       value: 0,
-      name: "InActive",
+      name: "Không hoạt động",
     },
   ];
 
@@ -320,9 +320,6 @@ const DepartmentList = () => {
                             >
                               Sửa
                             </Link>
-                            <button className="btn btn-sm btn-outline-danger btn-flat">
-                              Xóa
-                            </button>
                           </td>
                         </tr>
                       ))}
