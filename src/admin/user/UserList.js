@@ -10,6 +10,7 @@ import InputSearch from "../../components/InputSearch";
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [pageCount, setPageCount] = useState("");
+  const [curPage, setCurPage] = useState(1);
   const [filters, setFilters] = useState({
     page_size: 10,
     page: 1,
@@ -108,6 +109,7 @@ const UserList = () => {
   const handlePageClick = (data) => {
     console.log("data: ", data);
     let currentPage = data.selected + 1;
+    setCurPage(currentPage);
     setFilters({
       ...filters,
       page: currentPage,
@@ -175,7 +177,7 @@ const UserList = () => {
                       {users
                         ? users.map((item, index) => (
                           <tr key={item.id}>
-                            <th scope="row">{index + 1}</th>
+                            <th scope="row">{(curPage - 1) * filters.page_size + (index + 1)}</th>
                             <td>{item.name}</td>
                             <td>
                               <img width={60} src={item.avatar} />

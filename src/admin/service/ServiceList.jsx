@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 const ServiceList = () => {
   const [services, setServices] = useState([]);
   const [pageCount, setPageCount] = useState("");
+  const [curPage, setCurPage] = useState(1);
   const [filters, setFilters] = useState({
     page_size: 10,
     page: 1,
@@ -116,12 +117,13 @@ const ServiceList = () => {
   const handlePageClick = (data) => {
     console.log("data: ", data);
     let currentPage = data.selected + 1;
+    setCurPage(currentPage);
     setFilters({
       ...filters,
       page: currentPage,
     });
   };
-  console.log(filters);
+  console.log(curPage);
 
   const handleGetValue = (value) => {
     setFilters({
@@ -172,7 +174,7 @@ const ServiceList = () => {
                           <th scope="col">Mô tả</th>
                           <th>
                             <a
-                              className="btn btn-block btn-outline-success btn-sm"
+                              className="btn btn-sm btn-outline-success btn-flat"
                               href="/admin/service/add"
                             >
                               Thêm mới
@@ -184,7 +186,10 @@ const ServiceList = () => {
                         {services
                           ? services.map((item, index) => (
                               <tr key={index}>
-                                <th scope="row">{index + 1}</th>
+                                <th scope="row">
+                                  {(curPage - 1) * filters.page_size +
+                                    (index + 1)}
+                                </th>
                                 <td>{item.name}</td>
                                 <td>{item.price}đ</td>
                                 <td>
@@ -194,16 +199,9 @@ const ServiceList = () => {
                                 </td>
                                 <td>{item.description}</td>
                                 <td>
-                                  {/* <a
-                              className="btn btn-sm btn-outline-primary btn-flat"
-                              href="/admin/department/detail/13"
-                            >
-                              Chi tiết
-                            </a> */}
                                   <Link
-                                    type="button"
                                     to={`/admin/service/edit/${item.id}`}
-                                    className="btn btn-block btn-outline-success btn-sm"
+                                    className="btn btn-sm btn-outline-success btn-flat"
                                   >
                                     Sửa
                                   </Link>

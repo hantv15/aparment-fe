@@ -15,6 +15,7 @@ const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
   const [buildings, setBuildings] = useState([]);
   const [pageCount, setPageCount] = useState(0);
+  const [curPage, setCurPage] = useState(1);
   const [file, setFile] = useState({});
   const [filters, setFilters] = useState({
     page_size: 10,
@@ -121,6 +122,7 @@ const DepartmentList = () => {
   };
   const handlePageClick = (data) => {
     const currentPage = data.selected + 1;
+    setCurPage(currentPage);
     setFilters({
       ...filters,
       page: currentPage,
@@ -293,7 +295,9 @@ const DepartmentList = () => {
                     <tbody>
                       {apartments.map((department, index) => (
                         <tr key={department.id}>
-                          <th scope="row">{index + 1}</th>
+                          <th scope="row">
+                            {(curPage - 1) * filters.page_size + (index + 1)}
+                          </th>
                           <td>{department.apartment_id}</td>
                           <td>{department.building_id}</td>
                           <td>{department.square_meters}m2</td>
@@ -314,7 +318,7 @@ const DepartmentList = () => {
                               Chi tiết
                             </Link>
                             <Link
-                              className="btn btn-sm btn-outline-success btn-flat"
+                              className="ml-1 btn btn-sm btn-outline-success btn-flat"
                               to={`/admin/department/edit/${department.id}`}
                             >
                               Sửa
