@@ -58,6 +58,7 @@ const ServiceFormEdit = () => {
             icon: "success",
             title: "Sủa dịch vụ thành công.",
           });
+          history.goBack();
         });
     } catch (error) {
       console.log(error);

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { add } from "../../../common/userApi";
 import Content from "../../../core/Content";
@@ -14,9 +14,8 @@ const UserAddForm = () => {
 
 
   const [avatar, setAvatar] = useState("");
-
   const [apartmentNotOwned, setApartmentNotOwned] = useState([]);
-
+  const history = useHistory();
   const addUsers = (item) => {
     console.log(item);
     axios.post("http://apartment-system.xyz/api/user/add", item).then(() => {
@@ -30,6 +29,7 @@ const UserAddForm = () => {
         icon: "success",
         title: "Thêm mới người dùng thành công.",
       });
+      history.goBack();
     }).catch((error) => {
       var Toast = Swal.mixin({
         toast: true,

@@ -15,6 +15,7 @@ import BillModal from "./admin/department/BillModal";
 import BillEditForm from "./admin/department/BillEditForm";
 import ServiceList from "./admin/service/ServiceList";
 import ServiceFormAdd from "./admin/service/Form/ServiceFormAdd";
+import FireNoti from "./admin/noti/FireNoti";
 const Routes = () => {
   return (
     <Router>
@@ -22,7 +23,7 @@ const Routes = () => {
         <Route exact path="/" component={SignIn} />
         <Switch>
           <PrivateRoute>
-            <Route exact path="/admin/dashboard">
+            <Route exact path="/admin">
               <Dashboard />
             </Route>
             <Route exact path="/admin/department">
@@ -62,11 +63,11 @@ const Routes = () => {
             <Route exact path="/admin/service/add">
               <ServiceFormAdd />
             </Route>
-
+            <Route exact path="/admin/fire_notification">
+              <FireNoti />
+            </Route>
           </PrivateRoute>
-
         </Switch>
-        <Route exact path="*" component={NotFound} />
       </Switch>
 
     </Router>

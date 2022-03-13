@@ -43,8 +43,9 @@ const DepartmentFormAdd = () => {
           });
           Toast.fire({
             icon: "success",
-            title: "Thêm mới dịch vụ thành công.",
+            title: "Thêm mới căn hộ thành công.",
           });
+          history.goBack();
         });
     } catch (error) {
       console.log(error);
@@ -108,7 +109,7 @@ const DepartmentFormAdd = () => {
                     <label>Trạng thái</label>
                     <select {...register('status')} class="form-control">
                       <option value="1">Hoạt động</option>
-                      <option value="2">Không hoạt động</option>
+                      <option value="0">Không hoạt động</option>
                     </select>
                   </div>
                   <div class="form-group">
