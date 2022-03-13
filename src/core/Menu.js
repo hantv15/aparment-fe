@@ -121,6 +121,20 @@ const Menu = () => {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link
+                  exact
+                  activeClassName="active"
+                  to="/admin/bill"
+                  className="nav-link"
+                >
+                  <i className="nav-icon fas fa-solid fa-file-invoice" />
+                  <p>
+                    Hóa đơn
+                    {/* <span className="right badge badge-danger">New</span> */}
+                  </p>
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link href="#" className="nav-link">
                   <i className="nav-icon fas fa-table" />
                   <p>
