@@ -6,7 +6,6 @@ import DepartmentList from "./admin/department/DepartmentList";
 import DepartmentFormAdd from "./admin/department/Form/DepartmentFormAdd";
 import DepartmentFormEdit from "./admin/department/Form/DepartmentFormEdit";
 import UserList from "./admin/user/UserList";
-import NotFound from "./pages/NotFound";
 import UserAddForm from "./admin/user/Form/UserAddForm";
 import UserEditForm from "./admin/user/Form/UserEditForm";
 import DepartmentDetail from "./admin/department/DepartmentDetail";
@@ -17,6 +16,8 @@ import ServiceList from "./admin/service/ServiceList";
 import ServiceFormAdd from "./admin/service/Form/ServiceFormAdd";
 import FireNoti from "./admin/noti/FireNoti";
 import ServiceFormEdit from "./admin/service/Form/ServiceFormEdit";
+import BillList from "./admin/bill/BillList";
+import BillAddForms from "./admin/bill/Form/BillAddForms";
 const Routes = () => {
   return (
     <Router>
@@ -69,6 +70,12 @@ const Routes = () => {
             </Route>
             <Route exact path="/admin/fire_notification">
               <FireNoti />
+            </Route>
+            <Route exact path="/admin/bill">
+              <BillList />
+            </Route>
+            <Route exact path="/admin/bill/add">
+              <BillAddForms />
             </Route>
           </PrivateRoute>
         </Switch>
