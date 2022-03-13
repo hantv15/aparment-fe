@@ -16,6 +16,7 @@ import BillEditForm from "./admin/department/BillEditForm";
 import ServiceList from "./admin/service/ServiceList";
 import ServiceFormAdd from "./admin/service/Form/ServiceFormAdd";
 import FireNoti from "./admin/noti/FireNoti";
+import ServiceFormEdit from "./admin/service/Form/ServiceFormEdit";
 const Routes = () => {
   return (
     <Router>
@@ -62,6 +63,9 @@ const Routes = () => {
             </Route>
             <Route exact path="/admin/service/add">
               <ServiceFormAdd />
+            </Route>
+            <Route exact path="/admin/service/edit/:id">
+              <ServiceFormEdit />
             </Route>
             <Route exact path="/admin/fire_notification">
               <FireNoti />
