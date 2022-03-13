@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect, useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 import { authenticate, isAuthenticate, sigIn } from "../auth";
 import Layout from "../core/Layout";
 const axios = require('axios');
@@ -31,7 +32,26 @@ const SignIn = () => {
         });
       })
       .catch(function (error) {
-        console.log(error);
+        var Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        if (error.request.status == 400) {
+          Toast.fire({
+            icon: "error",
+            title:
+              "Tài khoản của bạn không phải là admin.",
+          });
+        }
+        if (error.request.status == 422) {
+          Toast.fire({
+            icon: "error",
+            title:
+              "Vui lòng không bỏ trống tài khoản hoặc mật khẩu",
+          });
+        }
       });
   };
 
@@ -58,16 +78,28 @@ const SignIn = () => {
       return <Redirect to="/admin/dashboard" />;
     }
   };
-  const showLoading = () => {
-    return (
-      loading && (
-        <div className="alert alert-info">
-          <h2>...Loading</h2>
-        </div>
-      )
-    );
-  };
+
+  const checkAuthen = () => {
+    // if (isAuthenticate()) {
+    //   return <Redirect to="/admin/dashboard" />
+    // } else {
+    //   return <Redirect to="/" />
+    // }
+  }
+
+  // const showLoading = () => {
+  //   return (
+  //     loading && (
+  //       <div className="alert alert-info">
+  //         <h2>...Loading</h2>
+  //       </div>
+  //     )
+  //   );
+  // };
   // Tạo form
+  if (isAuthenticate()) {
+    return <Redirect to="/admin" />;
+  }
   const signInForm = () => {
     return (
       <div className="login-box">
@@ -79,14 +111,16 @@ const SignIn = () => {
         {/* /.login-logo */}
         <div className="card">
           <div className="card-body login-card-body">
-            <p className="login-box-msg">Sign in to start your session</p>
+            <p className="login-box-msg">Đăng nhập</p>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="input-group mb-3">
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Tên căn hộ"
-                  {...register('username')}
+                  {...register('username', {
+                    required: true
+                  })}
                 />
                 <div className="input-group-append">
                   <div className="input-group-text">
@@ -96,7 +130,7 @@ const SignIn = () => {
               </div>
               <div className="input-group mb-3">
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
                   placeholder="Password"
                   {...register('password')}
@@ -110,8 +144,6 @@ const SignIn = () => {
               <div className="row">
                 <div className="col-8">
                   <div className="icheck-primary">
-                    <input type="checkbox" id="remember" />
-                    <label htmlFor="remember">Remember Me</label>
                   </div>
                 </div>
                 {/* /.col */}
@@ -126,11 +158,6 @@ const SignIn = () => {
             <p className="mb-1">
               <a href="forgot-password.html">I forgot my password</a>
             </p>
-            <p className="mb-0">
-              <a href="register.html" className="text-center">
-                Register a new membership
-              </a>
-            </p>
           </div>
           {/* /.login-card-body */}
         </div>
@@ -141,9 +168,9 @@ const SignIn = () => {
     <Layout
       className="login-page"
     >
+      {checkAuthen()}
       {redirectUser()}
       {showError()}
-      {showLoading()}
       {signInForm()}
     </Layout>
   );

@@ -68,7 +68,7 @@ const Menu = () => {
                 <Link
                   exact
                   activeClassName="active"
-                  to="/admin/dashboard"
+                  to="/admin"
                   className="nav-link"
                 >
                   <i className="nav-icon fas fa-tachometer-alt" />

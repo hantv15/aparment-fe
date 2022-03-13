@@ -26,6 +26,7 @@ const ServiceFormAdd = () => {
             icon: "success",
             title: "Thêm mới dịch vụ thành công.",
           });
+          history.goBack();
         });
     } catch (error) {
       console.log(error);

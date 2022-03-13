@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getUser } from "../../../api/userAPI";
 import Content from "../../../core/Content";
@@ -16,6 +16,9 @@ const UserEditForm = () => {
   const [user, setUser] = useState({});
   const [apartmentNotOwned, setApartmentNotOwned] = useState([]);
   const [loadPage, setLoadPage] = useState(0);
+
+  const history = useHistory();
+
   useEffect(() => {
     try {
       const getData = async () => {
@@ -57,6 +60,7 @@ const UserEditForm = () => {
         icon: "success",
         title: "Sửa người dùng thành công.",
       });
+      history.gotBack();
     }).then(() => {
       setLoadPage(1);
     })

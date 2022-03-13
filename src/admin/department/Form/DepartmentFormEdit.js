@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getBuilding, getBuildings } from "../../../api/buildingAPI";
+import { Redirect } from 'react-router-dom';
 import { get } from "../../../common/departmentAPI";
 import Content from "../../../core/Content";
 const DepartmentFormEdit = () => {
@@ -19,11 +20,11 @@ const DepartmentFormEdit = () => {
 
   const options = [
     {
-      label: "Hoạt động",
+      label: "Không hoạt động",
       value: 0
     },
     {
-      label: "Không hoạt động",
+      label: "Hoạt động",
       value: 1
     },
   ]
@@ -78,7 +79,6 @@ const DepartmentFormEdit = () => {
   const addDepartments = async (item) => {
     console.log(item);
     try {
-      alert('Thêm mới thành công');
       axios
         .post(`http://apartment-system.xyz/api/apartment/edit/${id}`, item)
         .then(() => {
@@ -92,6 +92,7 @@ const DepartmentFormEdit = () => {
             icon: "success",
             title: "Sửa thành công.",
           });
+          history.goBack();
         });
     } catch (error) {
       console.log(error);
@@ -132,7 +133,7 @@ const DepartmentFormEdit = () => {
                     <label htmlFor="exampleInputEmail1">Tòa nhà</label>
                     <select {...register('building_id')} className="form-control">
                       {buildings.map((item) => (
-                        <option value={item.id}>{item.name}</option>
+                        <option selected={item.id == department.building_id} value={item.id}>{item.name}</option>
                       ))}
                     </select>
                   </div>
@@ -152,10 +153,10 @@ const DepartmentFormEdit = () => {
                     {errors?.square_meters?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ là số</p>}
                   </div>
                   <div class="form-group">
-                    <label>Mô tả</label>
-                    <select {...register('description')} class="form-control">
+                    <label>Trạng thái</label>
+                    <select {...register('status')} class="form-control">
                       {options.map((item) => (
-                        <option value={item.value}>{item.label}</option>
+                        <option selected={item.value == department.status} value={item.value}>{item.label}</option>
                       ))}
                     </select>
                   </div>
@@ -166,7 +167,7 @@ const DepartmentFormEdit = () => {
                       <option value="1">Không có ban công</option>
                     </select>
                   </div>
-                  {/* <div className="form-group">
+                  <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Tầng</label>
                     <input
                       type="text"
@@ -181,7 +182,7 @@ const DepartmentFormEdit = () => {
                     />
                     {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
                     {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
-                  </div> */}
+                  </div>
                 </div>
                 <div className="col-md-6">
                   <div class="form-group">
@@ -199,7 +200,7 @@ const DepartmentFormEdit = () => {
                 Quay lại
               </button>
               <button type="submit" class="btn btn-info float-right">
-                Thêm mới
+                Lưu sửa
               </button>
             </div>
           </form>
