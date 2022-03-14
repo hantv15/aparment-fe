@@ -84,18 +84,22 @@ const DepartmentFormAdd = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Tòa nhà</label>
-                    <select {...register('building_id')} className="form-control">
+                    <select {...register('building_id', {
+                      required: true
+                    })} className="form-control">
                       <option selected value="">Chọn tòa nhà</option>
                       {buildings.map((item) => (
                         <option value={item.id}>{item.name}</option>
                       ))}
                     </select>
+                    {errors?.building_id?.type === "required" && <p className="text-danger">Hãy chọn toà nhà</p>}
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Diện tích căn hộ căn hộ</label>
                     <input
                       {...register('square_meter', {
-                        pattern: /^[0-9]*$/
+                        pattern: /^[0-9]*$/,
+                        required: true
                       })}
                       type="text"
                       className="form-control"
@@ -104,6 +108,7 @@ const DepartmentFormAdd = () => {
                       placeholder="Nhập kích thước căn hộ"
                     />
                     {errors?.square_meters?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ là số</p>}
+                    {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
                   </div>
                   <div class="form-group">
                     <label>Trạng thái</label>
@@ -128,11 +133,11 @@ const DepartmentFormAdd = () => {
                       placeholder="Nhập tâng căn hộ"
                       {...register('floor', {
                         required: true,
-                        pattern: /^[a-zA-Z0-9_.-]*$/i
+                        pattern: /^[0-9]*$/i
                       })}
                     />
                     {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
-                    {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
+                    {errors?.floor?.type === "pattern" && <p className="text-danger">Trường này chỉ nhập ký tự là số</p>}
                   </div>
                 </div>
                 <div className="col-md-6">

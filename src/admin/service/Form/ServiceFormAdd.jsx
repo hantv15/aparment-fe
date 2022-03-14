@@ -78,14 +78,22 @@ const ServiceFormAdd = () => {
                   </div>
                   <div class="form-group">
                     <label>Trạng thái</label>
-                    <select {...register("status")} class="form-control">
-                      <option selected value="1">
+                    <select
+                      {...register("status", {
+                        required: true,
+                      })}
+                      class="form-control"
+                    >
+                      <option selected value="">
                         Chọn trạng thái
                       </option>
                       <option value="1">Hoạt động</option>
                       <option value="0">Không hoạt động</option>
                     </select>
                   </div>
+                  {errors?.status?.type === "required" && (
+                    <p className="text-danger">Vui lòng chọn trạng thái</p>
+                  )}
                 </div>
                 <div className="col-md-6">
                   <div class="form-group">
