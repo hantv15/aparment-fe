@@ -98,6 +98,7 @@ const UserList = () => {
   };
 
   const handleChangePageSize = (value) => {
+    setCurPage(1);
     setFilters({
       ...filters,
       page_size: value,
@@ -117,12 +118,24 @@ const UserList = () => {
   };
   console.log(filters);
 
-  const handleGetValue = (value) => {
+  function handleSearchChange(newFilters) {
+    console.log("New filter: ", newFilters);
+    if (newFilters == "") {
+      setFilters({
+        ...filters,
+      });
+    }
+    setFiltersNoPage({
+      ...filtersNoPage,
+      keyword: newFilters.searchTerm,
+    });
+
     setFilters({
       ...filters,
-      keyword: value,
+      keyword: newFilters.searchTerm,
     });
-  };
+  }
+
   return (
     <Content title="Danh sách căn Hộ">
       <div className="row">
@@ -135,7 +148,7 @@ const UserList = () => {
                     {/* desc asc */}
                     <div className="form-outline ">
                       {/* <DepartmentSearch onSubmit={handleSearchChange} /> */}
-                      <InputSearch handleGetValue={handleGetValue} />
+                      <InputSearch onSubmit={handleSearchChange} />
                     </div>
                     <SelectOption
                       array={options}

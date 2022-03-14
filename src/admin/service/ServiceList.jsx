@@ -106,6 +106,7 @@ const ServiceList = () => {
   };
 
   const handleChangePageSize = (value) => {
+    setCurPage(1);
     setFilters({
       ...filters,
       page_size: value,
@@ -125,12 +126,24 @@ const ServiceList = () => {
   };
   console.log(curPage);
 
-  const handleGetValue = (value) => {
+  function handleSearchChange(newFilters) {
+    console.log("New filter: ", newFilters);
+    if (newFilters == "") {
+      setFilters({
+        ...filters,
+      });
+    }
+
+    setFiltersNoPage({
+      ...filtersNoPage,
+      keyword: newFilters.searchTerm,
+    });
+
     setFilters({
       ...filters,
-      keyword: value,
+      keyword: newFilters.searchTerm,
     });
-  };
+  }
 
   console.log(services);
   return (
@@ -146,7 +159,7 @@ const ServiceList = () => {
                       {/* desc asc */}
                       <div className="form-outline ">
                         {/* <DepartmentSearch onSubmit={handleSearchChange} /> */}
-                        <InputSearch handleGetValue={handleGetValue} />
+                        <InputSearch onSubmit={handleSearchChange} />
                       </div>
                       <SelectOption
                         array={options}

@@ -101,8 +101,12 @@ const BillList = () => {
                           <th scope="row">{index + 1}</th>
 
                           <td>{user.name}</td>
-                          <td>{user.amount}</td>
-                          <td>{user.payment_method}</td>
+                          <td>{user.amount}đ</td>
+                          <td>
+                            {user.payment_method == 0
+                              ? "Thanh toán tại quầy"
+                              : "Banking"}
+                          </td>
                           <td>{user.apartment_id}</td>
 
                           <td>{user.notes}</td>
