@@ -1,9 +1,9 @@
 import { Button } from "react-bootstrap";
 import BillModal from "../Modal/BillModal";
-import React, {useEffect, useState} from "react";
-import { get,getBills } from "../../../common/departmentAPI";
+import React, { useEffect, useState } from "react";
+import { get, getBills } from "../../../common/departmentAPI";
 
-import { Link,useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 const PaymentHistory = () => {
   const [departments, setDepartments] = useState([]);
   const statusOptions = [
@@ -21,7 +21,7 @@ const PaymentHistory = () => {
     const getDepartments = async () => {
       try {
         const { data } = await getBills(id);
-        
+
         setDepartments(data.data);
         console.log(data);
         // console.log(datas);
@@ -51,7 +51,7 @@ const PaymentHistory = () => {
                             <th scope="col">STT</th>
                             <th scope="col">Tên hóa đơn</th>
                             <th scope="col">Tên chủ hộ</th>
-                            
+
                             <th scope="col">Tổng tiền</th>
                             <th scope="col">Trạng thái</th>
                             <th className="d-flex justify-content-center">
@@ -66,20 +66,18 @@ const PaymentHistory = () => {
                           </tr>
                         </thead>
                         <tbody>
-                        {departments.map((item,index)=>(
-                              <tr key={item.id}>                          
+                          {departments.map((item, index) => (
+                            <tr key={item.id}>
                               <th scope="row">{index + 1}</th>
                               <td>{item.ten_hoa_don}</td>
                               <td>{item.ten_chu_ho}</td>
                               <td>{item.amount}</td>
-                              
+
                               <td>
-                            {statusOptions.map((status) =>
-                              status.value == item.status
-                                ? status.name
-                                : ""
-                            )}
-                          </td>
+                                {statusOptions.map((status) =>
+                                  status.value == item.status ? "Đã trả" : ""
+                                )}
+                              </td>
                               <td className="d-flex justify-content-center">
                                 <Link
                                   variant="btn btn-sm btn-outline-primary btn-flat"
@@ -87,11 +85,9 @@ const PaymentHistory = () => {
                                 >
                                   Chi tiết
                                 </Link>
-                                
                               </td>
                             </tr>
-                              ))}
-                          
+                          ))}
                         </tbody>
                       </table>
                     </div>

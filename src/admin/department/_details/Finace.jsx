@@ -136,25 +136,11 @@ const Finace = () => {
           </div>
         </div>
       </div>
-      <div className="">
-        <button
-          onClick={() => {
-            handleShow();
-          }}
-          className="btn btn-sm btn-outline-success btn-flat"
-        >
-          {showPaymentHistory
-            ? "Ẩn hiển thị lịch sử thanh toán"
-            : "Hiển thị lịch sử thanh toán"}
-        </button>
-      </div>
-      {showPaymentHistory && (
-        <PaymentHistory
-          handleClose={handleClose}
-          show={show}
-          handleShows={handleShows}
-        />
-      )}
+      <PaymentHistory
+        handleClose={handleClose}
+        show={show}
+        handleShows={handleShows}
+      />
       {/* {show && <BillModal handleClose={handleClose} show={show} />} */}
     </>
   );

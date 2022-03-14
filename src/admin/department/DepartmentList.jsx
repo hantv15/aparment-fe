@@ -194,6 +194,9 @@ const DepartmentList = () => {
     }
   };
 
+  const logFunc = () => {
+    console.log("Preload");
+  };
   return (
     <Content title="Căn Hộ">
       <div className="row">
@@ -304,7 +307,7 @@ const DepartmentList = () => {
                         </th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody onLoad={logFunc()}>
                       {apartments.map((department, index) => (
                         <tr key={department.id}>
                           <th scope="row">
