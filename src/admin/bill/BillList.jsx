@@ -87,7 +87,7 @@ const BillList = () => {
                         <th scope="col">Chú ý</th>
                         <th>
                           <Link
-                            className="btn btn-sm btn-success btn-flat"
+                            className="btn btn-sm btn-outline-success btn-flat"
                             to="/admin/bill/add"
                           >
                             Thêm mới

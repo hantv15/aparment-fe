@@ -34,8 +34,10 @@ const BillModal = () => {
                   <th scope="col">Tên dịch vụ</th>
                   <th scope="col">Số lượng</th>
                   <th scope="col">Giá</th>
-
                   <th scope="col">Giá tổng</th>
+                  <th scope="col" className="d-flex justify-content-center">
+                    Chức năng
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -48,7 +50,7 @@ const BillModal = () => {
                     <td>{item.total_price}</td>
                     <td className="d-flex justify-content-center">
                       <Link
-                        variant="btn btn-sm btn-outline-primary btn-flat"
+                        className="btn btn-sm btn-outline-primary btn-flat"
                         to={`/admin/department/modaledit/${item.bill_detail_id}`}
                       >
                         Sửa

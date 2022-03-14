@@ -45,21 +45,37 @@ const ServiceFormEdit = () => {
   console.log(id);
   const onSubmit = (item) => {
     try {
-      axios
-        .post(`http://apartment-system.xyz/api/service/edit/${id}`, item)
-        .then(() => {
-          var Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
+      Swal.fire({
+        title: "Do you want to save the changes?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Lưu sửa",
+        denyButtonText: `Không lưu sửa`,
+        timer: 1500,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire("Lưu thay đổi!", "", "success").then(() => {
+            axios
+              .post(`http://apartment-system.xyz/api/service/edit/${id}`, item)
+              .then(() => {
+                var Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 3000,
+                });
+                Toast.fire({
+                  icon: "success",
+                  title: "Sửa dịch vụ thành công.",
+                });
+                history.goBack();
+              });
           });
-          Toast.fire({
-            icon: "success",
-            title: "Sủa dịch vụ thành công.",
-          });
-          history.goBack();
-        });
+        } else if (result.isDenied) {
+          Swal.fire("Thay đổi không được lưu", "", "info");
+        }
+      });
     } catch (error) {
       console.log(error);
     }
