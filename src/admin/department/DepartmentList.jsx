@@ -11,6 +11,7 @@ import { get, NoGetPage } from "../../common/apartment";
 import SelectOption from "../../components/SelectOption";
 import InputSearch from "../../components/InputSearch";
 import { getBuildings } from "../../api/buildingAPI";
+import DepartmentSearch from "./DepartmentSearch";
 const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
   const [buildings, setBuildings] = useState([]);
@@ -104,22 +105,31 @@ const DepartmentList = () => {
   }, []);
 
   const handleChangePageSize = (value) => {
+    setCurPage(1);
     setFilters({
       ...filters,
+      page: 1,
       page_size: value,
     });
   };
 
-  const handleGetValue = (value) => {
-    setFilters({
-      ...filters,
-      keyword: value,
-    });
+  function handleSearchChange(newFilters) {
+    console.log("New filter: ", newFilters);
+    if (newFilters == "") {
+      setFilters({
+        ...filters,
+      });
+    }
     setFiltersNoPage({
       ...filtersNoPage,
-      keyword: value,
+      keyword: newFilters.searchTerm,
     });
-  };
+
+    setFilters({
+      ...filters,
+      keyword: newFilters.searchTerm,
+    });
+  }
   const handlePageClick = (data) => {
     const currentPage = data.selected + 1;
     setCurPage(currentPage);
@@ -248,8 +258,7 @@ const DepartmentList = () => {
                 <div className="col-sm-6">
                   <div className="input-group d-flex flex-row-reverse rounded my-2 ms-2">
                     <div className="form-outline ">
-                      {/* <DepartmentSearch onSubmit={handleSearchChange} /> */}
-                      <InputSearch handleGetValue={handleGetValue} />
+                      <DepartmentSearch onSubmit={handleSearchChange} />
                     </div>
                     <div className="form-outline mr-2">
                       <SelectOption
