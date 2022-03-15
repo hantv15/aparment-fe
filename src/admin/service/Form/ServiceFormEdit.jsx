@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
+
 import Content from "../../../core/Content";
 
 const ServiceFormEdit = () => {
@@ -46,34 +47,31 @@ const ServiceFormEdit = () => {
   const onSubmit = (item) => {
     try {
       Swal.fire({
-        title: "Do you want to save the changes?",
-        showDenyButton: true,
+        title: "Xác nhận lưu sửa?",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Lưu sửa",
-        denyButtonText: `Không lưu sửa`,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Lưu sửa!",
         timer: 1500,
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Swal.fire("Lưu thay đổi!", "", "success").then(() => {
-            axios
-              .post(`http://apartment-system.xyz/api/service/edit/${id}`, item)
-              .then(() => {
-                var Toast = Swal.mixin({
-                  toast: true,
-                  position: "top-end",
-                  showConfirmButton: false,
-                  timer: 3000,
-                });
-                Toast.fire({
-                  icon: "success",
-                  title: "Sửa dịch vụ thành công.",
-                });
+          axios
+            .post(`http://apartment-system.xyz/api/service/edit/${id}`, item)
+            .then(() => {
+              var Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+              });
+              Toast.fire({
+                icon: "success",
+                title: "Sửa dịch vụ thành công.",
+              }).then(() => {
                 history.goBack();
               });
-          });
-        } else if (result.isDenied) {
-          Swal.fire("Thay đổi không được lưu", "", "info");
+            });
         }
       });
     } catch (error) {

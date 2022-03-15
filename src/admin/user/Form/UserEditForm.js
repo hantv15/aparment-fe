@@ -58,30 +58,33 @@ const UserEditForm = () => {
   }
   const onSubmit = (item) => {
     Swal.fire({
-      title: 'Bạn muốn lưu thay đổi không?',
-      showDenyButton: true,
+      title: "Xác nhận lưu sửa?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Lưu',
-      denyButtonText: `Không lưu`,
-      timer: 1500
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Lưu sửa!",
+      timer: 1500,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Lưu thay đổi!', '', 'success').then(() => {
-          axios.post(`http://apartment-system.xyz/api/user/edit/${id}`, item).then(() => {
+        axios
+          .post(`http://apartment-system.xyz/api/user/edit/${id}`, item)
+          .then(() => {
+            var Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+            });
             Toast.fire({
               icon: "success",
-              title: "Sửa người dùng thành công.",
+              title: "Sửa dịch vụ thành công.",
+            }).then(() => {
+              history.goBack();
             });
-            history.gotBack();
-          }).then(() => {
-            setLoadPage(1);
-          })
-        })
-      } else if (result.isDenied) {
-        Swal.fire('Thay đổi không được lưu', '', 'info')
+          });
       }
-    })
+    });
   }
 
 
