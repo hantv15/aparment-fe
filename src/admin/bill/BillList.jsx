@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Content from "../../core/Content";
@@ -13,42 +13,8 @@ const BillList = () => {
     };
 
     getAllUsers();
-
-    // const getUsers = async () => {
-    //   try {
-    //     const { data } = await getPagination(1, limit);
-    //     setUsers(data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-
-    // getUsers();
   }, []);
 
-  //   const fetchUsers = async (currentPage) => {
-  //     try {
-  //       const { data } = await fetchPagination(currentPage, limit);
-  //       setUsers(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   const handlePageClick = async (data) => {
-  //     console.log(data.selected);
-  //     const currentPage = data.selected + 1;
-  //     fetchUsers(currentPage);
-  //   };
-  //   const deleteUser = async (id) => {
-  //     try {
-  //       const { data } = await remove(id);
-  //       const newUser = users.filter((item) => item.id !== data.id);
-  //       setUsers(newUser);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
   return (
     <Content title="Hoá đơn">
       <div className="row">
@@ -97,7 +63,7 @@ const BillList = () => {
                     </thead>
                     <tbody>
                       {users.map((user, index) => (
-                        <tr key={user}>
+                        <tr key={index}>
                           <th scope="row">{index + 1}</th>
 
                           <td>{user.name}</td>
@@ -110,21 +76,7 @@ const BillList = () => {
                           <td>{user.apartment_id}</td>
 
                           <td>{user.notes}</td>
-                          <td>
-                            {/* <button
-                              onClick={() => deleteUser(user.id)}
-                              className="btn btn-sm btn-danger btn-flat"
-                            >
-                              Xóa
-                            </button> */}
-                            {/* <Link
-                              className="btn btn-sm btn-success btn-flat"
-                              to={`/admin/user/edit/${user.id}`}
-                              onId={user.id}
-                            >
-                              Sửa
-                            </Link> */}
-                          </td>
+                          <td></td>
                         </tr>
                       ))}
                     </tbody>

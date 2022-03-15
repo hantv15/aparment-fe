@@ -135,15 +135,15 @@ const BillAddForms = () => {
               </div>
             </div>
             {/* /.card-body */}
-            <div class="card-footer">
+            <div className="card-footer">
               <Link
                 to="/admin/bill"
                 type="submit"
-                class="btn btn-default float-left"
+                className="btn btn-default float-left"
               >
                 Quay lại
               </Link>
-              <button type="submit" class="btn btn-info float-right">
+              <button type="submit" className="btn btn-info float-right">
                 Thêm mới
               </button>
             </div>

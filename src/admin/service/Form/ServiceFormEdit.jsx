@@ -127,12 +127,12 @@ const ServiceFormEdit = () => {
                       <p className="text-danger">Nhập ký tự là số</p>
                     )}
                   </div>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Trạng thái</label>
                     <select
                       defaultValue={service.status}
                       {...register("status")}
-                      class="form-control"
+                      className="form-control"
                     >
                       {options.map((item) => (
                         <option
@@ -158,17 +158,17 @@ const ServiceFormEdit = () => {
               </div>
             </div>
             {/* /.card-body */}
-            <div class="card-footer">
+            <div className="card-footer">
               <button
                 onClick={() => {
                   history.goBack();
                 }}
                 type="button"
-                class="btn btn-default float-left"
+                className="btn btn-default float-left"
               >
                 Quay lại
               </button>
-              <button type="submit" class="btn btn-info float-right">
+              <button type="submit" className="btn btn-info float-right">
                 Lưu sửa
               </button>
             </div>

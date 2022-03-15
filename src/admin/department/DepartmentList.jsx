@@ -1,17 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import querystring from "query-string";
 import Swal from "sweetalert2";
 // ES6 Modules or TypeScript
 import Content from "../../core/Content";
-import DepartmentDetail from "./DepartmentDetail";
 import axios from "axios";
 import { get, NoGetPage } from "../../common/apartment";
 import SelectOption from "../../components/SelectOption";
-import InputSearch from "../../components/InputSearch";
 import { getBuildings } from "../../api/buildingAPI";
 import DepartmentSearch from "./DepartmentSearch";
+
 const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
   const [buildings, setBuildings] = useState([]);
@@ -24,10 +23,12 @@ const DepartmentList = () => {
     building_id: "",
     keyword: "",
   });
+
   const [filtersNoPage, setFiltersNoPage] = useState({
     building_id: "",
     keyword: "",
   });
+
   const pageSize = [
     {
       label: "Hiển thị 10 mục",
@@ -51,6 +52,7 @@ const DepartmentList = () => {
       value: 20,
     },
   ];
+
   const statusOptions = [
     {
       value: 1,
@@ -64,7 +66,6 @@ const DepartmentList = () => {
 
   const paramString = querystring.stringify(filters);
   const paramNoPageSize = querystring.stringify(filtersNoPage);
-
   useEffect(() => {
     try {
       const getApartments = async () => {
@@ -275,7 +276,9 @@ const DepartmentList = () => {
                           Chọn tòa
                         </option>
                         {buildings.map((item) => (
-                          <option value={item.id}>{item.name}</option>
+                          <option key={item.id} value={item.id}>
+                            {item.name}
+                          </option>
                         ))}
                       </select>
                     </div>

@@ -56,7 +56,10 @@ const DepartmentFormAdd = () => {
                     <label htmlFor="exampleInputEmail1">Tên dịch vụ</label>
 
                     {departments.map((item) => (
-                      <select {...register("ten_dich_vu")} class="form-control">
+                      <select
+                        {...register("ten_dich_vu")}
+                        className="form-control"
+                      >
                         <option value={item.name}>{item.name}</option>
                       </select>
                     ))}
@@ -106,15 +109,15 @@ const DepartmentFormAdd = () => {
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Chủ sở hữu</label>
-                    <select {...register("user_id")} class="form-control">
+                    <select {...register("user_id")} className="form-control">
                       <option value="1">Hân</option>
                     </select>
                   </div>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Trạng thái</label>
-                    <select {...register("status")} class="form-control">
+                    <select {...register("status")} className="form-control">
                       <option value="1">Active</option>
                       <option value="2">InActive</option>
                     </select>
@@ -123,15 +126,15 @@ const DepartmentFormAdd = () => {
               </div>
             </div>
             {/* /.card-body */}
-            <div class="card-footer">
+            <div className="card-footer">
               <Link
                 to="/admin/department"
                 type="submit"
-                class="btn btn-default float-left"
+                className="btn btn-default float-left"
               >
                 Quay lại
               </Link>
-              <button type="submit" class="btn btn-info float-right">
+              <button type="submit" className="btn btn-info float-right">
                 Thêm mới
               </button>
             </div>

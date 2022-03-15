@@ -1,21 +1,6 @@
-import React,{ useEffect,useState} from "react";
-import { get } from "../../../common/departmentAPI";
+import React from "react";
 
-export const Information = ({ department, statusOptions,id }) => {
-  // const [department, setDepartment] = useState({});
-  // useEffect(() => {
-  //   const getDepartment = async () => {
-  //     try {
-  //       const { data } = await get(id);
-  //       setDepartment(data);
-  //       reset(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   getDepartment();
-  // }, []);
+export const Information = ({ department, statusOptions }) => {
   return (
     <>
       <div className="row mb-3">
@@ -63,7 +48,11 @@ export const Information = ({ department, statusOptions,id }) => {
               <div className="text-center">
                 <img
                   className="profile-user-img img-fluid img-circle"
-                  src="https://i.imgur.com/Lf3oKvt.jpg"
+                  src={
+                    department.avatar !== null
+                      ? department.avatar
+                      : "https://i.imgur.com/Lf3oKvt.jpg"
+                  }
                   alt="User profile picture"
                 />
               </div>
