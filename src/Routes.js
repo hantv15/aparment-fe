@@ -22,6 +22,7 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
+        <Route exact path="/" component={SignIn} />
         <Switch>
           <PrivateRoute>
             <Route exact path="/admin">
@@ -78,7 +79,6 @@ const Routes = () => {
             </Route>
           </PrivateRoute>
         </Switch>
-        <Route exact path="/" component={SignIn} />
       </Switch>
 
     </Router>

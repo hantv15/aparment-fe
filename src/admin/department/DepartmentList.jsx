@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import querystring from "query-string";
@@ -10,6 +10,7 @@ import { get, NoGetPage } from "../../common/apartment";
 import SelectOption from "../../components/SelectOption";
 import { getBuildings } from "../../api/buildingAPI";
 import DepartmentSearch from "./DepartmentSearch";
+
 const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
   const [buildings, setBuildings] = useState([]);
@@ -22,10 +23,12 @@ const DepartmentList = () => {
     building_id: "",
     keyword: "",
   });
+
   const [filtersNoPage, setFiltersNoPage] = useState({
     building_id: "",
     keyword: "",
   });
+
   const pageSize = [
     {
       label: "Hiển thị 10 mục",
@@ -49,6 +52,7 @@ const DepartmentList = () => {
       value: 20,
     },
   ];
+
   const statusOptions = [
     {
       value: 1,
@@ -62,7 +66,6 @@ const DepartmentList = () => {
 
   const paramString = querystring.stringify(filters);
   const paramNoPageSize = querystring.stringify(filtersNoPage);
-
   useEffect(() => {
     try {
       const getApartments = async () => {
