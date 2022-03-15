@@ -16,11 +16,11 @@ const DepartmentDetail = () => {
   const statusOptions = [
     {
       value: 1,
-      name: "Active",
+      name: "Hoạt động",
     },
     {
-      value: 2,
-      name: "InActive",
+      value: 0,
+      name: "Không hoạt động",
     },
   ];
 

@@ -1,15 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import querystring from "query-string";
 import Swal from "sweetalert2";
 // ES6 Modules or TypeScript
 import Content from "../../core/Content";
-import DepartmentDetail from "./DepartmentDetail";
 import axios from "axios";
 import { get, NoGetPage } from "../../common/apartment";
 import SelectOption from "../../components/SelectOption";
-import InputSearch from "../../components/InputSearch";
 import { getBuildings } from "../../api/buildingAPI";
 import DepartmentSearch from "./DepartmentSearch";
 const DepartmentList = () => {
@@ -275,7 +273,9 @@ const DepartmentList = () => {
                           Chọn tòa
                         </option>
                         {buildings.map((item) => (
-                          <option value={item.id}>{item.name}</option>
+                          <option key={item.id} value={item.id}>
+                            {item.name}
+                          </option>
                         ))}
                       </select>
                     </div>

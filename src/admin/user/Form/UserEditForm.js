@@ -156,11 +156,11 @@ const UserEditForm = () => {
 
                 </div>
                 <div className="col-md-6">
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Chọn căn hộ</label>
                     <select {...register('apartment_id', {
                       required: true
-                    })} class="form-control">
+                    })} className="form-control">
                       <option selected value={user.id}>{user.apartment_id}</option>
                       {apartmentNotOwned.map((item) => (
                         <option value={item.id}>{item.apartment_id}</option>
@@ -183,9 +183,9 @@ const UserEditForm = () => {
                     {errors?.dob?.type === "required" && <p className="text-danger">Vui lòng nhập ngày sinh</p>}
 
                   </div>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Trạng thái</label>
-                    <select {...register('status')} class="form-control">
+                    <select {...register('status')} className="form-control">
                       {options.map((item) => (
                         <option selected={item.value == user.status} value={item.value}>{item.label}</option>
                       ))}
@@ -195,11 +195,11 @@ const UserEditForm = () => {
               </div>
             </div>
             {/* /.card-body */}
-            <div class="card-footer">
-              <Link to="/admin/user" type="button" class="btn btn-default float-left">
+            <div className="card-footer">
+              <Link to="/admin/user" type="button" className="btn btn-default float-left">
                 Quay lại
               </Link>
-              <button type="submit" class="btn btn-info float-right">
+              <button type="submit" className="btn btn-info float-right">
                 Lưu sửa
               </button>
             </div>

@@ -2,8 +2,8 @@ import Routes from "./Routes";
 
 function App() {
   return (
-    <div class="wrapper">
-      <Routes/>
+    <div className="wrapper">
+      <Routes />
     </div>
   );
 }

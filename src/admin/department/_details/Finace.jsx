@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
 import PaymentHistory from "./PaymentHistory";
 import { useParams } from "react-router-dom";
-import { get, getBill } from "../../../common/departmentAPI";
-import { Button, Modal } from "react-bootstrap";
-import BillModal from "../Modal/BillModal";
+import { getBill } from "../../../common/departmentAPI";
 import { Link } from "react-router-dom";
 
 const Finace = () => {
@@ -34,7 +31,6 @@ const Finace = () => {
 
         setDepartments(data.data);
         console.log(data);
-        // console.log(datas);
       } catch (error) {
         console.log(error);
       }
@@ -50,8 +46,8 @@ const Finace = () => {
           <div className="row">
             <div className="col-12">
               <div className="card">
-                <div class="card-header">
-                  <h3 class="card-title">Thông tin hóa đơn</h3>
+                <div className="card-header">
+                  <h3 className="card-title">Thông tin hóa đơn</h3>
                 </div>
                 <div className="card-body">
                   <div className="row">
@@ -109,52 +105,17 @@ const Finace = () => {
                       </table>
                     </div>
                   </div>
-                  {/* <div className="row">
-                    <div className="col-sm-12">
-                      <ReactPaginate
-                        previousLabel={"previous"}
-                        nextLabel={"next"}
-                        breakLabel={"..."}
-                        pageCount={10}
-                        marginPagesDisplayed={3}
-                        pageRangeDisplayed={3}
-                        // onPageChange={}
-                        containerClassName={"pagination justify-content-center"}
-                        pageClassName={"page-item"}
-                        pageLinkClassName={"page-link"}
-                        previousClassName={"page-item"}
-                        previousLinkClassName={"page-link"}
-                        nextClassName={"page-item"}
-                        nextLinkClassName={"page-link"}
-                        activeClassName={"active"}
-                      />
-                    </div>
-                  </div> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="">
-        <button
-          onClick={() => {
-            handleShow();
-          }}
-          className="btn btn-sm btn-outline-success btn-flat"
-        >
-          {showPaymentHistory
-            ? "Ẩn hiển thị lịch sử thanh toán"
-            : "Hiển thị lịch sử thanh toán"}
-        </button>
-      </div>
-      {showPaymentHistory && (
-        <PaymentHistory
-          handleClose={handleClose}
-          show={show}
-          handleShows={handleShows}
-        />
-      )}
+      <PaymentHistory
+        handleClose={handleClose}
+        show={show}
+        handleShows={handleShows}
+      />
       {/* {show && <BillModal handleClose={handleClose} show={show} />} */}
     </>
   );

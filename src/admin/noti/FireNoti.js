@@ -1,9 +1,7 @@
-import axios from 'axios';
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import Swal from 'sweetalert2';
 import Content from '../../core/Content';
 
 const FireNoti = () => {
@@ -61,11 +59,11 @@ const FireNoti = () => {
                             </div>
                         </div>
                         {/* /.card-body */}
-                        <div class="card-footer">
-                            <Link to="/admin/user" type="submit" class="btn btn-default float-left">
+                        <div className="card-footer">
+                            <Link to="/admin/user" type="submit" className="btn btn-default float-left">
                                 Quay lại
                             </Link>
-                            <button type="submit" class="btn btn-info float-right">
+                            <button type="submit" className="btn btn-info float-right">
                                 Tạo thông báo
                             </button>
                         </div>

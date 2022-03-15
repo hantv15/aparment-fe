@@ -70,13 +70,13 @@ const BillModal = () => {
                 
               </div>
             </div> */}
-          <div class="card-footer">
+          <div className="card-footer">
             <button
               onClick={() => {
                 history.goBack();
               }}
               type="button"
-              class="btn btn-default float-left"
+              className="btn btn-default float-left"
             >
               Quay lại
             </button>

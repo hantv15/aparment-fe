@@ -1,7 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { NavLink, useHistory } from "react-router-dom";
+import React from "react";
+import { Link, useHistory } from "react-router-dom";
 import { isAuthenticate, sigOut } from "../auth";
 
 const Menu = () => {
@@ -66,8 +64,6 @@ const Menu = () => {
            with font-awesome or any other icon font library */}
               <li className="nav-item">
                 <Link
-                  exact
-                  activeClassName="active"
                   to="/admin"
                   className="nav-link"
                 >
@@ -80,8 +76,6 @@ const Menu = () => {
               </li>
               <li className="nav-item">
                 <Link
-                  exact
-                  activeClassName="active"
                   to="/admin/department"
                   className="nav-link"
                 >
@@ -94,8 +88,6 @@ const Menu = () => {
               </li>
               <li className="nav-item">
                 <Link
-                  exact
-                  activeClassName="active"
                   to="/admin/user"
                   className="nav-link"
                 >
@@ -108,8 +100,6 @@ const Menu = () => {
               </li>
               <li className="nav-item">
                 <Link
-                  exact
-                  activeClassName="active"
                   to="/admin/service"
                   className="nav-link"
                 >
@@ -122,8 +112,6 @@ const Menu = () => {
               </li>
               <li className="nav-item">
                 <Link
-                  exact
-                  activeClassName="active"
                   to="/admin/bill"
                   className="nav-link"
                 >
@@ -166,8 +154,6 @@ const Menu = () => {
 
               <li className="nav-item">
                 <a
-                  exact
-                  activeClassName="active"
                   className="nav-link"
                   onClick={() => logout()}
                 >

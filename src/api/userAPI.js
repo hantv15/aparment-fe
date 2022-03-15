@@ -1,12 +1,12 @@
 import instance from "../common/instance";
 
 export const getUsers = (param) => {
-    const url = `/userAll?${param}`;
+    const url = `/user/list?${param}`;
     return instance.get(url);
 }
 
 export const NoGetPageService = (param) => {
-    const url = `/userAll?${param}`;
+    const url = `/user/list?${param}`;
     return instance.get(url);
 }
 

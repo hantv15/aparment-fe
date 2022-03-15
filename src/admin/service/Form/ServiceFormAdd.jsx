@@ -76,13 +76,13 @@ const ServiceFormAdd = () => {
                       <p className="text-danger">Nhập ký tự là số</p>
                     )}
                   </div>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Trạng thái</label>
                     <select
                       {...register("status", {
                         required: true,
                       })}
-                      class="form-control"
+                      className="form-control"
                     >
                       <option selected value="">
                         Chọn trạng thái
@@ -96,7 +96,7 @@ const ServiceFormAdd = () => {
                   )}
                 </div>
                 <div className="col-md-6">
-                  <div class="form-group">
+                  <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Mô tả</label>
                     <textarea
                       {...register("description")}
@@ -110,17 +110,17 @@ const ServiceFormAdd = () => {
               </div>
             </div>
             {/* /.card-body */}
-            <div class="card-footer">
+            <div className="card-footer">
               <button
                 onClick={() => {
                   history.goBack();
                 }}
                 type="button"
-                class="btn btn-default float-left"
+                className="btn btn-default float-left"
               >
                 Quay lại
               </button>
-              <button type="submit" class="btn btn-info float-right">
+              <button type="submit" className="btn btn-info float-right">
                 Thêm mới
               </button>
             </div>

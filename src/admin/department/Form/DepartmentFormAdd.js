@@ -110,16 +110,16 @@ const DepartmentFormAdd = () => {
                     {errors?.square_meters?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ là số</p>}
                     {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
                   </div>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Trạng thái</label>
-                    <select {...register('status')} class="form-control">
+                    <select {...register('status')} className="form-control">
                       <option value="1">Hoạt động</option>
                       <option value="0">Không hoạt động</option>
                     </select>
                   </div>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Kiểu phòng</label>
-                    <select {...register('type_apartment')} class="form-control">
+                    <select {...register('type_apartment')} className="form-control">
                       <option value="0">Có ban công</option>
                       <option value="1">Không có ban công</option>
                     </select>
@@ -141,7 +141,7 @@ const DepartmentFormAdd = () => {
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Trạng thái</label>
                     <textarea {...register('description')} className="form-control" rows={12} placeholder="Mô tả ..." defaultValue={""} />
                   </div>
@@ -149,13 +149,13 @@ const DepartmentFormAdd = () => {
               </div>
             </div>
             {/* /.card-body */}
-            <div class="card-footer">
+            <div className="card-footer">
               <button onClick={() => {
                 history.goBack();
-              }} type="button" class="btn btn-default float-left">
+              }} type="button" className="btn btn-default float-left">
                 Quay lại
               </button>
-              <button type="submit" class="btn btn-info float-right">
+              <button type="submit" className="btn btn-info float-right">
                 Thêm mới
               </button>
             </div>

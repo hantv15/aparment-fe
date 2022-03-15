@@ -55,6 +55,7 @@ const Card = () => {
                             <th scope="col">Trang thai</th>
                             <th scope="col">Biển xe</th>
                             <th scope="col">Loại</th>
+                            <th scope="col">Chức năng</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -72,17 +73,17 @@ const Card = () => {
                               </td>
                               <td>{item.plate_number}</td>
                               <td>{item.loai_phuong_tien}</td>
-                              <td className="d-flex justify-content-center">
+                              <td className="">
                                 <Button variant="btn btn-sm btn-outline-primary btn-flat">
-                                  Them
+                                  Thêm
                                 </Button>
-                                <Link
+                                {/* <Link
                                   className="btn btn-sm btn-outline-success btn-flat"
                                   variant="btn btn-sm btn-outline-primary btn-flat"
                                   to="/admin/department/invoice"
                                 >
                                   In
-                                </Link>
+                                </Link> */}
                               </td>
                             </tr>
                           ))}

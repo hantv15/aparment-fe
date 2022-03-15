@@ -8,8 +8,10 @@ const SelectOption = ({ array, handleGetValue }) => {
     <>
       <div className="form-outline mr-2">
         <select onChange={handleSelect} className="form-control">
-          {array.map((item) => (
-            <option value={item.value}>{item.label}</option>
+          {array.map((item, index) => (
+            <option key={index} value={item.value}>
+              {item.label}
+            </option>
           ))}
         </select>
       </div>

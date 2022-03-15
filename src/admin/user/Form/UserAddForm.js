@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
-import { add } from "../../../common/userApi";
 import Content from "../../../core/Content";
 const UserAddForm = () => {
   const {
@@ -123,11 +122,11 @@ const UserAddForm = () => {
 
                 </div>
                 <div className="col-md-6">
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Chọn căn hộ</label>
                     <select {...register('apartment_id', {
                       required: true
-                    })} class="form-control">
+                    })} className="form-control">
                       <option selected value="">Chọn căn hộ</option>
                       {apartmentNotOwned.map((item) => (
                         <option value={item.id}>{item.apartment_id}</option>
@@ -148,11 +147,11 @@ const UserAddForm = () => {
                     />
                     {errors?.dob?.type === "required" && <p className="text-danger">Vui lòng nhập ngày sinh</p>}
                   </div>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Trạng thái</label>
                     <select {...register('status', {
                       required: true
-                    })} class="form-control">
+                    })} className="form-control">
                       <option selected value="">Chọn trạng thái</option>
                       <option value="1">Hoạt động</option>
                       <option value="0">Không hoạt động</option>
@@ -163,11 +162,11 @@ const UserAddForm = () => {
               </div>
             </div>
             {/* /.card-body */}
-            <div class="card-footer">
-              <Link to="/admin/user" type="button" class="btn btn-default float-left">
+            <div className="card-footer">
+              <Link to="/admin/user" type="button" className="btn btn-default float-left">
                 Quay lại
               </Link>
-              <button type="submit" class="btn btn-info float-right">
+              <button type="submit" className="btn btn-info float-right">
                 Thêm mới
               </button>
             </div>
