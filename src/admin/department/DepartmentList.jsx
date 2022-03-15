@@ -10,6 +10,13 @@ import { get, NoGetPage } from "../../common/apartment";
 import SelectOption from "../../components/SelectOption";
 import { getBuildings } from "../../api/buildingAPI";
 import DepartmentSearch from "./DepartmentSearch";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
 
 const DepartmentList = () => {
   const [apartments, setApartments] = useState([]);
@@ -66,6 +73,7 @@ const DepartmentList = () => {
 
   const paramString = querystring.stringify(filters);
   const paramNoPageSize = querystring.stringify(filtersNoPage);
+
   useEffect(() => {
     try {
       const getApartments = async () => {
@@ -194,7 +202,6 @@ const DepartmentList = () => {
       });
     }
   };
-
   return (
     <Content title="Căn Hộ">
       <div className="row">

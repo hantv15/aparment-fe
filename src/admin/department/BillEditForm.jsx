@@ -51,21 +51,37 @@ const BillEditForm = () => {
   const addDepartments = async (item) => {
     console.log(item);
     try {
-      alert("Thêm mới thành công");
-      axios
-        .post(`http://apartment-system.xyz/api/bill-detail/edit/${id}`, item)
-        .then(() => {
-          var Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Sửa thành công.",
-          });
-        });
+      Swal.fire({
+        title: "Xác nhận lưu sửa?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Lưu sửa!",
+        timer: 1500,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post(
+              `http://apartment-system.xyz/api/bill-detail/edit/${id}`,
+              item
+            )
+            .then(() => {
+              var Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+              });
+              Toast.fire({
+                icon: "success",
+                title: "Sửa dịch vụ thành công.",
+              }).then(() => {
+                history.goBack();
+              });
+            });
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -141,7 +157,7 @@ const BillEditForm = () => {
                 Quay lại
               </button>
               <button type="submit" className="btn btn-info float-right">
-                Thêm mới
+                Lưu sửa
               </button>
             </div>
           </form>
