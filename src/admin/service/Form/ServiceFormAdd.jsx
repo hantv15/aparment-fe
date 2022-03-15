@@ -20,13 +20,14 @@ const ServiceFormAdd = () => {
             toast: true,
             position: "top-end",
             showConfirmButton: false,
-            timer: 3000,
+            timer: 1500,
           });
           Toast.fire({
             icon: "success",
             title: "Thêm mới dịch vụ thành công.",
+          }).then(() => {
+            history.goBack();
           });
-          history.goBack();
         });
     } catch (error) {
       console.log(error);
