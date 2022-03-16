@@ -3,6 +3,9 @@ import PaymentHistory from "./PaymentHistory";
 import { useParams } from "react-router-dom";
 import { getBill } from "../../../common/departmentAPI";
 import { Link } from "react-router-dom";
+import moment from "moment";
+import "moment/locale/vi";
+import BillModal from "../BillModal";
 
 const Finace = () => {
   const [showPaymentHistory, setShowPaymentHistory] = useState(false);
@@ -13,6 +16,7 @@ const Finace = () => {
   const handleShow = () => {
     setShowPaymentHistory(!showPaymentHistory);
   };
+
   const statusOptions = [
     {
       value: 1,
@@ -58,8 +62,9 @@ const Finace = () => {
                             <th scope="col">STT</th>
                             <th scope="col">Tên hóa đơn</th>
                             <th scope="col">Tên chủ hộ</th>
-
                             <th scope="col">Tổng tiền</th>
+                            <th scope="col">Ngày tạo hoá đơn</th>
+                            <th scope="col">Ngày thanh toán hoá đơn</th>
                             <th scope="col">Trạng thái</th>
                             <th className="d-flex justify-content-center">
                               {/* <a
@@ -79,6 +84,13 @@ const Finace = () => {
                               <td>{item.ten_hoa_don}</td>
                               <td>{item.ten_chu_ho}</td>
                               <td>{item.amount}</td>
+                              <td>
+                                {"Ngày " +
+                                  moment(item.created_at).format(
+                                    "DD MMMM YYYY, h:mm:ss a"
+                                  )}
+                              </td>
+                              <td>Trống</td>
 
                               <td>
                                 {statusOptions.map((status) =>
@@ -86,12 +98,15 @@ const Finace = () => {
                                 )}
                               </td>
                               <td className="d-flex justify-content-center">
-                                <Link
+                                <button
+                                  type="button"
+                                  data-toggle="modal"
+                                  data-target="#modal-xl"
                                   className="btn btn-sm btn-outline-primary btn-flat"
-                                  to={`/admin/department/modal/${item.id}`}
+                                  // to={`/admin/department/modal/${item.id}`}
                                 >
                                   Chi tiết
-                                </Link>
+                                </button>
                                 <Link
                                   className="ml-1 btn btn-sm btn-outline-success btn-flat"
                                   to={`/admin/department/modalAdd/${item.id}`}
@@ -99,6 +114,44 @@ const Finace = () => {
                                   Sửa
                                 </Link>
                               </td>
+                              <div
+                                className="modal fade"
+                                id="modal-xl"
+                                style={{ display: "none" }}
+                                aria-hidden="true"
+                              >
+                                <div className="modal-dialog modal-xl">
+                                  <div className="modal-content">
+                                    <div className="modal-header">
+                                      <h4 className="modal-title">
+                                        Chi tiết hoá đơn
+                                      </h4>
+                                      <button
+                                        type="button"
+                                        className="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                      >
+                                        <span aria-hidden="true">×</span>
+                                      </button>
+                                    </div>
+                                    <div className="modal-body">
+                                      <BillModal id={item.id} />
+                                    </div>
+                                    <div className="modal-footer justify-content-between">
+                                      <button
+                                        type="button"
+                                        className="btn btn-default"
+                                        data-dismiss="modal"
+                                      >
+                                        Close
+                                      </button>
+                                    </div>
+                                  </div>
+                                  {/* /.modal-content */}
+                                </div>
+                                {/* /.modal-dialog */}
+                              </div>
                             </tr>
                           ))}
                         </tbody>

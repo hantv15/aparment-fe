@@ -7,7 +7,7 @@ import { edits, gets } from "../../common/departmentAPI";
 import { get } from "../../common/service";
 import Content from "../../core/Content";
 
-const BillEditForm = () => {
+const BillEditForm = ({ idb }) => {
   const {
     register,
     handleSubmit,
@@ -37,7 +37,7 @@ const BillEditForm = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const { data } = await get(id);
+        const { data } = await get(idb);
         setUser(data.data);
         // reset(data);
       } catch (error) {
@@ -144,18 +144,6 @@ const BillEditForm = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            {/* /.card-body */}
-            <div className="card-footer">
-              <button
-                onClick={() => {
-                  history.goBack();
-                }}
-                type="button"
-                className="btn btn-default float-left"
-              >
-                Quay lại
-              </button>
               <button type="submit" className="btn btn-info float-right">
                 Lưu sửa
               </button>
@@ -165,7 +153,7 @@ const BillEditForm = () => {
       </div>
     );
   };
-  return <Content title="Sửa thông tin căn hộ">{editDepartment()}</Content>;
+  return editDepartment();
 };
 
 export default BillEditForm;

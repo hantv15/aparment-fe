@@ -1,8 +1,8 @@
 import { Button } from "react-bootstrap";
-import BillModal from "../Modal/BillModal";
 import React, { useEffect, useState } from "react";
-import { get, getBills } from "../../../common/departmentAPI";
-
+import { getBills } from "../../../common/departmentAPI";
+import moment from "moment";
+import "moment/locale/vi";
 import { Link, useParams } from "react-router-dom";
 const PaymentHistory = () => {
   const [departments, setDepartments] = useState([]);
@@ -23,7 +23,7 @@ const PaymentHistory = () => {
         const { data } = await getBills(id);
 
         setDepartments(data.data);
-        console.log(data);
+        console.log("đẫ thanh toán: ", data);
         // console.log(datas);
       } catch (error) {
         console.log(error);
@@ -51,8 +51,9 @@ const PaymentHistory = () => {
                             <th scope="col">STT</th>
                             <th scope="col">Tên hóa đơn</th>
                             <th scope="col">Tên chủ hộ</th>
-
                             <th scope="col">Tổng tiền</th>
+                            <th scope="col">Ngày tạo hoá đơn</th>
+                            <th scope="col">Ngày thanh toán hoá đơn</th>
                             <th scope="col">Trạng thái</th>
                             <th className="d-flex justify-content-center">
                               Chức năng
@@ -66,7 +67,18 @@ const PaymentHistory = () => {
                               <td>{item.ten_hoa_don}</td>
                               <td>{item.ten_chu_ho}</td>
                               <td>{item.amount}</td>
-
+                              <td>
+                                {"Ngày " +
+                                  moment(item.created_at)
+                                    .lang("vi")
+                                    .format("DD MMMM YYYY, h:mm:ss a")}
+                              </td>
+                              <td>
+                                {"Ngày " +
+                                  moment(item.updated_at).format(
+                                    "DD MMMM YYYY, h:mm:ss a"
+                                  )}
+                              </td>
                               <td>
                                 {statusOptions.map((status) =>
                                   status.value == item.status ? status.name : ""
