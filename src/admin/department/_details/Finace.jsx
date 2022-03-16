@@ -67,12 +67,6 @@ const Finace = () => {
                             <th scope="col">Ngày thanh toán hoá đơn</th>
                             <th scope="col">Trạng thái</th>
                             <th className="d-flex justify-content-center">
-                              {/* <a
-                                className="btn btn-sm btn-outline-success btn-flat"
-                                to="/admin/department/add"
-                              >
-                                Thêm mới
-                              </a> */}
                               Chức năng
                             </th>
                           </tr>
@@ -80,7 +74,7 @@ const Finace = () => {
                         <tbody>
                           {departments.map((item, index) => (
                             <tr key={item.id}>
-                              <th scope="row">{index + 1}</th>
+                              <td>{index + 1}</td>
                               <td>{item.ten_hoa_don}</td>
                               <td>{item.ten_chu_ho}</td>
                               <td>{item.amount}</td>
@@ -97,61 +91,26 @@ const Finace = () => {
                                   status.value == item.status ? status.name : ""
                                 )}
                               </td>
-                              <td className="d-flex justify-content-center">
-                                <button
-                                  type="button"
-                                  data-toggle="modal"
-                                  data-target="#modal-xl"
+                              <td className="">
+                                <Link
                                   className="btn btn-sm btn-outline-primary btn-flat"
-                                  // to={`/admin/department/modal/${item.id}`}
+                                  to={`/admin/department/invoice/${item.id}`}
+                                >
+                                  In hoá đơn
+                                </Link>
+                                <Link
+                                  className="ml-1 btn btn-sm btn-outline-primary btn-flat"
+                                  to={`/admin/department/modal/${item.id}`}
                                 >
                                   Chi tiết
-                                </button>
+                                </Link>
                                 <Link
-                                  className="ml-1 btn btn-sm btn-outline-success btn-flat"
+                                  className="mt-1 btn btn-sm btn-outline-success btn-flat"
                                   to={`/admin/department/modalAdd/${item.id}`}
                                 >
                                   Sửa
                                 </Link>
                               </td>
-                              <div
-                                className="modal fade"
-                                id="modal-xl"
-                                style={{ display: "none" }}
-                                aria-hidden="true"
-                              >
-                                <div className="modal-dialog modal-xl">
-                                  <div className="modal-content">
-                                    <div className="modal-header">
-                                      <h4 className="modal-title">
-                                        Chi tiết hoá đơn
-                                      </h4>
-                                      <button
-                                        type="button"
-                                        className="close"
-                                        data-dismiss="modal"
-                                        aria-label="Close"
-                                      >
-                                        <span aria-hidden="true">×</span>
-                                      </button>
-                                    </div>
-                                    <div className="modal-body">
-                                      <BillModal id={item.id} />
-                                    </div>
-                                    <div className="modal-footer justify-content-between">
-                                      <button
-                                        type="button"
-                                        className="btn btn-default"
-                                        data-dismiss="modal"
-                                      >
-                                        Close
-                                      </button>
-                                    </div>
-                                  </div>
-                                  {/* /.modal-content */}
-                                </div>
-                                {/* /.modal-dialog */}
-                              </div>
                             </tr>
                           ))}
                         </tbody>

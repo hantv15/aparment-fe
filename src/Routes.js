@@ -55,7 +55,7 @@ const Routes = () => {
             <Route exact path="/admin/department/modaledit/:id">
               <BillEditForm />
             </Route>
-            <Route exact path="/admin/department/invoice">
+            <Route exact path="/admin/department/invoice/:id">
               <Invoice />
             </Route>
             {/* Service */}
