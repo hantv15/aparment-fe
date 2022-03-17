@@ -139,7 +139,7 @@ const BillAddForms = () => {
                       })}
                     />
                     {errors?.notes?.type === "required" && (
-                      <p className="text-danger">Hãy nhập trường này</p>
+                      <p className="text-danger">Vui lòng nhập chú ý</p>
                     )}
                   </div>
                 </div>
@@ -163,7 +163,7 @@ const BillAddForms = () => {
       </div>
     );
   };
-  return <Content title="Sửa thông tin căn hộ">{editDepartment()}</Content>;
+  return <Content title="Thêm mới hoá đơn">{editDepartment()}</Content>;
 };
 
 export default BillAddForms;
