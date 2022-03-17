@@ -181,7 +181,7 @@ const DepartmentList = () => {
             toast: true,
             position: "top-end",
             showConfirmButton: false,
-            timer: 3000,
+            timer: 1500,
           });
           Toast.fire({
             icon: "success",
@@ -193,7 +193,7 @@ const DepartmentList = () => {
         toast: true,
         position: "top-end",
         showConfirmButton: false,
-        timer: 3000,
+        timer: 1500,
       });
       Toast.fire({
         icon: "error",
