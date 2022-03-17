@@ -67,14 +67,6 @@ const DepartmentFormEdit = () => {
   }, [])
   console.log(typeof (department));
   console.log(department);
-  // const onSubmit = (item) => {
-  //   const updateItem = {
-  //     id,
-  //     ...item
-  //   };
-  //   console.log(updateItem);
-  //   edit(updateItem);
-  // }
 
   const addDepartments = async (item) => {
     console.log(item);
@@ -139,7 +131,7 @@ const DepartmentFormEdit = () => {
                         pattern: /^[a-zA-Z0-9_.-]*$/i
                       })}
                     />
-                    {errors?.apartment_id?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
+                    {errors?.apartment_id?.type === "required" && <p className="text-danger">Hãy nhập tên căn hộ</p>}
                     {errors?.apartment_id?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
                   </div>
                   <div className="form-group">
@@ -154,7 +146,8 @@ const DepartmentFormEdit = () => {
                     <label htmlFor="exampleInputEmail1">Diện tích căn hộ căn hộ (m2)</label>
                     <input
                       {...register('square_meter', {
-                        pattern: /^[0-9]*$/
+                        pattern: /^[0-9]*$/,
+                        required: true
                       })}
                       defaultValue={department.square_meters}
                       type="text"
@@ -164,6 +157,7 @@ const DepartmentFormEdit = () => {
                       placeholder="Nhập kích thước căn hộ"
                     />
                     {errors?.square_meters?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ là số</p>}
+                    {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập diện tích căn hộ</p>}
                   </div>
                   <div className="form-group">
                     <label>Trạng thái</label>
@@ -193,8 +187,8 @@ const DepartmentFormEdit = () => {
                         pattern: /^[a-zA-Z0-9_.-]*$/i
                       })}
                     />
-                    {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
-                    {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
+                    {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập tầng</p>}
+                    {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký tự là số</p>}
                   </div>
                 </div>
                 <div className="col-md-6">

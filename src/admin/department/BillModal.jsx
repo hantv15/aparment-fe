@@ -27,59 +27,61 @@ const BillModal = () => {
   return (
     <>
       <Content title="Chi tiết hoá đơn">
-        <div className="card-body">
-          <div className="row">
-            <div className="col-sm-12">
-              <table className="table table-bordered dataTable dtr-inline">
-                <thead>
-                  <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">Tên dịch vụ</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Giá tổng</th>
-                    <th scope="col" className="d-flex justify-content-center">
-                      Chức năng
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {departments.map((item, index) => (
-                    <tr key={item.id}>
-                      <th scope="row">{index + 1}</th>
-                      <td>{item.ten_dich_vu}</td>
-                      <td>{item.quantity}</td>
-                      <td>{item.price}</td>
-                      <td>{item.total_price}</td>
-                      <td className="d-flex justify-content-center">
-                        <Link
-                          className="btn btn-sm btn-outline-primary btn-flat"
-                          to={`/admin/department/modaledit/${item.bill_detail_id}`}
-                        >
-                          Sửa
-                        </Link>
-                      </td>
+        <div className="card">
+          <div className="card-body">
+            <div className="row">
+              <div className="col-sm-12">
+                <table className="table table-bordered dataTable dtr-inline">
+                  <thead>
+                    <tr>
+                      <th scope="col">STT</th>
+                      <th scope="col">Tên dịch vụ</th>
+                      <th scope="col">Số lượng</th>
+                      <th scope="col">Giá</th>
+                      <th scope="col">Giá tổng</th>
+                      <th scope="col" className="d-flex justify-content-center">
+                        Chức năng
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {departments.map((item, index) => (
+                      <tr key={item.id}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{item.ten_dich_vu}</td>
+                        <td>{item.quantity}</td>
+                        <td>{item.price}</td>
+                        <td>{item.total_price}</td>
+                        <td className="d-flex justify-content-center">
+                          <Link
+                            className="btn btn-sm btn-outline-primary btn-flat"
+                            to={`/admin/department/modaledit/${item.bill_detail_id}`}
+                          >
+                            Sửa
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-          {/* <div className="row">
+            {/* <div className="row">
               <div className="col-sm-12">
                 
               </div>
             </div> */}
-          <div className="card-footer">
-            <button
-              onClick={() => {
-                history.goBack();
-              }}
-              type="button"
-              className="btn btn-default float-left"
-            >
-              Quay lại
-            </button>
+            <div className="card-footer">
+              <button
+                onClick={() => {
+                  history.goBack();
+                }}
+                type="button"
+                className="btn btn-default float-left"
+              >
+                Quay lại
+              </button>
+            </div>
           </div>
         </div>
       </Content>
