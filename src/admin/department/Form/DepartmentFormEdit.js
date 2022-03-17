@@ -67,14 +67,6 @@ const DepartmentFormEdit = () => {
   }, [])
   console.log(typeof (department));
   console.log(department);
-  // const onSubmit = (item) => {
-  //   const updateItem = {
-  //     id,
-  //     ...item
-  //   };
-  //   console.log(updateItem);
-  //   edit(updateItem);
-  // }
 
   const addDepartments = async (item) => {
     console.log(item);
@@ -96,7 +88,7 @@ const DepartmentFormEdit = () => {
                 toast: true,
                 position: "top-end",
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 1500,
               });
               Toast.fire({
                 icon: "success",
@@ -127,7 +119,7 @@ const DepartmentFormEdit = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tên căn hộ</label>
+                    <label htmlFor="exampleInputEmail1">Tên căn hộ <span className="text-red">(*)</span></label>
                     <input
                       type="text"
                       defaultValue={department.apartment_id}
@@ -139,11 +131,11 @@ const DepartmentFormEdit = () => {
                         pattern: /^[a-zA-Z0-9_.-]*$/i
                       })}
                     />
-                    {errors?.apartment_id?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
+                    {errors?.apartment_id?.type === "required" && <p className="text-danger">Hãy nhập tên căn hộ</p>}
                     {errors?.apartment_id?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tòa nhà</label>
+                    <label htmlFor="exampleInputEmail1">Tòa nhà <span className="text-red">(*)</span></label>
                     <select {...register('building_id')} className="form-control">
                       {buildings.map((item) => (
                         <option selected={item.id == department.building_id} value={item.id}>{item.name}</option>
@@ -151,12 +143,13 @@ const DepartmentFormEdit = () => {
                     </select>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Diện tích căn hộ căn hộ (m2)</label>
+                    <label htmlFor="exampleInputEmail1">Diện tích căn hộ căn hộ (m2) <span className="text-red">(*)</span></label>
                     <input
-                      {...register('square_meter', {
-                        pattern: /^[0-9]*$/
-                      })}
                       defaultValue={department.square_meters}
+                      {...register('square_meter', {
+                        pattern: /^[0-9]*$/,
+                        required: true
+                      })}
                       type="text"
                       className="form-control"
                       id="number"
@@ -164,6 +157,7 @@ const DepartmentFormEdit = () => {
                       placeholder="Nhập kích thước căn hộ"
                     />
                     {errors?.square_meters?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ là số</p>}
+                    {errors?.square_meter?.type === "required" && <p className="text-danger">Hãy nhập diện tích căn hộ</p>}
                   </div>
                   <div className="form-group">
                     <label>Trạng thái</label>
@@ -181,7 +175,7 @@ const DepartmentFormEdit = () => {
                     </select>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tầng</label>
+                    <label htmlFor="exampleInputEmail1">Tầng <span className="text-red">(*)</span></label>
                     <input
                       type="text"
                       className="form-control"
@@ -193,8 +187,8 @@ const DepartmentFormEdit = () => {
                         pattern: /^[a-zA-Z0-9_.-]*$/i
                       })}
                     />
-                    {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
-                    {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký từ A-z</p>}
+                    {errors?.floor?.type === "required" && <p className="text-danger">Hãy nhập tầng</p>}
+                    {errors?.floor?.type === "pattern" && <p className="text-danger">Hãy nhập các ký tự là số</p>}
                   </div>
                 </div>
                 <div className="col-md-6">

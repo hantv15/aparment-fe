@@ -36,7 +36,7 @@ const SignIn = () => {
           toast: true,
           position: "top-end",
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1500,
         });
         if (error.request.status == 400) {
           Toast.fire({

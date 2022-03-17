@@ -24,7 +24,7 @@ const UserEditForm = () => {
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 3000,
+    timer: 1500,
   });
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const UserEditForm = () => {
               toast: true,
               position: "top-end",
               showConfirmButton: false,
-              timer: 3000,
+              timer: 1500,
             });
             Toast.fire({
               icon: "success",
@@ -121,7 +121,7 @@ const UserEditForm = () => {
                         pattern: /[A-Za-z]/
                       })}
                     />
-                    {errors?.name?.type === "required" && <p className="text-danger">Nhập tên</p>}
+                    {errors?.name?.type === "required" && <p className="text-danger">Vui lòng nhập tên</p>}
                     {errors?.name?.type === "pattern" && <p className="text-danger">Không được nhập ký tự số</p>}
                   </div>
                   <div className="form-group">
@@ -153,7 +153,7 @@ const UserEditForm = () => {
                         pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
                       })}
                     />
-                    {errors?.email?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
+                    {errors?.email?.type === "required" && <p className="text-danger">Vui lòng nhập email</p>}
                     {errors?.email?.type === "pattern" && <p className="text-danger">Vui lòng nhập đúng định dạng email</p>}
                   </div>
 
