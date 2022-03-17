@@ -18,13 +18,16 @@ import FireNoti from "./admin/noti/FireNoti";
 import ServiceFormEdit from "./admin/service/Form/ServiceFormEdit";
 import BillList from "./admin/bill/BillList";
 import BillAddForms from "./admin/bill/Form/BillAddForms";
+import NotFound from "./pages/NotFound";
 const Routes = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={SignIn} />
         <Switch>
+
           <PrivateRoute>
+
             <Route exact path="/admin">
               <Dashboard />
             </Route>
@@ -74,11 +77,10 @@ const Routes = () => {
             <Route exact path="/admin/bill">
               <BillList />
             </Route>
-            <Route exact path="/admin/bill/add">
-              <BillAddForms />
-            </Route>
+            <Route path="*" render={() => <NotFound />} />
           </PrivateRoute>
         </Switch>
+
       </Switch>
 
     </Router>
