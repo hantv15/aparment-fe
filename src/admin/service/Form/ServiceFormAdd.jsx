@@ -44,7 +44,9 @@ const ServiceFormAdd = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tên dịch vụ</label>
+                    <label htmlFor="exampleInputEmail1">
+                      Tên dịch vụ <span className="text-red">(*)</span>
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -55,11 +57,13 @@ const ServiceFormAdd = () => {
                       })}
                     />
                     {errors?.name?.type === "required" && (
-                      <p className="text-danger">Hãy nhập trường này</p>
+                      <p className="text-danger">Hãy nhập tên dịch vụ</p>
                     )}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Giá</label>
+                    <label htmlFor="exampleInputEmail1">
+                      Giá <span className="text-red">(*)</span>
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -71,14 +75,16 @@ const ServiceFormAdd = () => {
                       })}
                     />
                     {errors?.price?.type === "required" && (
-                      <p className="text-danger">Hãy nhập trường này</p>
+                      <p className="text-danger">Hãy nhập nhập giá</p>
                     )}
                     {errors?.price?.type === "pattern" && (
                       <p className="text-danger">Nhập ký tự là số</p>
                     )}
                   </div>
                   <div className="form-group">
-                    <label>Trạng thái</label>
+                    <label>
+                      Trạng thái <span className="text-red">(*)</span>
+                    </label>
                     <select
                       {...register("status", {
                         required: true,

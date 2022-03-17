@@ -95,7 +95,7 @@ const DepartmentFormAdd = () => {
                     {errors?.building_id?.type === "required" && <p className="text-danger">Hãy chọn toà nhà</p>}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Diện tích căn hộ căn hộ <span className="text-red">(*)</span></label>
+                    <label htmlFor="exampleInputEmail1">Diện tích căn hộ căn hộ (m2) <span className="text-red">(*)</span></label>
                     <input
                       {...register('square_meter', {
                         pattern: /^[0-9]*$/,

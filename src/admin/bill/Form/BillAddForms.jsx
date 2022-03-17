@@ -85,7 +85,9 @@ const BillAddForms = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tên hoá đơn</label>
+                    <label htmlFor="exampleInputEmail1">
+                      Tên hoá đơn <span className="text-red">(*)</span>
+                    </label>
                     <input
                       type="text"
                       // defaultValue={user.quantity}
@@ -97,26 +99,35 @@ const BillAddForms = () => {
                       })}
                     />
                     {errors?.name?.type === "required" && (
-                      <p className="text-danger">Hãy nhập trường này</p>
+                      <p className="text-danger">Vui lòng nhập tên hoá đơn</p>
                     )}
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Nhà</label>
+                    <label htmlFor="exampleInputEmail1">
+                      Nhà <span className="text-red">(*)</span>
+                    </label>
                     <select
                       className="form-control"
-                      {...register("apartment_id")}
+                      {...register("apartment_id", {
+                        required: true,
+                      })}
                     >
-                      <option selected>Chọn nhà</option>
+                      <option selected value="">
+                        Chọn nhà
+                      </option>
                       {users.map((item) => (
                         <option value={item.id}>{item.apartment_id}</option>
                       ))}
                     </select>
-                    {/* {errors?.service_id?.type === "required" && <p className="text-danger">số điênj thoại</p>}
-                      {errors?.service_id?.type === "pattern" && <p className="text-danger">Hãy nhập đúng ký tự</p>} */}
+                    {errors?.apartment_id?.type === "required" && (
+                      <p className="text-danger">Vui lòng chọn nhà</p>
+                    )}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Chú ý</label>
+                    <label htmlFor="exampleInputEmail1">
+                      Chú ý <span className="text-red">(*)</span>
+                    </label>
                     <input
                       type="text"
                       // defaultValue={user.quantity}

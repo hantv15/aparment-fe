@@ -1,7 +1,9 @@
+import axios from 'axios';
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import Swal from 'sweetalert2';
 import Content from '../../core/Content';
 
 const FireNoti = () => {
@@ -10,35 +12,32 @@ const FireNoti = () => {
         handleSubmit,
         formState: { errors }
     } = useForm();
-    const history = useHistory();
-
 
     const onSubmit = (data) => {
-        // axios.post("http://apartment-system.xyz/api/fire_notification", data).then(() => {
-        //     var Toast = Swal.mixin({
-        //         toast: true,
-        //         position: "top-end",
-        //         showConfirmButton: false,
-        //         timer: 3000,
-        //     });
-        //     Toast.fire({
-        //         icon: "success",
-        //         title: "Tạo thông báo thành công.",
-        //     });
-        // }).catch((response) => {
-        //     var Toast = Swal.mixin({
-        //         toast: true,
-        //         position: "top-end",
-        //         showConfirmButton: false,
-        //         timer: 3000,
-        //     });
-        //     Toast.fire({
-        //         icon: "error",
-        //         title:
-        //             response.message,
-        //     });
-        // })
-        console.log(data);
+        axios.post("http://apartment-system.xyz/api/fire_notification", data).then(() => {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+            });
+            Toast.fire({
+                icon: "success",
+                title: "Tạo thông báo thành công.",
+            });
+        }).catch((response) => {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+            });
+            Toast.fire({
+                icon: "error",
+                title:
+                    response.message,
+            });
+        })
     }
     const addNoti = () => {
         return (

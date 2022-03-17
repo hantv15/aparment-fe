@@ -75,7 +75,7 @@ const UserAddForm = () => {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tên</label>
+                    <label htmlFor="exampleInputEmail1">Tên <span className="text-red">(*)</span></label>
                     <input
                       type="text"
                       className="form-control"
@@ -86,11 +86,11 @@ const UserAddForm = () => {
                         pattern: /([A-Za-z])\w+/
                       })}
                     />
-                    {errors?.name?.type === "required" && <p className="text-danger">Nhập tên</p>}
+                    {errors?.name?.type === "required" && <p className="text-danger">Vui lòng nhập tên</p>}
                     {errors?.name?.type === "pattern" && <p className="text-danger">Không được nhập ký tự số</p>}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Số điện thoại</label>
+                    <label htmlFor="exampleInputEmail1">Số điện thoại <span className="text-red">(*)</span></label>
                     <input
                       type="text"
                       className="form-control"
@@ -105,7 +105,7 @@ const UserAddForm = () => {
                     {errors?.phone_number?.type === "pattern" && <p className="text-danger">Hãy đúng số điện thoại của bạn</p>}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email</label>
+                    <label htmlFor="exampleInputEmail1">Email <span className="text-red">(*)</span></label>
                     <input
                       type="email"
                       className="form-control"
@@ -116,14 +116,14 @@ const UserAddForm = () => {
                         pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
                       })}
                     />
-                    {errors?.email?.type === "required" && <p className="text-danger">Hãy nhập trường này</p>}
+                    {errors?.email?.type === "required" && <p className="text-danger">Vui lòng nhập emil</p>}
                     {errors?.email?.type === "pattern" && <p className="text-danger">Vui lòng nhập đúng định dạng email</p>}
                   </div>
 
                 </div>
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Chọn căn hộ</label>
+                    <label>Chọn căn hộ <span className="text-red">(*)</span></label>
                     <select {...register('apartment_id', {
                       required: true
                     })} className="form-control">
@@ -132,10 +132,10 @@ const UserAddForm = () => {
                         <option value={item.id}>{item.apartment_id}</option>
                       ))}
                     </select>
-                    {errors?.apartment_id?.type === "required" && <p className="text-danger">Hãy chọn căn hộ</p>}
+                    {errors?.apartment_id?.type === "required" && <p className="text-danger">Vui lòng nhập căn hộ</p>}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Ngày sinh</label>
+                    <label htmlFor="exampleInputEmail1">Ngày sinh <span className="text-red">(*)</span></label>
                     <input
                       type="date"
                       className="form-control"
@@ -148,11 +148,11 @@ const UserAddForm = () => {
                     {errors?.dob?.type === "required" && <p className="text-danger">Vui lòng nhập ngày sinh</p>}
                   </div>
                   <div className="form-group">
-                    <label>Trạng thái</label>
+                    <label>Trạng thái <span className="text-red">(*)</span></label>
                     <select {...register('status', {
                       required: true
                     })} className="form-control">
-                      <option selected value="">Chọn trạng thái</option>
+                      <option selected value="">Chọn trạng thái </option>
                       <option value="1">Hoạt động</option>
                       <option value="0">Không hoạt động</option>
                     </select>
